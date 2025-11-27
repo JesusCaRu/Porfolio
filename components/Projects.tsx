@@ -105,8 +105,8 @@ const Projects: React.FC = () => {
               >
                 <div className="relative overflow-hidden h-56" style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}>
                   <img
-                    src={project.image}
-                    alt={project.title}
+                    src="./images/StockFlow.webp"
+                    alt="StockFlow"
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 transition-colors duration-500"></div>
