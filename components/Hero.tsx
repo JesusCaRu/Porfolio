@@ -254,7 +254,7 @@ const Hero: React.FC = () => {
                 className="absolute -bottom-10 -left-10 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20"
               >
                 <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl text-blue-500">
-                  <img src="./react.svg" alt="React" />
+                  <img src="./images/react.svg" alt="React" />
                 </div>
                 <div>
                   <div className="font-bold text-slate-900 dark:text-white text-lg">React</div>
@@ -268,7 +268,7 @@ const Hero: React.FC = () => {
                 className="absolute -top-10 -right-10 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20"
               >
                 <div className="p-3 bg-red-50 dark:bg-red-900/30 rounded-xl text-red-500">
-                  <img src="./laravel.svg" alt="Laravel" />
+                  <img src="./images/laravel.svg" alt="Laravel" />
                 </div>
                 <div>
                   <div className="font-bold text-slate-900 dark:text-white text-lg">Laravel</div>
