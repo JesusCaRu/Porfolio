@@ -8,49 +8,49 @@ export const SKILLS_DATA: Skill[] = [
   {
     name: 'React',
     icon: (
-      <img src="./public/images/react.svg" alt="React" className="w-10 h-10" />
+      <img src="./images/react.svg" alt="React" className="w-10 h-10" />
     ),
     category: 'frontend'
   },
   {
     name: 'Laravel',
     icon: (
-      <img src="./public/images/laravel.svg" alt="Laravel" className="w-10 h-10" />
+      <img src="./images/laravel.svg" alt="Laravel" className="w-10 h-10" />
     ),
     category: 'backend'
   },
   {
     name: 'PHP',
     icon: (
-      <img src="./public/images/php.svg" alt="PHP" className="w-10 h-10" />
+      <img src="./images/php.svg" alt="PHP" className="w-10 h-10" />
     ),
     category: 'backend'
   },
   {
     name: 'Python',
     icon: (
-      <img src="./public/images/python.svg" alt="Python" className="w-10 h-10" />
+      <img src="./images/python.svg" alt="Python" className="w-10 h-10" />
     ),
     category: 'backend'
   },
   {
     name: 'Java',
     icon: (
-      <img src="./public/images/java.svg" alt="Java" className="w-10 h-10" />
+      <img src="./images/java.svg" alt="Java" className="w-10 h-10" />
     ),
     category: 'backend'
   },
   {
     name: 'TypeScript',
     icon: (
-      <img src="./public/images/typescript.svg" alt="TypeScript" className="w-10 h-10" />
+      <img src="./images/typescript.svg" alt="TypeScript" className="w-10 h-10" />
     ),
     category: 'frontend'
   },
   {
     name: 'SQL / MongoDB',
     icon: (
-      <img src="./public/images/mongodb.svg" alt="MongoDB" className="w-10 h-10" />
+      <img src="./images/mongodb.svg" alt="MongoDB" className="w-10 h-10" />
     ),
     category: 'backend'
   },
@@ -59,8 +59,8 @@ export const SKILLS_DATA: Skill[] = [
     icon: (
       <>
         <div className="flex items-center gap-2">
-          <img src="./public/images/html5.svg" alt="HTML5" className="w-10 h-10" />
-          <img src="./public/images/css3.svg" alt="CSS3" className="w-10 h-10" />
+          <img src="./images/html5.svg" alt="HTML5" className="w-10 h-10" />
+          <img src="./images/css3.svg" alt="CSS3" className="w-10 h-10" />
         </div>
       </>
     ),
