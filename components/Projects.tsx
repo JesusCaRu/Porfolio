@@ -107,7 +107,7 @@ const Projects: React.FC = () => {
                   <img
                     src="./images/StockFlow.webp"
                     alt="StockFlow"
-                    className="w-[600px] h-[600px] object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
+                    className="w-full h-full p-4 object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 transition-colors duration-500"></div>
                 </div>
