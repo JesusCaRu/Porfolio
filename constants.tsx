@@ -8,56 +8,49 @@ export const SKILLS_DATA: Skill[] = [
   {
     name: 'React',
     icon: (
-      <svg viewBox="-11.5 -10.23 23 20.46" className="w-10 h-10" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="0" cy="0" r="2.05" fill="#61DAFB" />
-        <g stroke="#61DAFB" strokeWidth="1" fill="none">
-          <ellipse rx="11" ry="4.2" />
-          <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-          <ellipse rx="11" ry="4.2" transform="rotate(120)" />
-        </g>
-      </svg>
+      <img src="./images/react.svg" alt="React" className="w-10 h-10" />
     ),
     category: 'frontend'
   },
   {
     name: 'Laravel',
     icon: (
-      <img src="images/laravel.svg" alt="Laravel" className="w-10 h-10" />
+      <img src="./images/laravel.svg" alt="Laravel" className="w-10 h-10" />
     ),
     category: 'backend'
   },
   {
     name: 'PHP',
     icon: (
-      <img src="images/php.svg" alt="PHP" className="w-10 h-10" />
+      <img src="./images/php.svg" alt="PHP" className="w-10 h-10" />
     ),
     category: 'backend'
   },
   {
     name: 'Python',
     icon: (
-      <img src="images/python.svg" alt="Python" className="w-10 h-10" />
+      <img src="./images/python.svg" alt="Python" className="w-10 h-10" />
     ),
     category: 'backend'
   },
   {
     name: 'Java',
     icon: (
-      <img src="images/java.svg" alt="Java" className="w-10 h-10" />
+      <img src="./images/java.svg" alt="Java" className="w-10 h-10" />
     ),
     category: 'backend'
   },
   {
     name: 'TypeScript',
     icon: (
-      <img src="images/typescript.svg" alt="TypeScript" className="w-10 h-10" />
+      <img src="./images/typescript.svg" alt="TypeScript" className="w-10 h-10" />
     ),
     category: 'frontend'
   },
   {
     name: 'SQL / MongoDB',
     icon: (
-      <img src="images/mongodb.svg" alt="MongoDB" className="w-10 h-10" />
+      <img src="./images/mongodb.svg" alt="MongoDB" className="w-10 h-10" />
     ),
     category: 'backend'
   },
@@ -66,8 +59,8 @@ export const SKILLS_DATA: Skill[] = [
     icon: (
       <>
         <div className="flex items-center gap-2">
-          <img src="images/html5.svg" alt="HTML5" className="w-10 h-10" />
-          <img src="images/css3.svg" alt="CSS3" className="w-10 h-10" />
+          <img src="./images/html5.svg" alt="HTML5" className="w-10 h-10" />
+          <img src="./images/css3.svg" alt="CSS3" className="w-10 h-10" />
         </div>
       </>
     ),
