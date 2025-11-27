@@ -1,20 +1,47 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 🚀 Portfolio Web
 
-# Run and deploy your AI Studio app
+¡Bienvenido/a a mi portfolio!  
+Este proyecto reúne una selección de mis trabajos, experiencia y habilidades como desarrollador/a. Está construido con un enfoque en el rendimiento, la accesibilidad y el diseño limpio.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/drive/1UnCR21JbsFU9gkE0rBWbC2ktgtMcwOE4
+## 🖥️ Demo
 
-## Run Locally
+🔗 **URL del Portfolio:** _[]_
 
-**Prerequisites:**  Node.js
+---
 
+## 📌 Características principales
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- Diseño responsive y adaptable a móviles, tablets y desktop  
+- Animaciones suaves y transiciones modernas  
+- Secciones claras: Sobre mí, Proyectos, Habilidades y Contacto  
+- Optimización SEO y buenas prácticas de HTML semántico  
+- Formulario de contacto funcional  
+- Carga rápida y buenas métricas Lighthouse  
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- **HTML5**  
+- **CSS3 / SASS / Tailwind** _(elige lo que uses)_  
+- **JavaScript / TypeScript**  
+- **Framework (React / Next.js / Vue / Svelte)** _(opcional)_  
+- **PNPM** como gestor de paquetes _(si aplica)_  
+
+---
+
+## 📁 Estructura del proyecto
+
+```txt
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/            # o views/, según el framework
+│   ├── assets/
+│   ├── styles/
+│   └── utils/
+├── package.json
+└── README.md
+
