@@ -182,7 +182,7 @@ export const CONTENT = {
         btnSend: 'Enviar Mensaje'
       }
     },
-    footer: 'Full Stack Developer. Hecho con React, Tailwind y Gemini.',
+    footer: 'Jesús Canicio. Hecho con React y Tailwind..',
     ai: {
       initialMessage: '¡Hola! Soy el asistente virtual de este portafolio. Pregúntame sobre la experiencia de Jesús con React, PHP o Laravel.',
       error: 'Hubo un error al conectar con la IA. Inténtalo de nuevo más tarde.',
@@ -321,7 +321,7 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
         btnSend: 'Send Message'
       }
     },
-    footer: 'Full Stack Developer. Made with React, Tailwind and Gemini.',
+    footer: 'Jesús Canicio. Made with React and Tailwind.',
     ai: {
       initialMessage: 'Hello! I am the virtual assistant of this portfolio. Ask me about Jesús\' experience with React, PHP, or Laravel.',
       error: 'There was an error connecting to AI. Please try again later.',
