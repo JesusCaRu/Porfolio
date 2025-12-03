@@ -175,7 +175,7 @@ export const CONTENT = {
         btnSend: 'Enviar Mensaje'
       }
     },
-    footer: 'Jesús Canicio. Hecho con React y Tailwind..',
+    footer: 'Jesús Canicio. Hecho con React y Tailwind.',
     ai: {
       initialMessage: '¡Hola! Soy el asistente virtual de este portafolio. Pregúntame sobre la experiencia de Jesús con React, PHP o Laravel.',
       error: 'Hubo un error al conectar con la IA. Inténtalo de nuevo más tarde.',
