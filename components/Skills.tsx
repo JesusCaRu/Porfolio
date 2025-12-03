@@ -1,6 +1,6 @@
 import React from 'react';
 import { SKILLS_DATA } from '../constants';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Skills: React.FC = () => {

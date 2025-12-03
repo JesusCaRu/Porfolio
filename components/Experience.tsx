@@ -1,6 +1,6 @@
 import React from 'react';
 import { Briefcase, GraduationCap } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Experience: React.FC = () => {

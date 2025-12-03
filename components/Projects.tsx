@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 
 // 3D Tilt Card Component

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, Github, Linkedin, Code, ChevronDown, MousePointer2 } from 'lucide-react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 import { PORTFOLIO_OWNER } from '../constants';
 

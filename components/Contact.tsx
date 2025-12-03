@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Contact: React.FC = () => {
@@ -8,13 +8,13 @@ const Contact: React.FC = () => {
 
   return (
     <section id="contact" className="py-24 bg-slate-50 dark:bg-slate-950/50 relative overflow-hidden">
-       {/* Background decoration */}
-       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute -right-20 bottom-20 w-96 h-96 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-3xl"></div>
-       </div>
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute -right-20 bottom-20 w-96 h-96 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-3xl"></div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -28,7 +28,7 @@ const Contact: React.FC = () => {
                 <p className="text-blue-100 mb-8 text-sm leading-relaxed">
                   {t.contact.desc}
                 </p>
-                
+
                 <div className="space-y-6">
                   <div className="flex items-start gap-3">
                     <Mail className="w-5 h-5 text-blue-200 mt-1" />
@@ -40,20 +40,20 @@ const Contact: React.FC = () => {
                   <div className="flex items-start gap-3">
                     <Phone className="w-5 h-5 text-blue-200 mt-1" />
                     <div>
-                       <div className="font-medium text-sm text-blue-200">{t.contact.phone}</div>
-                       <a href="tel:+34684410041" className="hover:text-white transition-colors">+34 684 41 00 41</a>
+                      <div className="font-medium text-sm text-blue-200">{t.contact.phone}</div>
+                      <a href="tel:+34684410041" className="hover:text-white transition-colors">+34 684 41 00 41</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-blue-200 mt-1" />
                     <div>
-                       <div className="font-medium text-sm text-blue-200">{t.contact.location}</div>
-                       <span>Pinoso, Alicante</span>
+                      <div className="font-medium text-sm text-blue-200">{t.contact.location}</div>
+                      <span>Pinoso, Alicante</span>
                     </div>
                   </div>
                 </div>
               </div>
-              
+
               <div className="mt-12 md:mt-0">
                 <div className="text-xs text-blue-200">{t.contact.availability}</div>
               </div>

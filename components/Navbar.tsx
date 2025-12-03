@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, X, Globe } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface NavbarProps {
@@ -51,21 +51,20 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
   };
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-lg shadow-lg border-b border-slate-200/50 dark:border-slate-800/50' 
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
+          ? 'bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-lg shadow-lg border-b border-slate-200/50 dark:border-slate-800/50'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex-shrink-0 font-bold text-2xl bg-gradient-to-r from-primary-600 to-cyan-500 bg-clip-text text-transparent cursor-pointer" 
-            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+            className="flex-shrink-0 font-bold text-2xl bg-gradient-to-r from-primary-600 to-cyan-500 bg-clip-text text-transparent cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             Jesús<span className="text-slate-700 dark:text-slate-300">Dev</span>
           </motion.div>
@@ -88,13 +87,13 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
           </div>
 
           {/* Actions */}
-          <motion.div 
-             initial={{ opacity: 0, x: 20 }}
-             animate={{ opacity: 1, x: 0 }}
-             className="hidden md:flex items-center gap-3 ml-4"
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="hidden md:flex items-center gap-3 ml-4"
           >
-             {/* Language Toggle */}
-             <button
+            {/* Language Toggle */}
+            <button
               onClick={toggleLanguage}
               className="flex items-center gap-1 px-3 py-2 rounded-full bg-slate-100 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all text-sm font-medium ring-1 ring-slate-200 dark:ring-slate-700"
             >
@@ -102,8 +101,8 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
               <span>{language.toUpperCase()}</span>
             </button>
 
-             {/* Theme Toggle */}
-             <button
+            {/* Theme Toggle */}
+            <button
               onClick={toggleDarkMode}
               className="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800/50 text-slate-800 dark:text-yellow-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all focus:outline-none ring-1 ring-slate-200 dark:ring-slate-700"
               aria-label="Toggle Dark Mode"
@@ -114,7 +113,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
 
           {/* Mobile menu button */}
           <div className="-mr-2 flex md:hidden items-center gap-3">
-             <button
+            <button
               onClick={toggleLanguage}
               className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 text-xs font-bold"
             >
@@ -134,7 +133,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -151,15 +150,15 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
                   {link.name}
                 </a>
               ))}
-               <div className="mt-4 px-3 pt-4 border-t border-slate-200 dark:border-slate-800 flex gap-4">
-                  <button
-                    onClick={() => { toggleDarkMode(); setIsOpen(false); }}
-                    className="flex items-center gap-3 flex-1 py-2 text-slate-700 dark:text-slate-300"
-                  >
-                    {darkMode ? <Sun size={20} className="text-yellow-500" /> : <Moon size={20} />}
-                    <span className="font-medium">{darkMode ? t.nav.toggleTheme[0] : t.nav.toggleTheme[1]}</span>
-                  </button>
-               </div>
+              <div className="mt-4 px-3 pt-4 border-t border-slate-200 dark:border-slate-800 flex gap-4">
+                <button
+                  onClick={() => { toggleDarkMode(); setIsOpen(false); }}
+                  className="flex items-center gap-3 flex-1 py-2 text-slate-700 dark:text-slate-300"
+                >
+                  {darkMode ? <Sun size={20} className="text-yellow-500" /> : <Moon size={20} />}
+                  <span className="font-medium">{darkMode ? t.nav.toggleTheme[0] : t.nav.toggleTheme[1]}</span>
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
