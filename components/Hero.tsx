@@ -158,7 +158,7 @@ const Hero: React.FC = () => {
               <a href="https://github.com/JesusCaRu" target="_blank" className="hover:text-primary-600 dark:hover:text-primary-400 transition-all hover:scale-110 transform duration-200 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
                 <Github size={28} />
               </a>
-              <a href="www.linkedin.com/in/jesús-canicio-ruiz-184374262" target="_blank" className="hover:text-primary-600 dark:hover:text-primary-400 transition-all hover:scale-110 transform duration-200 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+              <a href="https://www.linkedin.com/in/jesús-canicio-ruiz-184374262" target="_blank" className="hover:text-primary-600 dark:hover:text-primary-400 transition-all hover:scale-110 transform duration-200 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
                 <Linkedin size={28} />
               </a>
             </motion.div>
