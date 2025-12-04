@@ -153,12 +153,12 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.8 }}
-              className="flex items-center justify-center lg:justify-start gap-6 mt-12 text-slate-500 dark:text-slate-400"
+              className="flex items-center justify-center lg:justify-start gap-6 mt-12 mb-20 text-slate-500 dark:text-slate-400"
             >
               <a href="https://github.com/JesusCaRu" target="_blank" className="hover:text-primary-600 dark:hover:text-primary-400 transition-all hover:scale-110 transform duration-200 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
                 <Github size={28} />
               </a>
-              <a href="https://www.linkedin.com/in/jesús-canicio-ruiz-184374262" target="_blank" className="hover:text-primary-600 dark:hover:text-primary-400 transition-all hover:scale-110 transform duration-200 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+              <a href="www.linkedin.com/in/jesús-canicio-ruiz-184374262" target="_blank" className="hover:text-primary-600 dark:hover:text-primary-400 transition-all hover:scale-110 transform duration-200 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
                 <Linkedin size={28} />
               </a>
             </motion.div>

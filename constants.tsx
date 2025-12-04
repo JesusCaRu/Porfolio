@@ -57,12 +57,10 @@ export const SKILLS_DATA: Skill[] = [
   {
     name: 'HTML / CSS',
     icon: (
-      <>
-        <div className="flex items-center gap-2">
-          <img src="./images/html5.svg" alt="HTML5" className="w-10 h-10" />
-          <img src="./images/css3.svg" alt="CSS3" className="w-10 h-10" />
-        </div>
-      </>
+      <div className="flex items-center gap-2">
+        <img src="./images/html5.svg" alt="HTML5" className="w-10 h-10" />
+        <img src="./images/css3.svg" alt="CSS3" className="w-10 h-10" />
+      </div>
     ),
     category: 'frontend'
   },

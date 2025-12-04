@@ -36,7 +36,7 @@ const Experience: React.FC = () => {
                 whileInView={{ height: '100%' }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="absolute left-[30px] md:left-[6.5px] top-2 w-[2px] bg-gradient-to-b from-blue-500 to-slate-200 dark:to-slate-800"
+                className="absolute left-[0px] md:left-[6.5px] top-2 w-[2px] bg-gradient-to-b from-blue-500 to-slate-200 dark:to-slate-800"
               ></motion.div>
 
               {t.experience.list.map((job, index) => (
