@@ -1,27 +1,114 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Briefcase, GraduationCap } from 'lucide-react';
-import { motion } from 'motion/react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../context/LanguageContext';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Experience: React.FC = () => {
   const { t } = useLanguage();
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    // Header
+    gsap.from(".experience-header", {
+      scrollTrigger: {
+        trigger: ".experience-header",
+        start: "top 80%",
+      },
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      clearProps: "all"
+    });
+
+    // Línea de tiempo vertical
+    gsap.from(".exp-line", {
+      scrollTrigger: {
+        trigger: ".exp-list",
+        start: "top 70%",
+      },
+      scaleY: 0,
+      transformOrigin: "top",
+      duration: 1.5,
+      ease: "power3.inOut",
+      clearProps: "all"
+    });
+
+    // Items de experiencia
+    gsap.utils.toArray(".exp-item").forEach((item: any, i) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+        },
+        x: -50,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out",
+        delay: i * 0.1,
+        clearProps: "all"
+      });
+
+      // Animación del punto de la línea de tiempo
+      gsap.from(item.querySelector(".timeline-dot"), {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+        },
+        scale: 0,
+        duration: 0.5,
+        ease: "back.out(1.7)",
+        delay: 0.5 + (i * 0.1),
+        clearProps: "all"
+      });
+    });
+
+    // Items de educación
+    gsap.utils.toArray(".edu-item").forEach((item: any, i) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+        },
+        x: 50,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out",
+        delay: i * 0.1,
+        clearProps: "all"
+      });
+    });
+
+    // Soft Skills card
+    gsap.from(".soft-skills-card", {
+      scrollTrigger: {
+        trigger: ".soft-skills-card",
+        start: "top 85%",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "back.out(1.5)",
+      clearProps: "all"
+    });
+
+  }, { scope: containerRef });
 
   return (
-    <section id="experience" className="py-32 bg-slate-50 dark:bg-slate-950/50 relative overflow-hidden">
+    <section id="experience" ref={containerRef} className="py-32 bg-slate-50 dark:bg-slate-950/50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
+        <div className="experience-header text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">{t.experience.title}</h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">{t.experience.subtitle}</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Work Experience */}
-          <div>
+          <div className="exp-list">
             <div className="flex items-center gap-4 mb-12">
               <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-blue-600 shadow-inner">
                 <Briefcase className="w-7 h-7" />
@@ -31,31 +118,12 @@ const Experience: React.FC = () => {
 
             <div className="relative pl-8 md:pl-10 space-y-12">
               {/* Animated vertical line */}
-              <motion.div
-                initial={{ height: 0 }}
-                whileInView={{ height: '100%' }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="absolute left-[0px] md:left-[6.5px] top-2 w-[2px] bg-gradient-to-b from-blue-500 to-slate-200 dark:to-slate-800"
-              ></motion.div>
+              <div className="exp-line absolute left-[0px] md:left-[6.5px] top-2 bottom-0 w-[2px] bg-gradient-to-b from-blue-500 to-slate-200 dark:to-slate-800 origin-top"></div>
 
               {t.experience.list.map((job, index) => (
-                <motion.div
-                  key={job.id}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: index * 0.2, duration: 0.5 }}
-                  className="relative"
-                >
+                <div key={job.id} className="exp-item relative">
                   {/* Timeline Dot */}
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 + (index * 0.2), type: "spring" }}
-                    className="absolute -left-[41px] md:-left-[42px] top-2 w-5 h-5 rounded-full border-4 border-white dark:border-slate-900 bg-blue-500 z-10 shadow-md"
-                  ></motion.span>
+                  <span className="timeline-dot absolute -left-[41px] md:-left-[42px] top-2 w-5 h-5 rounded-full border-4 border-white dark:border-slate-900 bg-blue-500 z-10 shadow-md"></span>
 
                   <div className="group bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div className="flex flex-wrap justify-between items-start mb-4 gap-2">
@@ -78,7 +146,7 @@ const Experience: React.FC = () => {
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -94,13 +162,9 @@ const Experience: React.FC = () => {
 
             <div className="space-y-8">
               {t.experience.education.map((edu, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2, duration: 0.5 }}
-                  className="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all group hover:-translate-x-1"
+                  className="edu-item bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all group hover:-translate-x-1"
                 >
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
                     <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors leading-tight">{edu.degree}</h4>
@@ -112,23 +176,17 @@ const Experience: React.FC = () => {
                     <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 mr-3"></span>
                     {edu.institution}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="mt-12 p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden"
-            >
+            <div className="soft-skills-card mt-12 p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
               <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-4 relative z-10">{t.experience.softSkillsTitle}</h4>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed relative z-10">
                 {t.experience.softSkillsDesc}
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

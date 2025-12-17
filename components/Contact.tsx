@@ -1,25 +1,49 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
-import { motion } from 'motion/react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../context/LanguageContext';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact: React.FC = () => {
   const { t } = useLanguage();
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    gsap.from(".contact-card", {
+      scrollTrigger: {
+        trigger: ".contact-card",
+        start: "top 75%",
+      },
+      y: 50,
+      scale: 0.95,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      clearProps: "all"
+    });
+
+    gsap.from(".contact-blob", {
+      scale: 0,
+      opacity: 0,
+      duration: 1.5,
+      delay: 0.5,
+      ease: "elastic.out(1, 0.5)",
+      clearProps: "all"
+    });
+  }, { scope: containerRef });
 
   return (
-    <section id="contact" className="py-24 bg-slate-50 dark:bg-slate-950/50 relative overflow-hidden">
+    <section id="contact" ref={containerRef} className="py-24 bg-slate-50 dark:bg-slate-950/50 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -right-20 bottom-20 w-96 h-96 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-3xl"></div>
+        <div className="contact-blob absolute -right-20 bottom-20 w-96 h-96 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto bg-white dark:bg-[#0F172A] rounded-3xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-800"
-        >
+        <div className="contact-card max-w-4xl mx-auto bg-white dark:bg-[#0F172A] rounded-3xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-800">
           <div className="grid md:grid-cols-5">
             {/* Contact Info Side */}
             <div className="md:col-span-2 bg-gradient-to-br from-primary-600 to-blue-700 p-8 text-white flex flex-col justify-between">
@@ -83,7 +107,7 @@ const Contact: React.FC = () => {
               </form>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

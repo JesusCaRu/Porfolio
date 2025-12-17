@@ -1,109 +1,118 @@
 import React, { useRef } from 'react';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../context/LanguageContext';
 
-// 3D Tilt Card Component
-const TiltCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateY,
-        rotateX,
-        transformStyle: "preserve-3d",
-      }}
-      className={`relative ${className}`}
-    >
-      {children}
-    </motion.div>
-  );
-};
+gsap.registerPlugin(ScrollTrigger);
 
 const Projects: React.FC = () => {
   const { t } = useLanguage();
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    // Header Animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 70%",
+      },
+      defaults: { clearProps: "all" }
+    });
+
+    tl.from(".projects-badge", {
+      scale: 0,
+      opacity: 0,
+      duration: 0.5,
+      ease: "back.out(1.7)"
+    })
+      .from(".projects-title", {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out"
+      }, "-=0.3")
+      .from(".projects-subtitle", {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out"
+      }, "-=0.4");
+
+    // Projects Stagger
+    gsap.from(".project-card", {
+      scrollTrigger: {
+        trigger: ".projects-grid",
+        start: "top 80%",
+      },
+      y: 100,
+      opacity: 0,
+      rotationX: -15,
+      stagger: 0.2,
+      duration: 0.8,
+      ease: "power3.out",
+      clearProps: "all"
+    });
+
+  }, { scope: containerRef });
+
+  // 3D Tilt Logic
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+
+    gsap.to(card, {
+      rotateX: rotateX,
+      rotateY: rotateY,
+      duration: 0.5,
+      ease: "power2.out",
+      transformPerspective: 1000
+    });
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    gsap.to(e.currentTarget, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.5,
+      ease: "power2.out"
+    });
+  };
 
   return (
-    <section id="projects" className="py-32 bg-white dark:bg-[#0B1120] overflow-hidden">
+    <section id="projects" ref={containerRef} className="py-32 bg-white dark:bg-[#0B1120] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-primary-600 uppercase bg-primary-50 dark:bg-primary-900/20 rounded-full border border-primary-100 dark:border-primary-900/50"
-          >
+          <div className="projects-badge inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-primary-600 uppercase bg-primary-50 dark:bg-primary-900/20 rounded-full border border-primary-100 dark:border-primary-900/50">
             {t.projects.badge}
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight"
-          >
+          </div>
+          <h2 className="projects-title text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
             {t.projects.title}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
-          >
+          </h2>
+          <p className="projects-subtitle text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
             {t.projects.subtitle}
-          </motion.p>
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center perspective-1000">
+        <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center perspective-1000">
           {t.projects.list.map((project, i) => (
-            <TiltCard
-              className="h-full"
+            <div
+              key={i}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="project-card h-full will-change-transform"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: i * 0.2, duration: 0.6 }}
-                className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl border border-slate-200 dark:border-slate-700 transition-shadow duration-300 group flex flex-col h-full"
-                style={{ transform: "translateZ(0px)" }}
-              >
-                <div className="relative overflow-hidden h-56" style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}>
+              <div className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl border border-slate-200 dark:border-slate-700 transition-shadow duration-300 group flex flex-col h-full">
+                <div className="relative overflow-hidden h-56">
                   <img
                     src="./images/StockFlow.webp"
                     alt="StockFlow"
@@ -112,7 +121,7 @@ const Projects: React.FC = () => {
                   <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 transition-colors duration-500"></div>
                 </div>
 
-                <div className="p-8 flex flex-col flex-grow" style={{ transform: "translateZ(30px)" }}>
+                <div className="p-8 flex flex-col flex-grow">
                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                     {project.title}
                   </h3>
@@ -146,8 +155,8 @@ const Projects: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            </TiltCard>
+              </div>
+            </div>
           ))}
         </div>
       </div>
