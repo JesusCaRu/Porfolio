@@ -211,8 +211,8 @@ const Hero: React.FC = () => {
                 {t.hero.btnProjects}
               </a>
               <a
-                href="/cv.pdf"
-                download="CV_Jesus_FullStack.pdf"
+                href="/Jesús Canicio Ruiz CV.pdf"
+                download="Jesús Canicio Ruiz CV.pdf"
                 className="hero-btn group w-full sm:w-auto px-8 py-4 rounded-xl bg-white dark:bg-slate-800/50 text-slate-700 dark:text-white border border-slate-200 dark:border-slate-700 font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-3 backdrop-blur-sm"
               >
                 <Download size={20} className="group-hover:animate-bounce" />

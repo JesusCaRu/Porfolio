@@ -94,12 +94,12 @@ export const CONTENT = {
       }
     },
     skills: {
-      title: 'Tecnologías',
-      subtitle: 'Stack moderno enfocado en rendimiento y escalabilidad.',
+      title: 'Habilidades',
+      subtitle: 'Tecnologías que utilizo.',
     },
     experience: {
-      title: 'Trayectoria',
-      subtitle: 'Formación sólida y experiencia práctica intensiva.',
+      title: 'Experiencia',
+      subtitle: 'Formación sólida y experiencia práctica.',
       workTitle: 'Experiencia Profesional',
       eduTitle: 'Formación Académica',
       softSkillsTitle: 'Enfoque Profesional',
@@ -233,12 +233,12 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
       }
     },
     skills: {
-      title: 'Technologies',
-      subtitle: 'Modern stack focused on performance and scalability.',
+      title: 'Skills',
+      subtitle: 'Technologies I use.',
     },
     experience: {
-      title: 'Career Path',
-      subtitle: 'Solid education and intensive practical experience.',
+      title: 'Experience',
+      subtitle: 'Solid education and practical experience.',
       workTitle: 'Professional Experience',
       eduTitle: 'Education',
       softSkillsTitle: 'Professional Approach',
@@ -280,7 +280,7 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
       ] as EducationItem[]
     },
     projects: {
-      badge: 'Portfolio',
+      badge: 'Projects',
       title: 'Featured Projects',
       subtitle: 'Code that solves real problems.',
       viewCode: 'View Source Code',

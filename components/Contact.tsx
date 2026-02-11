@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Mail, MapPin, Phone, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,6 +10,54 @@ gsap.registerPlugin(ScrollTrigger);
 const Contact: React.FC = () => {
   const { t } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      // Usamos FormSubmit.co para enviar el correo directamente a jesuscanicio33@gmail.com
+      // Es una solución gratuita y fiable para sitios estáticos.
+      const response = await fetch("https://formsubmit.co/ajax/jesuscanicio33@gmail.com", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Nuevo mensaje de contacto de ${formData.name}`,
+        })
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      setStatus('error');
+    }
+  };
 
   useGSAP(() => {
     gsap.from(".contact-card", {
@@ -58,14 +106,14 @@ const Contact: React.FC = () => {
                     <Mail className="w-5 h-5 text-blue-200 mt-1" />
                     <div>
                       <div className="font-medium text-sm text-blue-200">{t.contact.email}</div>
-                      <a href="mailto:jesuscanicio33@gmail.com" className="hover:text-white transition-colors">jesuscanicio33@gmail.com</a>
+                      <a href="mailto:jesuscanicio33@gmail.com" className="hover:text-white transition-colors select-none">jesuscanicio33@gmail.com</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Phone className="w-5 h-5 text-blue-200 mt-1" />
                     <div>
                       <div className="font-medium text-sm text-blue-200">{t.contact.phone}</div>
-                      <a href="tel:+34684410041" className="hover:text-white transition-colors">+34 684 41 00 41</a>
+                      <a href="tel:+34684410041" className="hover:text-white transition-colors select-none">+34 684 41 00 41</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -85,25 +133,77 @@ const Contact: React.FC = () => {
 
             {/* Form Side */}
             <div className="md:col-span-3 p-8 md:p-12">
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot para evitar spam */}
+                <input type="text" name="_honey" style={{ display: 'none' }} />
+
                 <div className="grid grid-cols-1 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{t.contact.form.name}</label>
-                    <input type="text" id="name" className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.form.namePlaceholder} />
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
+                      placeholder={t.contact.form.namePlaceholder}
+                    />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{t.contact.form.email}</label>
-                    <input type="email" id="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.form.emailPlaceholder} />
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
+                      placeholder={t.contact.form.emailPlaceholder}
+                    />
                   </div>
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{t.contact.form.message}</label>
-                  <textarea id="message" rows={4} className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all resize-none" placeholder={t.contact.form.messagePlaceholder}></textarea>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all resize-none"
+                    placeholder={t.contact.form.messagePlaceholder}
+                  ></textarea>
                 </div>
-                <button type="button" className="w-full py-3.5 px-6 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold shadow-lg hover:opacity-90 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
-                  <Send size={18} />
-                  {t.contact.form.btnSend}
+
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className={`w-full py-3.5 px-6 rounded-lg font-bold shadow-lg transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer
+                    ${status === 'loading' ? 'bg-slate-400 cursor-not-allowed' : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90'}`}
+                >
+                  {status === 'loading' ? (
+                    <Loader2 className="animate-spin" size={18} />
+                  ) : (
+                    <Send size={18} />
+                  )}
+                  {status === 'loading' ? 'Enviando...' : t.contact.form.btnSend}
                 </button>
+
+                {/* Feedback Messages */}
+                {status === 'success' && (
+                  <div className="flex items-center gap-2 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-4 rounded-lg animate-in fade-in slide-in-from-top-2">
+                    <CheckCircle2 size={18} />
+                    <span className="text-sm font-medium">¡Mensaje enviado con éxito! Te responderé pronto.</span>
+                  </div>
+                )}
+
+                {status === 'error' && (
+                  <div className="flex items-center gap-2 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-4 rounded-lg animate-in fade-in slide-in-from-top-2">
+                    <AlertCircle size={18} />
+                    <span className="text-sm font-medium">Hubo un error al enviar el mensaje. Inténtalo de nuevo.</span>
+                  </div>
+                )}
               </form>
             </div>
           </div>
