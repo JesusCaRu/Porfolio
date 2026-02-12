@@ -1,81 +1,85 @@
-# 👨‍💻 Portfolio Full Stack - Jesús Canicio Ruiz
+# 🚀 Portfolio Full Stack — Jesús Canicio Ruiz
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-B73C92?style=for-the-badge&logo=vite&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+[![React](https://img.shields.io/badge/React_19-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://gsap.com/)
 
-A modern, responsive, and interactive professional portfolio website built with the latest web technologies. Designed to showcase skills, experience, and projects with a premium user experience.
+Un portafolio profesional moderno, interactivo y de alto rendimiento diseñado para mostrar mis habilidades como Desarrollador Full Stack. El proyecto combina una estética premium con una arquitectura sólida y animaciones fluidas.
 
-## ✨ Features
+---
 
-- **🎨 Modern Design**: Clean and professional UI with a focus on aesthetics and user experience.
-- **🌓 Dark/Light Mode**: Fully supported theme switching with persistence.
-- **🌍 Internationalization**: Multi-language support via Context API.
-- **⚡ High Performance**: Built with Vite and React 19 for blazing fast load times.
-- **🎭 Animations**: Smooth transitions and scroll animations using Framer Motion.
-- **📱 Fully Responsive**: Optimized for all devices, from mobile to desktop.
-- **📊 Analytics**: Integrated with Vercel Analytics.
+## ✨ Características Principales
 
-## 🛠️ Tech Stack
+- **🎨 Diseño Premium & Responsive**: Interfaz moderna optimizada para todos los dispositivos y con soporte completo para modo oscuro/claro.
+- **⚡ Rendimiento Extremo**: Construido con **React 19** y **Vite** para tiempos de carga instantáneos.
+- **🎭 Animaciones de Vanguardia**: Integración de **GSAP** y **Motion** para una experiencia de usuario dinámica y fluida.
+- **🌍 Multi-lenguaje (i18n)**: Soporte completo para Español e Inglés mediante Context API.
+- **📊 Analíticas**: Integración con Vercel Analytics para seguimiento de métricas.
 
-- **Framework**: [React 19](https://react.dev/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+## 🛠️ Stack Tecnológico
 
-## 🚀 Getting Started
+| Área | Tecnologías |
+| :--- | :--- |
+| **Frontend** | React 19, TypeScript, Tailwind CSS 4 |
+| **Backend** | PHP (Laravel), Python, Java |
+| **Animaciones** | GSAP, Motion (Framer Motion) |
+| **Bases de Datos** | SQL, MongoDB |
+| **Herramientas** | Vite, Lucide React, Vercel Analytics |
 
-Follow these steps to run the project locally.
+## 📂 Estructura del Proyecto
 
-### Prerequisites
-
-- Node.js (v18 or higher recommended)
-- npm or pnpm
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/JesusCaRu/Porfolio.git
-   cd Porfolio
-   ```
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   pnpm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   # or
-   pnpm dev
-   ```
-
-4. Open your browser and navigate to `http://localhost:5173`
-
-## 📁 Project Structure
-
-```
+```text
 src/
-├── components/      # UI Components (Hero, Navbar, Projects, etc.)
-├── context/         # React Contexts (Language, Theme)
-├── App.tsx          # Main application component
-├── constants.tsx    # Configuration and static data
-└── styles.css       # Global styles and Tailwind directives
+├── components/   # Componentes de UI (Hero, Navbar, Projects, etc.)
+├── context/      # Gestión de estado global (Lenguaje, Temas)
+├── constants.tsx # Datos estáticos y configuración de contenidos
+├── types.ts      # Definiciones de tipos TypeScript
+└── App.tsx       # Componente raíz y orquestador de la aplicación
 ```
 
-## 📜 Scripts
+## 🚀 Proyectos Destacados
 
-- `npm run dev`: Starts the development server.
-- `npm run build`: Builds the app for production.
-- `npm run preview`: Previews the production build locally.
+### 📦 **StockFlow — Gestión Robótica**
+Sistema integral para la optimización de inventarios en entornos de robótica.
+- **Tech Stack**: React, Laravel, MySQL, Tailwind CSS.
+- **Características**: Control de stock en tiempo real, gestión de recursos y API REST robusta.
+- [Ver Código en GitHub](https://github.com/JesusCaRu/ProyectoFinal)
 
-## 📄 License
+## 🛠️ Instalación y Uso
 
-This project is open source and available under the [MIT License](LICENSE).
+Asegúrate de tener [Node.js](https://nodejs.org/) instalado.
+
+1.  **Clonar el repositorio**:
+    ```bash
+    git clone https://github.com/JesusCaRu/Porfolio.git
+    cd Porfolio
+    ```
+
+2.  **Instalar dependencias**:
+    ```bash
+    npm install
+    # o si prefieres pnpm
+    pnpm install
+    ```
+
+3.  **Ejecutar en modo desarrollo**:
+    ```bash
+    npm run dev
+    ```
+
+4.  **Construir para producción**:
+    ```bash
+    npm run build
+    ```
+
+---
+
+## 👨‍💻 Sobre mí
+
+Jesús Canicio Ruiz — Desarrollador Full Stack con enfoque en la escalabilidad y la arquitectura limpia.  
+📧 [jesuscanicio33@gmail.com](mailto:jesuscanicio33@gmail.com)
+
+---
+*Hecho con ❤️ por Jesús Canicio*
