@@ -41,7 +41,7 @@ const PortfolioContent = () => {
     }
   }, [darkMode]);
 
-  // Scroll Progress & Button Visibility
+  // Progreso de scroll & Boton de visibilidad
   useGSAP(() => {
     const radius = 46;
     const circumference = 2 * Math.PI * radius;
@@ -123,7 +123,7 @@ const PortfolioContent = () => {
         </p>
       </footer>
 
-      {/* Scroll To Top Button with Circular Progress */}
+      {/* Boton de scroll con progreso circular */}
       <div
         ref={scrollBtnRef}
         className="fixed bottom-6 left-6 z-40 opacity-0 scale-0 transform translate-y-4"

@@ -69,7 +69,7 @@ const Skills: React.FC = () => {
 
   return (
     <section id="skills" ref={containerRef} className="py-32 bg-white dark:bg-[#0B1120] relative overflow-hidden">
-      {/* Decorative Background Gradient */}
+      {/* Gradiente de fondo decorativo */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-100/30 dark:bg-primary-900/10 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

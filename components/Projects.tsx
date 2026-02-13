@@ -12,7 +12,7 @@ const Projects: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    // Header Animation
+    // Animación de la cabecera
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -40,7 +40,7 @@ const Projects: React.FC = () => {
         ease: "power3.out"
       }, "-=0.4");
 
-    // Projects Stagger
+    // Animación de las tarjetas
     gsap.from(".project-card", {
       scrollTrigger: {
         trigger: ".projects-grid",
@@ -57,7 +57,7 @@ const Projects: React.FC = () => {
 
   }, { scope: containerRef });
 
-  // 3D Tilt Logic
+  // Logica de la tarjeta 3D
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();

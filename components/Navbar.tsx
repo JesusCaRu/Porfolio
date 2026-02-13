@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
   const navRef = useRef<HTMLElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  // Initial Animation
+  // Animaciones para la cabecera
   useGSAP(() => {
     const tl = gsap.timeline();
     tl.from(".nav-logo", {
@@ -44,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
       }, "-=0.4");
   }, { scope: navRef });
 
-  // Mobile Menu Animation
+  // Animaciones para dispositivos moviles
   useEffect(() => {
     if (mobileMenuRef.current) {
       if (isOpen) {
@@ -127,7 +127,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
             Jesús<span className="text-slate-700 dark:text-slate-300">Dev</span>
           </div>
 
-          {/* Desktop Menu */}
+          {/* Menu para desktop */}
           <div className="hidden md:flex items-center space-x-1 ml-10">
             {navLinks.map((link, i) => (
               <a
@@ -141,7 +141,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
             ))}
           </div>
 
-          {/* Actions */}
+          {/* Acciones */}
           <div className="hidden md:flex items-center gap-3 ml-4">
             <button
               onClick={toggleLanguage}
@@ -160,7 +160,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
             </button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Boton del menu movil */}
           <div className="-mr-2 flex md:hidden items-center gap-3">
             <button
               onClick={toggleLanguage}
@@ -179,7 +179,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Menu movil */}
       <div
         ref={mobileMenuRef}
         style={{ height: 0, opacity: 0, display: 'none', overflow: 'hidden' }}

@@ -30,8 +30,6 @@ const Contact: React.FC = () => {
     setStatus('loading');
 
     try {
-      // Usamos FormSubmit.co para enviar el correo directamente a jesuscanicio33@gmail.com
-      // Es una solución gratuita y fiable para sitios estáticos.
       const response = await fetch("https://formsubmit.co/ajax/jesuscanicio33@gmail.com", {
         method: "POST",
         headers: {

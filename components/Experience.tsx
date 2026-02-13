@@ -12,7 +12,7 @@ const Experience: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    // Header
+    // Cabecera
     gsap.from(".experience-header", {
       scrollTrigger: {
         trigger: ".experience-header",
@@ -83,7 +83,7 @@ const Experience: React.FC = () => {
       });
     });
 
-    // Soft Skills card
+    // Card de habilidades
     gsap.from(".soft-skills-card", {
       scrollTrigger: {
         trigger: ".soft-skills-card",
@@ -107,7 +107,7 @@ const Experience: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Work Experience */}
+          {/* Experiencia laboral */}
           <div className="exp-list">
             <div className="flex items-center gap-4 mb-12">
               <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-blue-600 shadow-inner">
@@ -117,12 +117,12 @@ const Experience: React.FC = () => {
             </div>
 
             <div className="relative pl-8 md:pl-10 space-y-12">
-              {/* Animated vertical line */}
+              {/* Línea de tiempo vertical */}
               <div className="exp-line absolute left-[0px] md:left-[6.5px] top-2 bottom-0 w-[2px] bg-gradient-to-b from-blue-500 to-slate-200 dark:to-slate-800 origin-top"></div>
 
               {t.experience.list.map((job, index) => (
                 <div key={job.id} className="exp-item relative">
-                  {/* Timeline Dot */}
+                  {/* Punto de la línea de tiempo */}
                   <span className="timeline-dot absolute -left-[41px] md:-left-[42px] top-2 w-5 h-5 rounded-full border-4 border-white dark:border-slate-900 bg-blue-500 z-10 shadow-md"></span>
 
                   <div className="group bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
@@ -151,7 +151,7 @@ const Experience: React.FC = () => {
             </div>
           </div>
 
-          {/* Education */}
+          {/* Educación */}
           <div>
             <div className="flex items-center gap-4 mb-12">
               <div className="p-4 bg-green-100 dark:bg-green-900/30 rounded-2xl text-green-600 shadow-inner">

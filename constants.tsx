@@ -3,7 +3,7 @@ import { ExperienceItem, Project, Skill, EducationItem } from './types';
 
 export const PORTFOLIO_OWNER = "Jesús";
 
-// Shared Skills with Official High-Quality Logos
+// Logos de las habilidades
 export const SKILLS_DATA: Skill[] = [
   {
     name: 'React',
@@ -77,7 +77,7 @@ export const SKILLS_DATA: Skill[] = [
   },
 ];
 
-// Content Dictionary
+// Diccionario Español - Inglés
 export const CONTENT = {
   es: {
     nav: {

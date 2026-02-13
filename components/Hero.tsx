@@ -151,7 +151,7 @@ const Hero: React.FC = () => {
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-slate-50 dark:bg-[#0B1120]"
     >
-      {/* Parallax Background Elements */}
+      {/* Elementos de fondo con parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
           ref={blob1Ref}
@@ -170,7 +170,7 @@ const Hero: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
+          {/* Contenido de texto */}
           <div className="text-center lg:text-left">
             <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-primary-600 dark:text-primary-400 text-sm font-medium mb-8 backdrop-blur-md shadow-sm">
               <span className="relative flex h-2 w-2">
@@ -230,7 +230,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Interactive 3D Visual */}
+          {/* Visual 3D Interactiva */}
           <div className="hidden lg:block relative perspective-1000">
             <div
               ref={cardRef}
@@ -302,7 +302,7 @@ const Hero: React.FC = () => {
                 <div className="cursor-blink absolute bottom-12 left-32 w-2 h-5 bg-primary-500" />
               </div>
 
-              {/* Floating Cards */}
+              {/* Tarjetas flotantes */}
               <div className="float-card-1 absolute -bottom-10 -left-10 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20">
                 <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl text-blue-500">
                   <img src="./images/react.svg" alt="React" className="w-8 h-8" />
