@@ -32,9 +32,3 @@ export interface Project {
   image: string;
   link?: string;
 }
-
-export interface ChatMessage {
-  role: 'user' | 'model';
-  text: string;
-  isError?: boolean;
-}

@@ -192,14 +192,14 @@ const Contact: React.FC = () => {
                 {status === 'success' && (
                   <div className="flex items-center gap-2 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-4 rounded-lg animate-in fade-in slide-in-from-top-2">
                     <CheckCircle2 size={18} />
-                    <span className="text-sm font-medium">¡Mensaje enviado con éxito! Te responderé pronto.</span>
+                    <span className="text-sm font-medium">{t.contact.feedback.success}</span>
                   </div>
                 )}
 
                 {status === 'error' && (
                   <div className="flex items-center gap-2 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-4 rounded-lg animate-in fade-in slide-in-from-top-2">
                     <AlertCircle size={18} />
-                    <span className="text-sm font-medium">Hubo un error al enviar el mensaje. Inténtalo de nuevo.</span>
+                    <span className="text-sm font-medium">{t.contact.feedback.error}</span>
                   </div>
                 )}
               </form>

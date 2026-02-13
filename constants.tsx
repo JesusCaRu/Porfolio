@@ -93,9 +93,9 @@ export const CONTENT = {
       greeting: 'Hola, soy',
       role: 'Desarrollador Full Stack',
       roleSuffix: '',
-      description: 'Me apasiona dar vida a ideas a través del código. Como Desarrollador Full Stack, me especializo en crear aplicaciones web modernas, rápidas y escalables, cuidando cada detalle desde el servidor hasta la experiencia final del usuario.',
-      btnProjects: 'Ver Proyectos',
-      btnCv: 'Descargar CV',
+      description: 'Me apasiona dar vida a ideas a través del código. Construyo aplicaciones web que funcionan bien, se ven mejor y están listas para crecer. Me gusta estar encima de todo el proceso, desde la lógica del servidor hasta que el usuario pulsa un botón.',
+      btnProjects: 'Mis Proyectos',
+      btnCv: 'Mi Curriculum',
       codeWindow: {
         devClass: 'Desarrollador',
         passion: 'pasion',
@@ -113,15 +113,15 @@ export const CONTENT = {
       subtitle: 'Formación sólida y experiencia práctica.',
       workTitle: 'Experiencia Profesional',
       eduTitle: 'Formación Académica',
-      softSkillsTitle: 'Más que un programador',
-      softSkillsDesc: 'Me defino por mi curiosidad constante y mi capacidad para aprender rápido. Disfruto enfrentándome a nuevos retos tecnológicos y siempre busco la excelencia técnica a través de código limpio, mantenible y escalable.',
+      softSkillsTitle: 'Mi enfoque personal',
+      softSkillsDesc: 'Soy curioso por naturaleza y me encanta el reto de aprender herramientas nuevas sobre la marcha. Mi prioridad es escribir código que no solo funcione hoy, sino que sea fácil de entender y mejorar mañana.',
       list: [
         {
           id: 1,
           title: "Desarrollador Full Stack (FCT Grado Superior)",
           company: "Ideade Pinoso",
           period: "Marzo - Junio (2025)",
-          description: "Formé parte del equipo de desarrollo trabajando en proyectos reales con un stack moderno. Me enfoqué en construir lógica robusta en el backend con Laravel y crear interfaces de usuario fluidas y reactivas con React, aplicando metodologías ágiles en el día a día.",
+          description: "Trabajé en proyectos reales usando Laravel para la lógica interna y React para las pantallas. Me enfoqué en construir sistemas robustos y colaboré de cerca con el equipo mediante metodologías ágiles para sacar el trabajo adelante.",
           tags: ["PHP", "Laravel", "React", "Desarrollo Web"]
         },
         {
@@ -129,7 +129,7 @@ export const CONTENT = {
           title: "Técnico Sistemas y Redes (FCT Grado Medio)",
           company: "Ayuntamiento de Pinoso",
           period: "Marzo - Junio (2023)",
-          description: "Me encargué de mantener la infraestructura tecnológica operativa y segura. Gestioné portales web en WordPress, aseguré la conectividad de las redes locales y proporcioné soporte técnico resolviendo incidencias críticas para el funcionamiento administrativo.",
+          description: "Estuve al cargo de que la infraestructura tecnológica funcionara sin problemas. Gestioné portales en WordPress, configuré redes locales y solucioné incidencias técnicas para asegurar el ritmo de trabajo de la administración.",
           tags: ["WordPress", "Redes", "Hardware", "Soporte IT"]
         }
       ] as ExperienceItem[],
@@ -174,7 +174,7 @@ export const CONTENT = {
     },
     contact: {
       title: 'Contacto',
-      desc: '¿Tienes un proyecto en mente o buscas un nuevo desarrollador para tu equipo? ¡Escríbeme y charlemos sobre cómo puedo ayudarte!',
+      desc: '¿Buscas a alguien que se sume a tu equipo o tienes una idea para un proyecto? Cuéntame un poco más y vemos cómo podemos colaborar.',
       email: 'Email',
       phone: 'Teléfono',
       location: 'Ubicación',
@@ -187,42 +187,13 @@ export const CONTENT = {
         message: 'Mensaje',
         messagePlaceholder: 'Hola Jesús, me gustaría hablar contigo sobre...',
         btnSend: 'Enviar Mensaje'
+      },
+      feedback: {
+        success: '¡Mensaje enviado! Te responderé en cuanto lo lea.',
+        error: 'Algo ha fallado al enviar el mensaje. ¿Lo intentas de nuevo?'
       }
     },
-    footer: 'Jesús Canicio. Hecho con React y Tailwind.',
-    ai: {
-      initialMessage: '¡Hola! Soy el asistente virtual de este portafolio. Pregúntame sobre la experiencia de Jesús con React, PHP o Laravel.',
-      error: 'Hubo un error al conectar con la IA. Inténtalo de nuevo más tarde.',
-      placeholder: 'Escribe una pregunta...',
-      systemPrompt: `
-Eres el asistente virtual del portafolio de Jesús, un Desarrollador Full Stack profesional y apasionado.
-Tu objetivo es responder preguntas sobre su perfil profesional en ESPAÑOL.
-
-PERFIL:
-- Jesús es un programador competente enfocado en la calidad y la escalabilidad.
-- Tiene experiencia práctica reciente en Ideade Pinoso trabajando con stacks modernos.
-
-TECNOLOGÍAS PRINCIPALES:
-- Frontend: React, TypeScript, HTML5, CSS3, Tailwind.
-- Backend: PHP (Laravel), Python, Java, Docker.
-- Bases de Datos: SQL, MongoDB.
-
-EXPERIENCIA DETALLADA:
-1. Ideade Pinoso (2025): Desarrollo Full Stack (PHP/Laravel + React) durante sus prácticas del Grado Superior (DAW).
-2. Ayuntamiento de Pinoso (2023): Mantenimiento de sistemas, redes y WordPress durante sus prácticas del Grado Medio (SMR) de Marzo a Junio.
-
-EDUCACIÓN:
-- Curso de especialización en Desarrollo de aplicaciones en Python (2025-2026) en IES Enric Valor (Monóvar).
-- Grado Superior DAW (2023-2025) en IES Enric Valor (Monóvar).
-- Grado Medio SMR (2021-2023) en IES Enric Valor (Monóvar).
-- ESO (2017-2021) en IES José Marhuenda Prats (Pinoso).
-
-PROYECTO ESTRELLA:
-- StockFlow: Un sistema de gestión de inventario para robots. Disponible en GitHub.
-
-Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
-`
-    }
+    footer: 'Jesús Canicio. Portafolio creado con React y Tailwind.'
   },
   en: {
     nav: {
@@ -238,9 +209,9 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
       greeting: "Hi, I'm",
       role: 'Full Stack Developer',
       roleSuffix: '',
-      description: 'I love bringing ideas to life through code. As a Full Stack Developer, I specialize in building modern, fast, and scalable web applications, focusing on every detail from the server to the final user experience.',
-      btnProjects: 'View Projects',
-      btnCv: 'Download CV',
+      description: 'I love bringing ideas to life through code. I build web apps that are fast, reliable, and smooth. My focus is on the whole picture—making sure everything works perfectly from the server logic to what the user sees.',
+      btnProjects: 'My Projects',
+      btnCv: 'My CV',
       codeWindow: {
         devClass: 'Developer',
         passion: 'passion',
@@ -258,15 +229,15 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
       subtitle: 'Solid education and practical experience.',
       workTitle: 'Professional Experience',
       eduTitle: 'Education',
-      softSkillsTitle: 'More than just a coder',
-      softSkillsDesc: 'I am defined by my constant curiosity and ability to learn fast. I enjoy tackling new technological challenges and always strive for excellence through clean, maintainable, and scalable code.',
+      softSkillsTitle: 'My personal approach',
+      softSkillsDesc: 'I am naturally curious and enjoy the challenge of learning new tech on the fly. I aim for clean code that stays easy to maintain as the projects grow.',
       list: [
         {
           id: 1,
           title: "Full Stack Developer (Internship)",
           company: "Ideade Pinoso",
           period: "March - June (2025)",
-          description: "Part of the development team working on real-world projects. I focused on building robust backend logic with Laravel and creating fluid, reactive user interfaces with React, applying agile methodologies in a professional environment.",
+          description: "Worked on real-world projects using a modern stack. I focused on building solid server logic with Laravel and high-quality interfaces with React, always following agile methods to stay organized.",
           tags: ["PHP", "Laravel", "React", "Web Development"]
         },
         {
@@ -274,7 +245,7 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
           title: "Systems & Networks Technician (Internship)",
           company: "Pinoso City Hall",
           period: "March - June (2023)",
-          description: "Responsible for keeping the IT infrastructure safe and operational. I managed WordPress portals, ensured local network connectivity, and provided technical support by resolving daily critical issues.",
+          description: "I kept the IT infrastructure up and running. I managed WordPress sites, set up local networks, and fixed technical issues that were critical for day-to-day operations.",
           tags: ["WordPress", "Networks", "Hardware", "IT Support"]
         }
       ] as ExperienceItem[],
@@ -319,7 +290,7 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
     },
     contact: {
       title: 'Contact',
-      desc: 'Do you have a project in mind or are you looking for a new developer for your team? Let\'s talk about how I can help you!',
+      desc: 'Looking for a new developer for your team or have a project in mind? Drop me a line and let\'s talk!',
       email: 'Email',
       phone: 'Phone',
       location: 'Location',
@@ -332,41 +303,12 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
         message: 'Message',
         messagePlaceholder: 'Hi Jesús, I would like to talk to you about...',
         btnSend: 'Send Message'
+      },
+      feedback: {
+        success: 'Message sent! I\'ll get back to you as soon as I can.',
+        error: 'Something went wrong. Could you try sending it again?'
       }
     },
-    footer: 'Jesús Canicio. Made with React and Tailwind.',
-    ai: {
-      initialMessage: 'Hello! I am the virtual assistant of this portfolio. Ask me about Jesús\' experience with React, PHP, or Laravel.',
-      error: 'There was an error connecting to AI. Please try again later.',
-      placeholder: 'Type a question...',
-      systemPrompt: `
-You are the virtual assistant for Jesús's portfolio, a professional and passionate Full Stack Developer.
-Your goal is to answer questions about his professional profile in ENGLISH.
-
-PROFILE:
-- Jesús is a competent programmer focused on quality and scalability.
-- He has recent practical experience at Ideade Pinoso working with modern stacks.
-
-MAIN TECHNOLOGIES:
-- Frontend: React, TypeScript, HTML5, CSS3, Tailwind.
-- Backend: PHP (Laravel), Python, Java, Docker.
-- Databases: SQL, MongoDB.
-
-DETAILED EXPERIENCE:
-1. Ideade Pinoso (2025): Full Stack Development (PHP/Laravel + React) during his Higher Degree internship (DAW).
-2. Pinoso City Hall (2023): Systems maintenance, networks, and WordPress during his Intermediate Degree internship (SMR) from March to June.
-
-EDUCATION:
-- Specialization Course in Python Application Development (2025-2026) at IES Enric Valor (Monóvar).
-- Higher Degree DAW (2023-2025) at IES Enric Valor (Monóvar).
-- Intermediate Degree SMR (2021-2023) at IES Enric Valor (Monóvar).
-- ESO (2017-2021) at IES José Marhuenda Prats (Pinoso).
-
-STAR PROJECT:
-- StockFlow: A robot inventory management system. Available on GitHub.
-
-Style: Professional, confident, and concise. Avoid using the term "Junior".
-`
-    }
+    footer: 'Jesús Canicio. Made with React and Tailwind.'
   }
 };
