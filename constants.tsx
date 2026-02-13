@@ -93,7 +93,7 @@ export const CONTENT = {
       greeting: 'Hola, soy',
       role: 'Desarrollador Full Stack',
       roleSuffix: '',
-      description: 'Apasionado por el código y la arquitectura de software. Transformo ideas en soluciones web reales utilizando React, Laravel y Python. Enfocado en crear aplicaciones escalables y de alto rendimiento.',
+      description: 'Me apasiona dar vida a ideas a través del código. Como Desarrollador Full Stack, me especializo en crear aplicaciones web modernas, rápidas y escalables, cuidando cada detalle desde el servidor hasta la experiencia final del usuario.',
       btnProjects: 'Ver Proyectos',
       btnCv: 'Descargar CV',
       codeWindow: {
@@ -113,15 +113,15 @@ export const CONTENT = {
       subtitle: 'Formación sólida y experiencia práctica.',
       workTitle: 'Experiencia Profesional',
       eduTitle: 'Formación Académica',
-      softSkillsTitle: 'Enfoque Profesional',
-      softSkillsDesc: 'Mi compromiso y capacidad de aprendizaje son absolutos. Me adapto rápido a nuevos entornos y siempre busco la excelencia técnica y las mejores prácticas en cada línea de código.',
+      softSkillsTitle: 'Más que un programador',
+      softSkillsDesc: 'Me defino por mi curiosidad constante y mi capacidad para aprender rápido. Disfruto enfrentándome a nuevos retos tecnológicos y siempre busco la excelencia técnica a través de código limpio, mantenible y escalable.',
       list: [
         {
           id: 1,
           title: "Desarrollador Full Stack (FCT Grado Superior)",
           company: "Ideade Pinoso",
           period: "Marzo - Junio (2025)",
-          description: "Inmersión profesional en desarrollo web. Contribuí activamente en el desarrollo de backend con PHP y Laravel, además de crear interfaces dinámicas con React. Aplicación de metodologías ágiles y colaboración en proyectos reales.",
+          description: "Formé parte del equipo de desarrollo trabajando en proyectos reales con un stack moderno. Me enfoqué en construir lógica robusta en el backend con Laravel y crear interfaces de usuario fluidas y reactivas con React, aplicando metodologías ágiles en el día a día.",
           tags: ["PHP", "Laravel", "React", "Desarrollo Web"]
         },
         {
@@ -129,7 +129,7 @@ export const CONTENT = {
           title: "Técnico Sistemas y Redes (FCT Grado Medio)",
           company: "Ayuntamiento de Pinoso",
           period: "Marzo - Junio (2023)",
-          description: "Soporte técnico y gestión de infraestructura IT. Mantenimiento de CMS (WordPress) y aseguramiento de la conectividad de redes locales en un entorno administrativo.",
+          description: "Me encargué de mantener la infraestructura tecnológica operativa y segura. Gestioné portales web en WordPress, aseguré la conectividad de las redes locales y proporcioné soporte técnico resolviendo incidencias críticas para el funcionamiento administrativo.",
           tags: ["WordPress", "Redes", "Hardware", "Soporte IT"]
         }
       ] as ExperienceItem[],
@@ -174,7 +174,7 @@ export const CONTENT = {
     },
     contact: {
       title: 'Contacto',
-      desc: 'Estoy disponible para nuevas oportunidades profesionales. ¡Hablemos de cómo puedo aportar valor a tu equipo!',
+      desc: '¿Tienes un proyecto en mente o buscas un nuevo desarrollador para tu equipo? ¡Escríbeme y charlemos sobre cómo puedo ayudarte!',
       email: 'Email',
       phone: 'Teléfono',
       location: 'Ubicación',
@@ -238,7 +238,7 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
       greeting: "Hi, I'm",
       role: 'Full Stack Developer',
       roleSuffix: '',
-      description: 'Passionate about code and software architecture. I transform ideas into real web solutions using React, Laravel, and Python. Focused on building scalable and high-performance applications.',
+      description: 'I love bringing ideas to life through code. As a Full Stack Developer, I specialize in building modern, fast, and scalable web applications, focusing on every detail from the server to the final user experience.',
       btnProjects: 'View Projects',
       btnCv: 'Download CV',
       codeWindow: {
@@ -258,15 +258,15 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
       subtitle: 'Solid education and practical experience.',
       workTitle: 'Professional Experience',
       eduTitle: 'Education',
-      softSkillsTitle: 'Professional Approach',
-      softSkillsDesc: 'My commitment and learning capacity are absolute. I adapt quickly to new environments and always strive for technical excellence and best practices in every line of code.',
+      softSkillsTitle: 'More than just a coder',
+      softSkillsDesc: 'I am defined by my constant curiosity and ability to learn fast. I enjoy tackling new technological challenges and always strive for excellence through clean, maintainable, and scalable code.',
       list: [
         {
           id: 1,
           title: "Full Stack Developer (Internship)",
           company: "Ideade Pinoso",
           period: "March - June (2025)",
-          description: "Professional immersion in web development. Actively contributed to backend development with PHP and Laravel, as well as creating dynamic interfaces with React. Applied agile methodologies and collaborated on real projects.",
+          description: "Part of the development team working on real-world projects. I focused on building robust backend logic with Laravel and creating fluid, reactive user interfaces with React, applying agile methodologies in a professional environment.",
           tags: ["PHP", "Laravel", "React", "Web Development"]
         },
         {
@@ -274,7 +274,7 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
           title: "Systems & Networks Technician (Internship)",
           company: "Pinoso City Hall",
           period: "March - June (2023)",
-          description: "Technical support and IT infrastructure management. Maintenance of CMS (WordPress) and ensuring local network connectivity in an administrative environment.",
+          description: "Responsible for keeping the IT infrastructure safe and operational. I managed WordPress portals, ensured local network connectivity, and provided technical support by resolving daily critical issues.",
           tags: ["WordPress", "Networks", "Hardware", "IT Support"]
         }
       ] as ExperienceItem[],
@@ -319,7 +319,7 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
     },
     contact: {
       title: 'Contact',
-      desc: 'I am available for new professional opportunities. Let\'s talk about how I can add value to your team!',
+      desc: 'Do you have a project in mind or are you looking for a new developer for your team? Let\'s talk about how I can help you!',
       email: 'Email',
       phone: 'Phone',
       location: 'Location',
