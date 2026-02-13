@@ -13,6 +13,27 @@ export const SKILLS_DATA: Skill[] = [
     category: 'frontend'
   },
   {
+    name: 'TypeScript',
+    icon: (
+      <img src="./images/typescript.svg" alt="TypeScript" className="w-10 h-10" />
+    ),
+    category: 'frontend'
+  },
+  {
+    name: 'HTML',
+    icon: (
+      <img src="./images/html5.svg" alt="HTML5" className="w-10 h-10" />
+    ),
+    category: 'frontend'
+  },
+  {
+    name: 'CSS',
+    icon: (
+      <img src="./images/css3.svg" alt="CSS3" className="w-10 h-10" />
+    ),
+    category: 'frontend'
+  },
+  {
     name: 'Laravel',
     icon: (
       <img src="./images/laravel.svg" alt="Laravel" className="w-10 h-10" />
@@ -41,11 +62,11 @@ export const SKILLS_DATA: Skill[] = [
     category: 'backend'
   },
   {
-    name: 'TypeScript',
+    name: 'Docker',
     icon: (
-      <img src="./images/typescript.svg" alt="TypeScript" className="w-10 h-10" />
+      <img src="./images/docker.svg" alt="Docker" className="w-10 h-10" />
     ),
-    category: 'frontend'
+    category: 'backend'
   },
   {
     name: 'SQL / MongoDB',
@@ -53,16 +74,6 @@ export const SKILLS_DATA: Skill[] = [
       <img src="./images/mongodb.svg" alt="MongoDB" className="w-10 h-10" />
     ),
     category: 'backend'
-  },
-  {
-    name: 'HTML / CSS',
-    icon: (
-      <div className="flex items-center gap-2">
-        <img src="./images/html5.svg" alt="HTML5" className="w-10 h-10" />
-        <img src="./images/css3.svg" alt="CSS3" className="w-10 h-10" />
-      </div>
-    ),
-    category: 'frontend'
   },
 ];
 
@@ -123,6 +134,11 @@ export const CONTENT = {
         }
       ] as ExperienceItem[],
       education: [
+        {
+          degree: "Curso de especialización de Desarrollo de aplicaciones en lenguaje Python",
+          institution: "IES Severo Ochoa (Elche)",
+          year: "2025 - 2026"
+        },
         {
           degree: "Grado Superior en Desarrollo de Aplicaciones Web (DAW)",
           institution: "IES Enric Valor (Monóvar)",
@@ -188,7 +204,7 @@ PERFIL:
 
 TECNOLOGÍAS PRINCIPALES:
 - Frontend: React, TypeScript, HTML5, CSS3, Tailwind.
-- Backend: PHP (Laravel), Python, Java.
+- Backend: PHP (Laravel), Python, Java, Docker.
 - Bases de Datos: SQL, MongoDB.
 
 EXPERIENCIA DETALLADA:
@@ -196,6 +212,7 @@ EXPERIENCIA DETALLADA:
 2. Ayuntamiento de Pinoso (2023): Mantenimiento de sistemas, redes y WordPress durante sus prácticas del Grado Medio (SMR) de Marzo a Junio.
 
 EDUCACIÓN:
+- Curso de especialización en Desarrollo de aplicaciones en Python (2025-2026) en IES Enric Valor (Monóvar).
 - Grado Superior DAW (2023-2025) en IES Enric Valor (Monóvar).
 - Grado Medio SMR (2021-2023) en IES Enric Valor (Monóvar).
 - ESO (2017-2021) en IES José Marhuenda Prats (Pinoso).
@@ -263,6 +280,11 @@ Estilo: Profesional, seguro y conciso. Evita usar el término "Junior".
       ] as ExperienceItem[],
       education: [
         {
+          degree: "Specialization Course in Python Application Development",
+          institution: "IES Enric Valor (Monóvar)",
+          year: "2025 - 2026"
+        },
+        {
           degree: "Higher Technician in Web Application Development (DAW)",
           institution: "IES Enric Valor (Monóvar)",
           year: "2023 - 2025"
@@ -327,7 +349,7 @@ PROFILE:
 
 MAIN TECHNOLOGIES:
 - Frontend: React, TypeScript, HTML5, CSS3, Tailwind.
-- Backend: PHP (Laravel), Python, Java.
+- Backend: PHP (Laravel), Python, Java, Docker.
 - Databases: SQL, MongoDB.
 
 DETAILED EXPERIENCE:
@@ -335,6 +357,7 @@ DETAILED EXPERIENCE:
 2. Pinoso City Hall (2023): Systems maintenance, networks, and WordPress during his Intermediate Degree internship (SMR) from March to June.
 
 EDUCATION:
+- Specialization Course in Python Application Development (2025-2026) at IES Enric Valor (Monóvar).
 - Higher Degree DAW (2023-2025) at IES Enric Valor (Monóvar).
 - Intermediate Degree SMR (2021-2023) at IES Enric Valor (Monóvar).
 - ESO (2017-2021) at IES José Marhuenda Prats (Pinoso).

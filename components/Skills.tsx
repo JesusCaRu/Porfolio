@@ -82,7 +82,7 @@ const Skills: React.FC = () => {
           </p>
         </div>
 
-        <div className="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {SKILLS_DATA.map((skill, index) => (
             <div
               key={index}
