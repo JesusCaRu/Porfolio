@@ -83,7 +83,7 @@ const Contact: React.FC = () => {
 
   return (
     <section id="contact" ref={containerRef} className="py-24 bg-slate-50 dark:bg-slate-950/50 relative overflow-hidden">
-      {/* Background decoration */}
+      {/* Decoracion de fondo */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="contact-blob absolute -right-20 bottom-20 w-96 h-96 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-3xl"></div>
       </div>
@@ -91,7 +91,7 @@ const Contact: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="contact-card max-w-4xl mx-auto bg-white dark:bg-[#0F172A] rounded-3xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-800">
           <div className="grid md:grid-cols-5">
-            {/* Contact Info Side */}
+            {/* Informacion de contacto */}
             <div className="md:col-span-2 bg-gradient-to-br from-primary-600 to-blue-700 p-8 text-white flex flex-col justify-between">
               <div>
                 <h3 className="text-2xl font-bold mb-4">{t.contact.title}</h3>
@@ -129,7 +129,7 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Form Side */}
+            {/* Formulario */}
             <div className="md:col-span-3 p-8 md:p-12">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Honeypot para evitar spam */}
@@ -188,7 +188,7 @@ const Contact: React.FC = () => {
                   {status === 'loading' ? 'Enviando...' : t.contact.form.btnSend}
                 </button>
 
-                {/* Feedback Messages */}
+                {/* Mensajes de feedback */}
                 {status === 'success' && (
                   <div className="flex items-center gap-2 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-4 rounded-lg animate-in fade-in slide-in-from-top-2">
                     <CheckCircle2 size={18} />
