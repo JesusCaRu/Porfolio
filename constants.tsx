@@ -252,7 +252,7 @@ export const CONTENT = {
       education: [
         {
           degree: "Specialization Course in Python Application Development",
-          institution: "IES Enric Valor (Monóvar)",
+          institution: "IES Severo Ochoa (Elche)",
           year: "2025 - 2026"
         },
         {
