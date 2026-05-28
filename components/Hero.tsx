@@ -112,6 +112,7 @@ const Hero: React.FC = () => {
 
     // Parallax con el mouse
     const handleMouseMove = (e: MouseEvent) => {
+      if (!window.matchMedia('(hover: hover)').matches) return;
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
       const xPos = (clientX / innerWidth - 0.5);

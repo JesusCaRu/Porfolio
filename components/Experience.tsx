@@ -39,7 +39,7 @@ const Experience: React.FC = () => {
     });
 
     // Items de experiencia
-    gsap.utils.toArray(".exp-item").forEach((item: any, i) => {
+    gsap.utils.toArray(".exp-item").forEach((item: HTMLElement, i) => {
       gsap.from(item, {
         scrollTrigger: {
           trigger: item,
@@ -68,7 +68,7 @@ const Experience: React.FC = () => {
     });
 
     // Items de educación
-    gsap.utils.toArray(".edu-item").forEach((item: any, i) => {
+    gsap.utils.toArray(".edu-item").forEach((item: HTMLElement, i) => {
       gsap.from(item, {
         scrollTrigger: {
           trigger: item,

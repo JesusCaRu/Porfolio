@@ -168,7 +168,7 @@ export const CONTENT = {
           description: "Sistema integral diseñado para optimizar la gestión de inventario en entornos de robótica. Implementa control de stock en tiempo real y gestión de recursos.",
           tech: ["React", "Laravel", "MySQL", "Tailwind", "API REST"],
           image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop",
-          link: "https://github.com/JesusCaRu/ProyectoFinal"
+          link: "https://github.com/JesusCaRu/ProyectoFinal",
         }
       ] as Project[]
     },
@@ -277,6 +277,7 @@ export const CONTENT = {
       title: 'Featured Projects',
       subtitle: 'Code that solves real problems.',
       viewCode: 'View Source Code',
+      viewDemo: 'View Live Demo',
       list: [
         {
           id: 1,
@@ -284,7 +285,7 @@ export const CONTENT = {
           description: "Comprehensive system designed to optimize inventory management in robotics environments. Implements real-time stock control and resource management.",
           tech: ["React", "Laravel", "MySQL", "Tailwind", "REST API"],
           image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop",
-          link: "https://github.com/JesusCaRu/ProyectoFinal"
+          link: "https://github.com/JesusCaRu/ProyectoFinal",
         }
       ] as Project[]
     },
