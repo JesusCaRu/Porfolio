@@ -163,11 +163,19 @@ export const CONTENT = {
       viewCode: 'Ver Código Fuente',
       list: [
         {
+          id: 2,
+          title: "Cuts & Wash - BarberShop Inteligente",
+          description: "Sistema para barbería con IA que permite probarte el corte antes de hacértelo. Incluye un sistema completo de reservas y gestión.",
+          tech: ["React", "IA", "API", "Tailwind"],
+          image: "../public/images/barberia.png",
+          link: "https://github.com/JesusCaRu/Cuts-Wash-BarberShop",
+        },
+        {
           id: 1,
           title: "StockFlow - Gestión Robótica",
           description: "Sistema integral diseñado para optimizar la gestión de inventario en entornos de robótica. Implementa control de stock en tiempo real y gestión de recursos.",
           tech: ["React", "Laravel", "MySQL", "Tailwind", "API REST"],
-          image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop",
+          image: "../public/images/StockFlow.webp",
           link: "https://github.com/JesusCaRu/ProyectoFinal",
         }
       ] as Project[]
@@ -279,6 +287,14 @@ export const CONTENT = {
       viewCode: 'View Source Code',
       viewDemo: 'View Live Demo',
       list: [
+        {
+          id: 2,
+          title: "Cuts & Wash - Smart BarberShop",
+          description: "Barbershop system with AI that allows you to try your haircut before getting it. Includes a complete reservation and management system.",
+          tech: ["React", "AI", "API", "Tailwind"],
+          image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2670&auto=format&fit=crop",
+          link: "https://github.com/JesusCaRu/Cuts-Wash-BarberShop",
+        },
         {
           id: 1,
           title: "StockFlow - Robotic Management",
