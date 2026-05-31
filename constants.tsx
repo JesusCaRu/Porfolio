@@ -167,7 +167,7 @@ export const CONTENT = {
           title: "Cuts & Wash - BarberShop Inteligente",
           description: "Sistema para barbería con IA que permite probarte el corte antes de hacértelo. Incluye un sistema completo de reservas y gestión.",
           tech: ["React", "IA", "API", "Tailwind"],
-          image: "../public/images/barberia.png",
+          image: "/images/barberia.png",
           link: "https://github.com/JesusCaRu/Cuts-Wash-BarberShop",
         },
         {
@@ -175,7 +175,7 @@ export const CONTENT = {
           title: "StockFlow - Gestión Robótica",
           description: "Sistema integral diseñado para optimizar la gestión de inventario en entornos de robótica. Implementa control de stock en tiempo real y gestión de recursos.",
           tech: ["React", "Laravel", "MySQL", "Tailwind", "API REST"],
-          image: "../public/images/StockFlow.webp",
+          image: "/images/StockFlow.webp",
           link: "https://github.com/JesusCaRu/ProyectoFinal",
         }
       ] as Project[]
