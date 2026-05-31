@@ -114,8 +114,8 @@ const Projects: React.FC = () => {
               <div className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl border border-slate-200 dark:border-slate-700 transition-shadow duration-300 group flex flex-col h-full">
                 <div className="relative overflow-hidden h-56">
                   <img
-                    src="./images/StockFlow.webp"
-                    alt="StockFlow"
+                    src={project.image}
+                    alt={project.title}
                     className="w-full h-full p-2 rounded-2xl object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 transition-colors duration-500"></div>
