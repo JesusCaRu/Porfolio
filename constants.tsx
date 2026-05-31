@@ -166,7 +166,7 @@ export const CONTENT = {
           id: 2,
           title: "Cuts & Wash - BarberShop Inteligente",
           description: "Sistema para barbería con IA que permite probarte el corte antes de hacértelo. Incluye un sistema completo de reservas y gestión.",
-          tech: ["React", "IA", "API", "Tailwind"],
+          tech: ["React", "IA", "API", "Tailwind", "Supabase", "Node.js"],
           image: "/images/barberia.png",
           link: "https://github.com/JesusCaRu/Cuts-Wash-BarberShop",
         },
