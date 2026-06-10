@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
-import { Briefcase, GraduationCap } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { Briefcase, GraduationCap, X, FileBadge } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,6 +11,18 @@ gsap.registerPlugin(ScrollTrigger);
 const Experience: React.FC = () => {
   const { t } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
+  const [selectedCert, setSelectedCert] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (selectedCert) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedCert]);
 
   useGSAP(() => {
     // Cabecera
@@ -164,7 +177,8 @@ const Experience: React.FC = () => {
               {t.experience.education.map((edu, index) => (
                 <div
                   key={index}
-                  className="edu-item bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all group hover:-translate-x-1"
+                  className={`edu-item bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm transition-all group ${edu.certificate ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1' : 'hover:shadow-lg hover:-translate-x-1'}`}
+                  onClick={() => edu.certificate && setSelectedCert(edu.certificate)}
                 >
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
                     <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors leading-tight">{edu.degree}</h4>
@@ -172,9 +186,17 @@ const Experience: React.FC = () => {
                       {edu.year}
                     </span>
                   </div>
-                  <div className="flex items-center text-slate-500 dark:text-slate-400 font-medium">
-                    <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 mr-3"></span>
-                    {edu.institution}
+                  <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 font-medium">
+                    <div className="flex items-center">
+                      <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 mr-3"></span>
+                      {edu.institution}
+                    </div>
+                    {edu.certificate && (
+                      <span className="text-sm text-green-600 dark:text-green-400 font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <FileBadge className="w-4 h-4" />
+                        {t.experience.workTitle === 'Experiencia Profesional' ? 'Ver Certificado' : 'View Certificate'}
+                      </span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -189,6 +211,43 @@ const Experience: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Modal para certificados */}
+        <AnimatePresence>
+          {selectedCert && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
+              onClick={() => setSelectedCert(null)}
+            >
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                className="relative max-w-4xl w-full bg-white dark:bg-slate-900 p-1.5 rounded-3xl shadow-2xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden"
+                onClick={e => e.stopPropagation()}
+              >
+                {/* Botón X integrado elegantemente */}
+                <button 
+                  className="absolute top-4 right-4 z-10 p-2 bg-slate-950/40 hover:bg-slate-950/80 backdrop-blur-md text-white hover:text-green-400 rounded-full transition-all duration-200 border border-white/10 shadow-lg hover:scale-110 active:scale-95 cursor-pointer"
+                  onClick={() => setSelectedCert(null)}
+                  aria-label="Close modal"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                <img 
+                  src={selectedCert} 
+                  alt="Certificado / Certificate" 
+                  className="w-full h-auto max-h-[80vh] object-contain rounded-2xl shadow-inner"
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

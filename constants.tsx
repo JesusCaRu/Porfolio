@@ -135,6 +135,12 @@ export const CONTENT = {
       ] as ExperienceItem[],
       education: [
         {
+          degree: "Certificación en SEO",
+          institution: "HubSpot Academy",
+          year: "2026",
+          certificate: "/images/SEO Jesús Canicio Ruiz.png"
+        },
+        {
           degree: "Curso de especialización de Desarrollo de aplicaciones en lenguaje Python",
           institution: "IES Severo Ochoa (Elche)",
           year: "2025 - 2026"
@@ -258,6 +264,12 @@ export const CONTENT = {
         }
       ] as ExperienceItem[],
       education: [
+        {
+          degree: "SEO Certification",
+          institution: "HubSpot Academy",
+          year: "2026",
+          certificate: "/images/SEO Jesús Canicio Ruiz.png"
+        },
         {
           degree: "Specialization Course in Python Application Development",
           institution: "IES Severo Ochoa (Elche)",

@@ -15,6 +15,7 @@ export interface EducationItem {
   degree: string;
   institution: string;
   year: string;
+  certificate?: string;
 }
 
 export interface Skill {
