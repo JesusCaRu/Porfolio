@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Download, Github, Linkedin, Code, ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -6,12 +6,213 @@ import { useLanguage } from '../context/LanguageContext';
 import { PORTFOLIO_OWNER } from '../constants';
 
 const Hero: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
   const blob3Ref = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Terminal Simulator States
+  const [activeTab, setActiveTab] = useState<'about' | 'skills' | 'projects' | 'bash'>('about');
+  const [typedText, setTypedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [terminalHistory, setTerminalHistory] = useState<Array<{ text: string, type: 'input' | 'output' | 'system' }>>([
+    { text: 'system_initialize --status=success', type: 'system' },
+    { text: 'welcome to jesuscanicio@portfolio:~$ help', type: 'output' }
+  ]);
+  const [commandInput, setCommandInput] = useState("");
+  const terminalContentRef = useRef<HTMLDivElement>(null);
+
+  const files = {
+    about: {
+      name: 'about.json',
+      lang: 'json',
+      content: language === 'es' ? `{
+  "nombre": "Jesús Canicio Ruiz",
+  "puesto": "Desarrollador Full Stack",
+  "ubicacion": "Pinoso, Alicante, España",
+  "intereses": ["Apps Web", "Inteligencia Artificial", "Robótica"],
+  "enfoque": "Código limpio y mantenible"
+}` : `{
+  "name": "Jesús Canicio Ruiz",
+  "role": "Full Stack Developer",
+  "location": "Pinoso, Alicante, Spain",
+  "interests": ["Web Apps", "AI", "Robotics"],
+  "focus": "Clean and maintainable code"
+}`
+    },
+    skills: {
+      name: 'skills.sh',
+      lang: 'bash',
+      content: language === 'es' ? `#!/bin/bash
+echo "Cargando tecnologías principales..."
+# ----------
+# Frontend:   React, TypeScript, HTML, CSS
+# Backend:    Laravel, PHP, Python, Java
+# Herramientas: Docker, Git, SQL, MongoDB
+# ----------
+echo "Listo para construir grandes proyectos!"` : `#!/bin/bash
+echo "Loading core technologies..."
+# ----------
+# Frontend:   React, TypeScript, HTML, CSS
+# Backend:    Laravel, PHP, Python, Java
+# Tools:      Docker, Git, SQL, MongoDB
+# ----------
+echo "Ready to build amazing projects!"`
+    },
+    projects: {
+      name: 'proyectos.md',
+      lang: 'markdown',
+      content: language === 'es' ? `# Proyectos Destacados
+
+1. **Cuts & Wash** - BarberShop Inteligente con IA
+   - Tech: React, Supabase, Tailwind, Node.js
+2. **StockFlow** - Gestión Robótica
+   - Tech: React, Laravel, MySQL, REST API` : `# Featured Projects
+
+1. **Cuts & Wash** - AI Smart BarberShop
+   - Tech: React, Supabase, Tailwind, Node.js
+2. **StockFlow** - Robotic Management
+   - Tech: React, Laravel, MySQL, REST API`
+    }
+  };
+
+  // Typing animation effect
+  useEffect(() => {
+    if (activeTab === 'bash') return;
+    
+    setIsTyping(true);
+    setTypedText("");
+    const content = files[activeTab].content;
+    let index = 0;
+    
+    const timer = setInterval(() => {
+      setTypedText((prev) => {
+        const nextChars = content.substring(index, index + 3);
+        index += 3;
+        if (index >= content.length) {
+          clearInterval(timer);
+          setIsTyping(false);
+          return content;
+        }
+        return prev + nextChars;
+      });
+    }, 15);
+    
+    return () => clearInterval(timer);
+  }, [activeTab, language]);
+
+  const handleSkipTyping = () => {
+    if (isTyping && activeTab !== 'bash') {
+      setIsTyping(false);
+      setTypedText(files[activeTab].content);
+    }
+  };
+
+  // Command submission parser
+  const handleCommandSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!commandInput.trim()) return;
+
+    const cmd = commandInput.trim().toLowerCase();
+    const newHistory = [...terminalHistory, { text: `visitor@jesus-dev:~$ ${commandInput}`, type: 'input' as const }];
+    setCommandInput("");
+
+    let response = "";
+    if (cmd === 'help' || cmd === 'ayuda') {
+      response = language === 'es' 
+        ? "Comandos disponibles:\n  about     - Muestra información personal (JSON)\n  skills    - Ejecuta script de habilidades (SH)\n  projects  - Muestra proyectos destacados (MD)\n  contact   - Desplazar hasta sección de contacto\n  theme     - Alternar modo claro/oscuro\n  clear     - Limpiar pantalla" 
+        : "Available commands:\n  about     - Display personal information (JSON)\n  skills    - Execute skills shell script (SH)\n  projects  - Show featured projects (MD)\n  contact   - Scroll to contact section\n  theme     - Toggle light/dark mode\n  clear     - Clear screen";
+    } else if (cmd === 'about' || cmd === 'sobremi') {
+      response = files.about.content;
+    } else if (cmd === 'skills' || cmd === 'habilidades') {
+      response = files.skills.content;
+    } else if (cmd === 'projects' || cmd === 'proyectos') {
+      response = files.projects.content;
+    } else if (cmd === 'clear' || cmd === 'limpiar') {
+      setTerminalHistory([]);
+      return;
+    } else if (cmd === 'contact' || cmd === 'contacto') {
+      response = language === 'es' ? "Redirigiendo a contacto..." : "Scrolling to contact...";
+      setTimeout(() => {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+    } else if (cmd === 'theme' || cmd === 'tema') {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      response = language === 'es' ? "Tema de color cambiado." : "Color theme updated.";
+    } else {
+      response = language === 'es' 
+        ? `Error: comando no encontrado: '${cmd}'. Escribe 'help' para ayuda.` 
+        : `Command not found: '${cmd}'. Type 'help' for support.`;
+    }
+
+    setTerminalHistory([...newHistory, { text: response, type: 'output' as const }]);
+  };
+
+  useEffect(() => {
+    if (activeTab === 'bash' && terminalContentRef.current) {
+      terminalContentRef.current.scrollTop = terminalContentRef.current.scrollHeight;
+    }
+  }, [terminalHistory, activeTab]);
+
+  // Syntax highlighting parser
+  const highlightCode = (text: string, lang: string) => {
+    if (lang === 'json') {
+      return text.split('\n').map((line, idx) => {
+        const highlighted = line
+          .replace(/(".*?")(\s*:)/g, '<span class="text-blue-500 dark:text-blue-400">$1</span>$2')
+          .replace(/(:\s*)(".*?")/g, '$1<span class="text-green-600 dark:text-green-400">$2</span>')
+          .replace(/(:\s*)(\d+|true|false)/g, '$1<span class="text-amber-500 dark:text-amber-400">$2</span>');
+        return (
+          <div key={idx} className="flex gap-4">
+            <span className="text-slate-400 dark:text-slate-600 select-none w-5 text-right font-mono text-xs">{idx + 1}</span>
+            <span className="font-mono text-xs md:text-sm" dangerouslySetInnerHTML={{ __html: highlighted || '&nbsp;' }} />
+          </div>
+        );
+      });
+    } else if (lang === 'bash') {
+      return text.split('\n').map((line, idx) => {
+        let highlighted = line;
+        if (line.startsWith('#')) {
+          highlighted = `<span class="text-slate-400 dark:text-slate-500 italic">${line}</span>`;
+        } else if (line.startsWith('echo')) {
+          highlighted = `<span class="text-purple-600 dark:text-purple-400">echo</span> <span class="text-green-600 dark:text-green-400">${line.substring(5)}</span>`;
+        }
+        return (
+          <div key={idx} className="flex gap-4">
+            <span className="text-slate-400 dark:text-slate-600 select-none w-5 text-right font-mono text-xs">{idx + 1}</span>
+            <span className="font-mono text-xs md:text-sm" dangerouslySetInnerHTML={{ __html: highlighted || '&nbsp;' }} />
+          </div>
+        );
+      });
+    } else if (lang === 'markdown') {
+      return text.split('\n').map((line, idx) => {
+        let highlighted = line;
+        if (line.startsWith('#')) {
+          highlighted = `<span class="text-primary-600 dark:text-primary-400 font-bold">${line}</span>`;
+        } else if (line.trim().startsWith('-') || line.trim().match(/^\d+\./)) {
+          highlighted = line
+            .replace(/(\*\*.*?\*\*)/g, '<span class="text-slate-900 dark:text-white font-bold">$1</span>')
+            .replace(/(`.*?`)/g, '<span class="text-red-500 dark:text-red-400 font-mono bg-slate-100 dark:bg-slate-800/80 px-1 rounded">$1</span>');
+        }
+        return (
+          <div key={idx} className="flex gap-4">
+            <span className="text-slate-400 dark:text-slate-600 select-none w-5 text-right font-mono text-xs">{idx + 1}</span>
+            <span className="font-mono text-xs md:text-sm" dangerouslySetInnerHTML={{ __html: highlighted || '&nbsp;' }} />
+          </div>
+        );
+      });
+    }
+    return text;
+  };
 
   useGSAP(() => {
     // Animaciones de entrada con clearProps para mantener visibilidad
@@ -235,76 +436,97 @@ const Hero: React.FC = () => {
           <div className="hidden lg:block relative perspective-1000">
             <div
               ref={cardRef}
-              className="relative w-full aspect-square max-w-md mx-auto preserve-3d"
+              className="relative w-full aspect-square max-w-lg mx-auto preserve-3d"
             >
-              <div className="absolute inset-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl p-6 transform transition-all duration-500 hover:shadow-primary-500/20">
-                <div className="flex items-center gap-2 mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div
+                className="absolute inset-0 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col overflow-hidden select-none hover:shadow-primary-500/10 transition-shadow duration-300"
+                onClick={handleSkipTyping}
+              >
+                {/* Cabecera de la terminal */}
+                <div className="flex items-center justify-between px-6 py-4 bg-slate-50/80 dark:bg-slate-900/50 border-b border-slate-200/60 dark:border-slate-800/60 shrink-0">
                   <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-600 transition-colors cursor-pointer" onClick={() => setActiveTab('bash')} title="Terminal"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
                   </div>
-                  <div className="ml-4 text-xs text-slate-400 font-mono">portfolio.tsx</div>
+                  <div className="text-xs text-slate-400 font-mono font-medium">
+                    {activeTab === 'bash' ? 'bash' : files[activeTab].name}
+                  </div>
+                  <div className="w-12"></div>
                 </div>
 
-                <div className="space-y-3 font-mono text-sm leading-relaxed">
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">1</span>
-                    <span className="text-purple-500 dark:text-purple-400">class</span> <span className="text-yellow-600 dark:text-yellow-300">{t.hero.codeWindow.devClass}</span> <span className="text-slate-900 dark:text-white">{'{'}</span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">2</span>
-                    <div className="pl-4">
-                      <span className="text-blue-500 dark:text-blue-300">constructor</span>() {'{'}
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">3</span>
-                    <div className="pl-8">
-                      <span className="text-red-500 dark:text-red-400">this</span>.name = <span className="text-green-600 dark:text-green-400">'{PORTFOLIO_OWNER}'</span>;
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">4</span>
-                    <div className="pl-8">
-                      <span className="text-red-500 dark:text-red-400">this</span>.stack = [<span className="text-green-600 dark:text-green-400">'React'</span>, <span className="text-green-600 dark:text-green-400">'Laravel'</span>];
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">5</span>
-                    <div className="pl-4 text-slate-900 dark:text-white">{'}'}</div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">6</span>
-                    <div className="pl-4">
-                      <span className="text-blue-500 dark:text-blue-300">{t.hero.codeWindow.method}</span>() {'{'}
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">7</span>
-                    <div className="pl-8 text-slate-400 italic">{t.hero.codeWindow.comment}</div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">8</span>
-                    <div className="pl-8">
-                      <span className="text-purple-500 dark:text-purple-400">return</span> <span className="text-green-600 dark:text-green-400">'{t.hero.codeWindow.return}'</span>;
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">9</span>
-                    <div className="pl-4 text-slate-900 dark:text-white">{'}'}</div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-slate-400 select-none">10</span>
-                    <span className="text-slate-900 dark:text-white">{'}'}</span>
-                  </div>
+                {/* Barra de pestañas */}
+                <div className="flex border-b border-slate-200/60 dark:border-slate-800/60 bg-slate-50/30 dark:bg-slate-900/10 text-xs font-mono shrink-0">
+                  {(['about', 'skills', 'projects', 'bash'] as const).map((tab) => {
+                    const isActive = activeTab === tab;
+                    const labels = {
+                      about: { label: 'about.json', icon: '{ }', color: 'text-blue-500' },
+                      skills: { label: 'skills.sh', icon: '$_', color: 'text-green-500' },
+                      projects: { label: 'proyectos.md', icon: '#', color: 'text-purple-500' },
+                      bash: { label: 'terminal', icon: '>_', color: 'text-cyan-500' }
+                    };
+                    const item = labels[tab];
+                    return (
+                      <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        className={`px-4 py-3 border-r border-slate-200/60 dark:border-slate-800/60 transition-all flex items-center gap-1.5 cursor-pointer font-medium ${
+                          isActive
+                            ? 'bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white border-b border-b-white dark:border-b-[#0f172a]'
+                            : 'text-slate-500 hover:bg-slate-100/50 dark:hover:bg-slate-800/20'
+                        }`}
+                      >
+                        <span className={`${item.color} font-bold`}>{item.icon}</span>
+                        {item.label}
+                      </button>
+                    );
+                  })}
                 </div>
 
-                <div className="cursor-blink absolute bottom-12 left-32 w-2 h-5 bg-primary-500" />
+                {/* Contenedor del contenido */}
+                <div ref={terminalContentRef} className="p-6 flex-grow overflow-y-auto font-mono text-xs md:text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                  {activeTab !== 'bash' ? (
+                    <div className="space-y-1">
+                      {highlightCode(typedText, files[activeTab].lang)}
+                      {isTyping && (
+                        <div className="flex gap-4">
+                          <span className="text-slate-400 select-none w-5"></span>
+                          <span className="w-1.5 h-4 bg-primary-500 animate-pulse inline-block align-middle" />
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {terminalHistory.map((line, idx) => (
+                        <div key={idx} className="whitespace-pre-wrap">
+                          {line.type === 'input' ? (
+                            <span className="text-slate-800 dark:text-slate-200 font-bold">{line.text}</span>
+                          ) : line.type === 'system' ? (
+                            <span className="text-slate-400 dark:text-slate-500 italic">{line.text}</span>
+                          ) : (
+                            <span className="text-slate-600 dark:text-slate-400">{line.text}</span>
+                          )}
+                        </div>
+                      ))}
+                      
+                      <form onSubmit={handleCommandSubmit} className="flex items-center gap-2">
+                        <span className="text-primary-500 dark:text-primary-400 font-bold shrink-0">visitor@jesus-dev:~$</span>
+                        <input
+                          type="text"
+                          value={commandInput}
+                          onChange={(e) => setCommandInput(e.target.value)}
+                          className="bg-transparent text-slate-800 dark:text-slate-200 focus:outline-none flex-grow w-full font-mono text-xs md:text-sm"
+                          autoFocus
+                          placeholder="help..."
+                        />
+                      </form>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Tarjetas flotantes */}
-              <div className="float-card-1 absolute -bottom-10 -left-10 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20">
+              <div className="float-card-1 absolute -bottom-12 -left-16 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20">
                 <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl text-blue-500">
                   <img src="./images/react.svg" alt="React" className="w-8 h-8" />
                 </div>
@@ -314,7 +536,7 @@ const Hero: React.FC = () => {
                 </div>
               </div>
 
-              <div className="float-card-2 absolute -top-10 -right-10 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20">
+              <div className="float-card-2 absolute -top-12 -right-16 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20">
                 <div className="p-3 bg-red-50 dark:bg-red-900/30 rounded-xl text-red-500">
                   <img src="./images/laravel.svg" alt="Laravel" className="w-8 h-8" />
                 </div>

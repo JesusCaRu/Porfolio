@@ -15,6 +15,8 @@
     --color-primary-900: #0c4a6e;
 
     --font-sans: 'Inter', sans-serif;
+    --font-display: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 
     --animate-blob: blob 7s infinite;
 
@@ -61,4 +63,58 @@
 
 .dark ::-webkit-scrollbar-thumb:hover {
     background: #475569;
+}
+
+/* Custom premium utilities */
+.font-display {
+    font-family: var(--font-display);
+}
+
+.font-mono {
+    font-family: var(--font-mono);
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(241, 245, 249, 0.6);
+}
+
+.dark .glass-panel {
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(51, 65, 85, 0.35);
+}
+
+.glow-card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(14, 165, 233, 0.06), transparent 40%);
+    border-radius: inherit;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.glow-card:hover::before {
+    opacity: 1;
+}
+
+.dark .glow-card::before {
+    background: radial-gradient(800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(56, 189, 248, 0.1), transparent 40%);
+}
+
+.terminal-header {
+    background: rgba(241, 245, 249, 0.85);
+}
+
+.dark .terminal-header {
+    background: rgba(30, 41, 59, 0.5);
 }

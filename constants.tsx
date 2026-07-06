@@ -66,7 +66,7 @@ export const SKILLS_DATA: Skill[] = [
     icon: (
       <img src="./images/docker.svg" alt="Docker" className="w-10 h-10" />
     ),
-    category: 'backend'
+    category: 'tools'
   },
   {
     name: 'SQL / MongoDB',
@@ -74,6 +74,13 @@ export const SKILLS_DATA: Skill[] = [
       <img src="./images/mongodb.svg" alt="MongoDB" className="w-10 h-10" />
     ),
     category: 'backend'
+  },
+  {
+    name: 'Git',
+    icon: (
+      <img src="./images/git.svg" alt="Git" className="w-10 h-10" />
+    ),
+    category: 'tools'
   },
 ];
 
@@ -135,12 +142,6 @@ export const CONTENT = {
       ] as ExperienceItem[],
       education: [
         {
-          degree: "Certificación en SEO",
-          institution: "HubSpot Academy",
-          year: "2026",
-          certificate: "/images/SEO Jesús Canicio Ruiz.png"
-        },
-        {
           degree: "Curso de especialización de Desarrollo de aplicaciones en lenguaje Python",
           institution: "IES Severo Ochoa (Elche)",
           year: "2025 - 2026"
@@ -156,9 +157,10 @@ export const CONTENT = {
           year: "2021 - 2023"
         },
         {
-          degree: "Educación Secundaria Obligatoria (ESO)",
-          institution: "IES José Marhuenda Prats (Pinoso)",
-          year: "2017 - 2021"
+          degree: "Certificación en SEO",
+          institution: "HubSpot Academy",
+          year: "2026",
+          certificate: "/images/SEO Jesús Canicio Ruiz.png"
         }
       ] as EducationItem[]
     },
@@ -167,15 +169,8 @@ export const CONTENT = {
       title: 'Proyectos Destacados',
       subtitle: 'Código que resuelve problemas reales.',
       viewCode: 'Ver Código Fuente',
+      viewDemo: 'Ver Demo en Vivo',
       list: [
-        {
-          id: 2,
-          title: "Cuts & Wash - BarberShop Inteligente",
-          description: "Sistema para barbería con IA que permite probarte el corte antes de hacértelo. Incluye un sistema completo de reservas y gestión.",
-          tech: ["React", "IA", "API", "Tailwind", "Supabase", "Node.js"],
-          image: "/images/barberia.png",
-          link: "https://github.com/JesusCaRu/Cuts-Wash-BarberShop",
-        },
         {
           id: 1,
           title: "StockFlow - Gestión Robótica",
@@ -183,6 +178,7 @@ export const CONTENT = {
           tech: ["React", "Laravel", "MySQL", "Tailwind", "API REST"],
           image: "/images/StockFlow.webp",
           link: "https://github.com/JesusCaRu/ProyectoFinal",
+          demoLink: "https://github.com/JesusCaRu/ProyectoFinal"
         }
       ] as Project[]
     },
@@ -265,12 +261,6 @@ export const CONTENT = {
       ] as ExperienceItem[],
       education: [
         {
-          degree: "SEO Certification",
-          institution: "HubSpot Academy",
-          year: "2026",
-          certificate: "/images/SEO Jesús Canicio Ruiz.png"
-        },
-        {
           degree: "Specialization Course in Python Application Development",
           institution: "IES Severo Ochoa (Elche)",
           year: "2025 - 2026"
@@ -286,9 +276,10 @@ export const CONTENT = {
           year: "2021 - 2023"
         },
         {
-          degree: "Compulsory Secondary Education (ESO)",
-          institution: "IES José Marhuenda Prats (Pinoso)",
-          year: "2017 - 2021"
+          degree: "SEO Certification",
+          institution: "HubSpot Academy",
+          year: "2026",
+          certificate: "/images/SEO Jesús Canicio Ruiz.png"
         }
       ] as EducationItem[]
     },
@@ -300,20 +291,13 @@ export const CONTENT = {
       viewDemo: 'View Live Demo',
       list: [
         {
-          id: 2,
-          title: "Cuts & Wash - Smart BarberShop",
-          description: "Barbershop system with AI that allows you to try your haircut before getting it. Includes a complete reservation and management system.",
-          tech: ["React", "AI", "API", "Tailwind"],
-          image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2670&auto=format&fit=crop",
-          link: "https://github.com/JesusCaRu/Cuts-Wash-BarberShop",
-        },
-        {
           id: 1,
           title: "StockFlow - Robotic Management",
           description: "Comprehensive system designed to optimize inventory management in robotics environments. Implements real-time stock control and resource management.",
           tech: ["React", "Laravel", "MySQL", "Tailwind", "REST API"],
-          image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop",
+          image: "/images/StockFlow.webp",
           link: "https://github.com/JesusCaRu/ProyectoFinal",
+          demoLink: "https://github.com/JesusCaRu/ProyectoFinal"
         }
       ] as Project[]
     },

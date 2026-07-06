@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Briefcase, GraduationCap, X, FileBadge } from 'lucide-react';
+import { Briefcase, GraduationCap, X, FileBadge, Download, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -11,7 +11,17 @@ gsap.registerPlugin(ScrollTrigger);
 const Experience: React.FC = () => {
   const { t } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
-  const [selectedCert, setSelectedCert] = useState<string | null>(null);
+  const [selectedCert, setSelectedCert] = useState<{ certificate: string, degree: string, institution: string } | null>(null);
+
+  // Mouse move effect for glow cards
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  };
 
   useEffect(() => {
     if (selectedCert) {
@@ -38,18 +48,21 @@ const Experience: React.FC = () => {
       clearProps: "all"
     });
 
-    // Línea de tiempo vertical
-    gsap.from(".exp-line", {
-      scrollTrigger: {
-        trigger: ".exp-list",
-        start: "top 70%",
-      },
-      scaleY: 0,
-      transformOrigin: "top",
-      duration: 1.5,
-      ease: "power3.inOut",
-      clearProps: "all"
-    });
+    // Línea de tiempo vertical con progreso de scroll (scrub)
+    gsap.fromTo(".exp-line", 
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        transformOrigin: "top",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".exp-list",
+          start: "top 60%",
+          end: "bottom 85%",
+          scrub: true
+        }
+      }
+    );
 
     // Items de experiencia
     gsap.utils.toArray(".exp-item").forEach((item: HTMLElement, i) => {
@@ -138,22 +151,28 @@ const Experience: React.FC = () => {
                   {/* Punto de la línea de tiempo */}
                   <span className="timeline-dot absolute -left-[41px] md:-left-[42px] top-2 w-5 h-5 rounded-full border-4 border-white dark:border-slate-900 bg-blue-500 z-10 shadow-md"></span>
 
-                  <div className="group bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div className="flex flex-wrap justify-between items-start mb-4 gap-2">
+                  <div 
+                    onMouseMove={handleMouseMove}
+                    className="group glow-card bg-slate-50/50 dark:bg-[#0f172a]/30 border border-slate-200/50 dark:border-slate-800 shadow-xl hover:shadow-2xl hover:shadow-primary-500/5 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-1 overflow-hidden relative"
+                  >
+                    {/* Glow decorativo de fondo */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl group-hover:bg-primary-500/10 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
+
+                    <div className="flex flex-wrap justify-between items-start mb-4 gap-2 relative z-10">
                       <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{job.title}</h4>
                       <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
                         {job.period}
                       </span>
                     </div>
 
-                    <div className="text-blue-600 dark:text-blue-400 font-semibold mb-4 text-lg">{job.company}</div>
-                    <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6">
+                    <div className="text-blue-600 dark:text-blue-400 font-semibold mb-4 text-lg relative z-10">{job.company}</div>
+                    <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6 relative z-10">
                       {job.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 relative z-10">
                       {job.tags.map((tag, idx) => (
-                        <span key={idx} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-50 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-600">
+                        <span key={idx} className="px-2.5 py-1.5 rounded-lg text-[10px] uppercase font-bold tracking-wider bg-white dark:bg-[#0c101b] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-slate-800/80 group-hover:border-primary-500/30 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300">
                           {tag}
                         </span>
                       ))}
@@ -177,16 +196,20 @@ const Experience: React.FC = () => {
               {t.experience.education.map((edu, index) => (
                 <div
                   key={index}
-                  className={`edu-item bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm transition-all group ${edu.certificate ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1' : 'hover:shadow-lg hover:-translate-x-1'}`}
-                  onClick={() => edu.certificate && setSelectedCert(edu.certificate)}
+                  onMouseMove={handleMouseMove}
+                  className={`edu-item glow-card relative p-8 rounded-3xl bg-slate-50/50 dark:bg-[#0f172a]/30 border border-slate-200/50 dark:border-slate-800 shadow-xl hover:shadow-2xl hover:shadow-green-500/5 transition-all duration-500 group overflow-hidden ${edu.certificate ? 'cursor-pointer hover:-translate-y-1' : 'hover:-translate-x-1'}`}
+                  onClick={() => edu.certificate && setSelectedCert({ certificate: edu.certificate, degree: edu.degree, institution: edu.institution })}
                 >
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
+                  {/* Glow decorativo de fondo */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/5 rounded-full blur-3xl group-hover:bg-green-500/10 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
+
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2 relative z-10">
                     <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors leading-tight">{edu.degree}</h4>
                     <span className="shrink-0 px-3 py-1 rounded-full text-xs font-bold bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-100 dark:border-green-800">
                       {edu.year}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 font-medium">
+                  <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 font-medium relative z-10">
                     <div className="flex items-center">
                       <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 mr-3"></span>
                       {edu.institution}
@@ -202,8 +225,11 @@ const Experience: React.FC = () => {
               ))}
             </div>
 
-            <div className="soft-skills-card mt-12 p-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+            <div 
+              onMouseMove={handleMouseMove}
+              className="soft-skills-card glow-card mt-12 p-8 bg-slate-50/50 dark:bg-[#0f172a]/30 border border-slate-200/50 dark:border-slate-800 shadow-xl hover:shadow-2xl hover:shadow-primary-500/5 rounded-3xl relative overflow-hidden transition-all duration-500 group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl group-hover:bg-primary-500/10 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
               <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-4 relative z-10">{t.experience.softSkillsTitle}</h4>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed relative z-10">
                 {t.experience.softSkillsDesc}
@@ -228,22 +254,71 @@ const Experience: React.FC = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
                 transition={{ type: "spring", damping: 25, stiffness: 350 }}
-                className="relative max-w-4xl w-full bg-white dark:bg-slate-900 p-1.5 rounded-3xl shadow-2xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden"
+                className="relative max-w-4xl w-full bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden flex flex-col md:flex-row"
                 onClick={e => e.stopPropagation()}
               >
-                {/* Botón X integrado elegantemente */}
-                <button 
-                  className="absolute top-4 right-4 z-10 p-2 bg-slate-950/40 hover:bg-slate-950/80 backdrop-blur-md text-white hover:text-green-400 rounded-full transition-all duration-200 border border-white/10 shadow-lg hover:scale-110 active:scale-95 cursor-pointer"
-                  onClick={() => setSelectedCert(null)}
-                  aria-label="Close modal"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-                <img 
-                  src={selectedCert} 
-                  alt="Certificado / Certificate" 
-                  className="w-full h-auto max-h-[80vh] object-contain rounded-2xl shadow-inner"
-                />
+                {/* Visualizador del certificado (Izquierda) */}
+                <div className="flex-1 bg-slate-100 dark:bg-slate-950 flex items-center justify-center p-6 relative min-h-[300px]">
+                  {/* Botón X integrado elegantemente */}
+                  <button 
+                    className="absolute top-4 right-4 z-10 p-2 bg-slate-950/40 hover:bg-slate-950/80 backdrop-blur-md text-white hover:text-green-400 rounded-full transition-all duration-200 border border-white/10 shadow-lg hover:scale-110 active:scale-95 cursor-pointer"
+                    onClick={() => setSelectedCert(null)}
+                    aria-label="Close modal"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                  <img 
+                    src={selectedCert.certificate} 
+                    alt={selectedCert.degree} 
+                    className="w-full h-auto max-h-[65vh] object-contain rounded-xl shadow-md"
+                  />
+                </div>
+                
+                {/* Detalles y Habilidades (Derecha) */}
+                <div className="w-full md:w-80 bg-white dark:bg-slate-900 p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-3 py-1 rounded-full border border-green-100 dark:border-green-800/40">
+                      HubSpot Certified
+                    </span>
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-4 mb-2 leading-snug">
+                      {selectedCert.degree}
+                    </h3>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-6">
+                      {selectedCert.institution}
+                    </p>
+
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
+                      {t.experience.workTitle === 'Experiencia Profesional' ? 'Habilidades Validadas' : 'Acquired Skills'}
+                    </h4>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {['SEO', 'Web Optimization', 'Keywords Research', 'Digital Strategy'].map((skillName, idx) => (
+                        <span key={idx} className="px-2.5 py-1 text-xs rounded-lg font-medium bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-700/60">
+                          {skillName}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    <a 
+                      href={selectedCert.certificate} 
+                      download 
+                      className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:opacity-90 transition-opacity cursor-pointer text-sm shadow-md"
+                    >
+                      <Download className="w-4 h-4" />
+                      {t.experience.workTitle === 'Experiencia Profesional' ? 'Descargar' : 'Download'}
+                    </a>
+                    <a 
+                      href={selectedCert.certificate} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-white font-semibold hover:bg-slate-100 dark:hover:bg-slate-750 transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer text-sm"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      {t.experience.workTitle === 'Experiencia Profesional' ? 'Ver Original' : 'View Original'}
+                    </a>
+                  </div>
+                </div>
               </motion.div>
             </motion.div>
           )}

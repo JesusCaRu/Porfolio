@@ -32,4 +32,5 @@ export interface Project {
   tech: string[];
   image: string;
   link?: string;
+  demoLink?: string;
 }
