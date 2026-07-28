@@ -110,7 +110,7 @@ const Projects: React.FC = () => {
           </p>
         </div>
 
-        <div className="projects-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 justify-center perspective-1000">
+        <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-7 justify-center perspective-1000">
           {t.projects.list.map((project, i) => (
             <div
               key={i}
@@ -119,52 +119,47 @@ const Projects: React.FC = () => {
               className="project-card h-full will-change-transform"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="glow-card bg-slate-50/60 dark:bg-[#0f172a]/40 backdrop-blur-md rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-primary-500/10 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary-500/40 dark:hover:border-primary-500/40 transition-all duration-500 group flex flex-col h-full relative">
+              <div className="glow-card bg-slate-50/70 dark:bg-[#0f172a]/50 backdrop-blur-md rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-primary-500/10 border border-slate-200/70 dark:border-slate-800 hover:border-primary-500/40 dark:hover:border-primary-500/40 transition-all duration-500 group flex flex-col h-full relative">
                 {/* Glow decorativo de fondo */}
                 <div className="absolute top-0 right-0 w-36 h-36 bg-primary-500/5 rounded-full blur-3xl group-hover:bg-primary-500/15 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
 
-                {/* Imagen del proyecto con badge numérico */}
+                {/* Imagen del proyecto */}
                 <div className="p-3.5 pb-0 z-10 shrink-0">
-                  <div className="relative overflow-hidden rounded-2xl border border-slate-200/60 dark:border-slate-800/80 h-48 sm:h-44 md:h-48">
+                  <div className="relative overflow-hidden rounded-2xl border border-slate-200/60 dark:border-slate-800/80 h-48 sm:h-44 md:h-48 bg-slate-100 dark:bg-slate-900">
                     <img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    {/* Badge con número de proyecto */}
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-slate-950/60 backdrop-blur-md border border-white/10 text-[10px] font-mono font-bold text-white shadow-sm">
-                      0{i + 1}
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-slate-950/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
                 </div>
 
                 <div className="p-6 flex flex-col flex-grow relative z-10">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
+                  <h3 className="text-[17px] font-bold font-display text-slate-900 dark:text-white mb-2.5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors leading-snug min-h-[2.75rem] flex items-center">
                     {project.title}
                   </h3>
 
-                  <p className="text-slate-600 dark:text-slate-300 mb-6 text-xs leading-relaxed flex-grow line-clamp-4">
+                  <p className="text-slate-600 dark:text-slate-300 mb-5 text-xs leading-relaxed flex-grow">
                     {project.description}
                   </p>
 
-                  <div className="space-y-5 mt-auto">
+                  <div className="space-y-4 mt-auto">
                     <div className="flex flex-wrap gap-1.5">
                       {project.tech.map((techItem, idx) => (
-                        <span key={idx} className="px-2 py-1 text-[9px] uppercase font-bold tracking-wider rounded-md bg-white dark:bg-[#0c101b] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-slate-800/80 group-hover:border-primary-500/30 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300">
+                        <span key={idx} className="px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-white dark:bg-[#0c101b] text-slate-600 dark:text-slate-350 border border-slate-200/60 dark:border-slate-800/90 group-hover:border-primary-500/30 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300">
                           {techItem}
                         </span>
                       ))}
                     </div>
 
-                    <div className="pt-4 border-t border-slate-200/60 dark:border-slate-800 flex justify-between items-center gap-2">
+                    <div className="pt-4 border-t border-slate-200/60 dark:border-slate-800/80 flex justify-between items-center gap-2">
                       {project.link && (
                         <a
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all group/link"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors group/link"
                         >
                           <Github size={15} />
                           {t.projects.viewCode}
@@ -176,7 +171,7 @@ const Projects: React.FC = () => {
                           href={project.demoLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-all group/link"
+                          className="inline-flex items-center gap-1 text-xs font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors group/link"
                         >
                           <ExternalLink size={15} />
                           {t.projects.viewDemo}

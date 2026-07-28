@@ -174,7 +174,7 @@ export const CONTENT = {
         {
           id: 1,
           title: "StockFlow - Gestión Robótica",
-          description: "Sistema integral diseñado para optimizar la gestión de inventario en entornos de robótica. Implementa control de stock en tiempo real y gestión de recursos.",
+          description: "Sistema integral diseñado para optimizar el inventario en entornos de robótica. Incluye control de stock en tiempo real y gestión eficiente de recursos.",
           tech: ["React", "Laravel", "MySQL", "Tailwind", "API REST"],
           image: "/images/StockFlow.webp",
           link: "https://github.com/JesusCaRu/ProyectoFinal",
@@ -183,7 +183,7 @@ export const CONTENT = {
         {
           id: 2,
           title: "Building Energy Efficiency ML",
-          description: "Pipeline end-to-end de Machine Learning para predecir el consumo de energía primaria en edificaciones. Incluye ingeniería de características basada en normativas térmicas españolas, Target Encoding Out-of-Fold y Stacking Ensemble multimodelo (LightGBM + XGBoost + CatBoost + Ridge).",
+          description: "Pipeline de Machine Learning para predecir el consumo de energía en edificaciones. Incluye ingeniería de características térmicas y Stacking Ensemble multimodelo (LightGBM, XGBoost, CatBoost).",
           tech: ["Python", "LightGBM", "XGBoost", "CatBoost", "Scikit-Learn", "AutoGluon"],
           image: "/images/building_energy_ml.png",
           link: "https://github.com/JesusCaRu/building-energy-efficiency-ml",
@@ -192,7 +192,7 @@ export const CONTENT = {
         {
           id: 3,
           title: "TikTok Wrapped - Analítica Interactiva",
-          description: "Aplicación web interactiva y privada para analizar tu resumen anual de TikTok. Procesa datos 100% en el navegador (Client-Side), incluye visor de historias tipo TikTok/Instagram, locución IA (Web Speech API), modo duelo versus, mapa circadiano de 365 días y tarjetas HD para compartir.",
+          description: "Aplicación web interactiva y privada para analizar tu resumen anual de TikTok en el navegador. Incluye visor de historias, locución por IA, modo duelo y mapa circadiano de 365 días.",
           tech: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Web Audio API"],
           image: "/images/tiktokwrapper.png",
           link: "https://github.com/JesusCaRu/Tiktok-Wrapper",
@@ -201,7 +201,7 @@ export const CONTENT = {
         {
           id: 4,
           title: "Resource Booking Concurrency API",
-          description: "API REST de alto rendimiento en Java 21 y Spring Boot 3 para la reserva de recursos con control de concurrencia optimista (@Version), evitando overbooking y condiciones de carrera. Integra procesamiento asíncrono impulsado por eventos con RabbitMQ, seguridad JWT, contenedores Docker hardening y documentación OpenAPI/Swagger.",
+          description: "API REST de alto rendimiento en Java 21 y Spring Boot 3 con control de concurrencia optimista (@Version). Evita sobre-reservas e integra mensajería asíncrona con RabbitMQ y seguridad JWT.",
           tech: ["Java 21", "Spring Boot 3", "PostgreSQL", "RabbitMQ", "Docker", "JWT", "Swagger"],
           image: "/images/resource_booking_api.png",
           link: "https://github.com/JesusCaRu/resource-booking-concurrency-api",
@@ -320,7 +320,7 @@ export const CONTENT = {
         {
           id: 1,
           title: "StockFlow - Robotic Management",
-          description: "Comprehensive system designed to optimize inventory management in robotics environments. Implements real-time stock control and resource management.",
+          description: "Comprehensive system designed to optimize inventory management in robotics environments. Implements real-time stock control and efficient resource management.",
           tech: ["React", "Laravel", "MySQL", "Tailwind", "REST API"],
           image: "/images/StockFlow.webp",
           link: "https://github.com/JesusCaRu/ProyectoFinal",
@@ -329,7 +329,7 @@ export const CONTENT = {
         {
           id: 2,
           title: "Building Energy Efficiency ML",
-          description: "End-to-end Machine Learning pipeline to predict building primary energy consumption. Features domain-specific feature engineering based on Spanish thermal codes, Out-of-Fold Target Encoding, and a multi-model Stacking Ensemble (LightGBM + XGBoost + CatBoost + Ridge).",
+          description: "End-to-end Machine Learning pipeline to predict building energy consumption. Features domain-specific thermal engineering and a multi-model Stacking Ensemble (LightGBM, XGBoost, CatBoost).",
           tech: ["Python", "LightGBM", "XGBoost", "CatBoost", "Scikit-Learn", "AutoGluon"],
           image: "/images/building_energy_ml.png",
           link: "https://github.com/JesusCaRu/building-energy-efficiency-ml",
@@ -338,7 +338,7 @@ export const CONTENT = {
         {
           id: 3,
           title: "TikTok Wrapped - Interactive Analytics",
-          description: "Interactive and private web app to visualize your annual TikTok recap. Processes data 100% client-side in browser, featuring an Instagram/TikTok style story viewer, AI voice narration (Web Speech API), head-to-head versus mode, 365-day circadian heatmap, and HD shareable card export.",
+          description: "Interactive and private web app to visualize your annual TikTok recap in browser. Features an Instagram/TikTok style story viewer, AI voice narration, versus mode, and 365-day heatmap.",
           tech: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Web Audio API"],
           image: "/images/tiktokwrapper.png",
           link: "https://github.com/JesusCaRu/Tiktok-Wrapper",
@@ -347,7 +347,7 @@ export const CONTENT = {
         {
           id: 4,
           title: "Resource Booking Concurrency API",
-          description: "High-performance REST API built with Java 21 and Spring Boot 3 for resource reservation using Optimistic Concurrency Control (@Version) to eliminate race conditions and double-booking. Features event-driven asynchronous messaging with RabbitMQ, JWT security, hardened Docker setup, and OpenAPI/Swagger documentation.",
+          description: "High-performance REST API built with Java 21 & Spring Boot 3 featuring Optimistic Concurrency Control (@Version) to eliminate race conditions. Integrates async messaging with RabbitMQ and JWT security.",
           tech: ["Java 21", "Spring Boot 3", "PostgreSQL", "RabbitMQ", "Docker", "JWT", "Swagger"],
           image: "/images/resource_booking_api.png",
           link: "https://github.com/JesusCaRu/resource-booking-concurrency-api",
