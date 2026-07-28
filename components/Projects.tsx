@@ -97,7 +97,7 @@ const Projects: React.FC = () => {
 
   return (
     <section id="projects" ref={containerRef} className="py-32 bg-white dark:bg-[#0B1120] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <div className="projects-badge inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-primary-600 uppercase bg-primary-50 dark:bg-primary-900/20 rounded-full border border-primary-100 dark:border-primary-900/50">
             {t.projects.badge}
@@ -110,7 +110,7 @@ const Projects: React.FC = () => {
           </p>
         </div>
 
-        <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center perspective-1000">
+        <div className="projects-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 justify-center perspective-1000">
           {t.projects.list.map((project, i) => (
             <div
               key={i}
@@ -119,40 +119,46 @@ const Projects: React.FC = () => {
               className="project-card h-full will-change-transform"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="glow-card bg-slate-50/50 dark:bg-[#0f172a]/30 backdrop-blur-sm rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-primary-500/5 border border-slate-200/50 dark:border-slate-800 transition-all duration-500 group flex flex-col h-full relative">
+              <div className="glow-card bg-slate-50/60 dark:bg-[#0f172a]/40 backdrop-blur-md rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-primary-500/10 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary-500/40 dark:hover:border-primary-500/40 transition-all duration-500 group flex flex-col h-full relative">
                 {/* Glow decorativo de fondo */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl group-hover:bg-primary-500/10 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
+                <div className="absolute top-0 right-0 w-36 h-36 bg-primary-500/5 rounded-full blur-3xl group-hover:bg-primary-500/15 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
 
-                <div className="p-4 pb-0 z-10 shrink-0">
-                  <div className="relative overflow-hidden rounded-2xl border border-slate-200/60 dark:border-slate-800/80 h-52">
+                {/* Imagen del proyecto con badge numérico */}
+                <div className="p-3.5 pb-0 z-10 shrink-0">
+                  <div className="relative overflow-hidden rounded-2xl border border-slate-200/60 dark:border-slate-800/80 h-48 sm:h-44 md:h-48">
                     <img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    {/* Badge con número de proyecto */}
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-slate-950/60 backdrop-blur-md border border-white/10 text-[10px] font-mono font-bold text-white shadow-sm">
+                      0{i + 1}
+                    </div>
                   </div>
                 </div>
 
-                <div className="p-8 flex flex-col flex-grow relative z-10">
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                <div className="p-6 flex flex-col flex-grow relative z-10">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
                     {project.title}
                   </h3>
 
-                  <p className="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed flex-grow">
+                  <p className="text-slate-600 dark:text-slate-300 mb-6 text-xs leading-relaxed flex-grow line-clamp-4">
                     {project.description}
                   </p>
 
-                  <div className="space-y-6 mt-auto">
-                    <div className="flex flex-wrap gap-2">
+                  <div className="space-y-5 mt-auto">
+                    <div className="flex flex-wrap gap-1.5">
                       {project.tech.map((techItem, idx) => (
-                        <span key={idx} className="px-2.5 py-1.5 text-[10px] uppercase font-bold tracking-wider rounded-lg bg-white dark:bg-[#0c101b] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-slate-800/80 group-hover:border-primary-500/30 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300">
+                        <span key={idx} className="px-2 py-1 text-[9px] uppercase font-bold tracking-wider rounded-md bg-white dark:bg-[#0c101b] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-slate-800/80 group-hover:border-primary-500/30 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300">
                           {techItem}
                         </span>
                       ))}
                     </div>
 
-                    <div className="pt-6 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                    <div className="pt-4 border-t border-slate-200/60 dark:border-slate-800 flex justify-between items-center gap-2">
                       {project.link && (
                         <a
                           href={project.link}
@@ -160,7 +166,7 @@ const Projects: React.FC = () => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all group/link"
                         >
-                          <Github size={16} />
+                          <Github size={15} />
                           {t.projects.viewCode}
                         </a>
                       )}
@@ -170,11 +176,11 @@ const Projects: React.FC = () => {
                           href={project.demoLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 dark:text-primary-400 hover:text-primary-750 dark:hover:text-primary-300 transition-all group/link"
+                          className="inline-flex items-center gap-1 text-xs font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-all group/link"
                         >
-                          <ExternalLink size={16} />
+                          <ExternalLink size={15} />
                           {t.projects.viewDemo}
-                          <ArrowRight size={14} className="transform group-hover/link:translate-x-0.5 transition-transform" />
+                          <ArrowRight size={13} className="transform group-hover/link:translate-x-0.5 transition-transform" />
                         </a>
                       )}
                     </div>
