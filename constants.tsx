@@ -197,6 +197,15 @@ export const CONTENT = {
           image: "/images/tiktokwrapper.png",
           link: "https://github.com/JesusCaRu/Tiktok-Wrapper",
           demoLink: "https://tiktok-wrapper.vercel.app"
+        },
+        {
+          id: 4,
+          title: "Resource Booking Concurrency API",
+          description: "API REST de alto rendimiento en Java 21 y Spring Boot 3 para la reserva de recursos con control de concurrencia optimista (@Version), evitando overbooking y condiciones de carrera. Integra procesamiento asíncrono impulsado por eventos con RabbitMQ, seguridad JWT, contenedores Docker hardening y documentación OpenAPI/Swagger.",
+          tech: ["Java 21", "Spring Boot 3", "PostgreSQL", "RabbitMQ", "Docker", "JWT", "Swagger"],
+          image: "/images/resource_booking_api.png",
+          link: "https://github.com/JesusCaRu/resource-booking-concurrency-api",
+          demoLink: "https://github.com/JesusCaRu/resource-booking-concurrency-api"
         }
       ] as Project[]
     },
@@ -334,6 +343,15 @@ export const CONTENT = {
           image: "/images/tiktokwrapper.png",
           link: "https://github.com/JesusCaRu/Tiktok-Wrapper",
           demoLink: "https://tiktok-wrapper.vercel.app"
+        },
+        {
+          id: 4,
+          title: "Resource Booking Concurrency API",
+          description: "High-performance REST API built with Java 21 and Spring Boot 3 for resource reservation using Optimistic Concurrency Control (@Version) to eliminate race conditions and double-booking. Features event-driven asynchronous messaging with RabbitMQ, JWT security, hardened Docker setup, and OpenAPI/Swagger documentation.",
+          tech: ["Java 21", "Spring Boot 3", "PostgreSQL", "RabbitMQ", "Docker", "JWT", "Swagger"],
+          image: "/images/resource_booking_api.png",
+          link: "https://github.com/JesusCaRu/resource-booking-concurrency-api",
+          demoLink: "https://github.com/JesusCaRu/resource-booking-concurrency-api"
         }
       ] as Project[]
     },
