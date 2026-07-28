@@ -179,6 +179,15 @@ export const CONTENT = {
           image: "/images/StockFlow.webp",
           link: "https://github.com/JesusCaRu/ProyectoFinal",
           demoLink: "https://github.com/JesusCaRu/ProyectoFinal"
+        },
+        {
+          id: 2,
+          title: "Building Energy Efficiency ML",
+          description: "Pipeline end-to-end de Machine Learning para predecir el consumo de energía primaria en edificaciones. Incluye ingeniería de características basada en normativas térmicas españolas, Target Encoding Out-of-Fold y Stacking Ensemble multimodelo (LightGBM + XGBoost + CatBoost + Ridge).",
+          tech: ["Python", "LightGBM", "XGBoost", "CatBoost", "Scikit-Learn", "AutoGluon"],
+          image: "/images/building_energy_ml.png",
+          link: "https://github.com/JesusCaRu/building-energy-efficiency-ml",
+          demoLink: "https://github.com/JesusCaRu/building-energy-efficiency-ml"
         }
       ] as Project[]
     },
@@ -298,6 +307,15 @@ export const CONTENT = {
           image: "/images/StockFlow.webp",
           link: "https://github.com/JesusCaRu/ProyectoFinal",
           demoLink: "https://github.com/JesusCaRu/ProyectoFinal"
+        },
+        {
+          id: 2,
+          title: "Building Energy Efficiency ML",
+          description: "End-to-end Machine Learning pipeline to predict building primary energy consumption. Features domain-specific feature engineering based on Spanish thermal codes, Out-of-Fold Target Encoding, and a multi-model Stacking Ensemble (LightGBM + XGBoost + CatBoost + Ridge).",
+          tech: ["Python", "LightGBM", "XGBoost", "CatBoost", "Scikit-Learn", "AutoGluon"],
+          image: "/images/building_energy_ml.png",
+          link: "https://github.com/JesusCaRu/building-energy-efficiency-ml",
+          demoLink: "https://github.com/JesusCaRu/building-energy-efficiency-ml"
         }
       ] as Project[]
     },

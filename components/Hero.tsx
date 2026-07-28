@@ -66,15 +66,15 @@ echo "Ready to build amazing projects!"`
       lang: 'markdown',
       content: language === 'es' ? `# Proyectos Destacados
 
-1. **Cuts & Wash** - BarberShop Inteligente con IA
-   - Tech: React, Supabase, Tailwind, Node.js
-2. **StockFlow** - Gestión Robótica
-   - Tech: React, Laravel, MySQL, REST API` : `# Featured Projects
+1. **StockFlow** - Gestión Robótica
+   - Tech: React, Laravel, MySQL, REST API
+2. **Building Energy Efficiency ML** - Predicción Energética IA
+   - Tech: Python, LightGBM, XGBoost, CatBoost, AutoGluon` : `# Featured Projects
 
-1. **Cuts & Wash** - AI Smart BarberShop
-   - Tech: React, Supabase, Tailwind, Node.js
-2. **StockFlow** - Robotic Management
-   - Tech: React, Laravel, MySQL, REST API`
+1. **StockFlow** - Robotic Management
+   - Tech: React, Laravel, MySQL, REST API
+2. **Building Energy Efficiency ML** - Energy Prediction AI
+   - Tech: Python, LightGBM, XGBoost, CatBoost, AutoGluon`
     }
   };
 
