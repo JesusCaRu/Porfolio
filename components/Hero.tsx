@@ -81,12 +81,12 @@ echo "Ready to build amazing projects!"`
   // Typing animation effect
   useEffect(() => {
     if (activeTab === 'bash') return;
-    
+
     setIsTyping(true);
     setTypedText("");
     const content = files[activeTab].content;
     let index = 0;
-    
+
     const timer = setInterval(() => {
       setTypedText((prev) => {
         const nextChars = content.substring(index, index + 3);
@@ -99,7 +99,7 @@ echo "Ready to build amazing projects!"`
         return prev + nextChars;
       });
     }, 15);
-    
+
     return () => clearInterval(timer);
   }, [activeTab, language]);
 
@@ -121,8 +121,8 @@ echo "Ready to build amazing projects!"`
 
     let response = "";
     if (cmd === 'help' || cmd === 'ayuda') {
-      response = language === 'es' 
-        ? "Comandos disponibles:\n  about     - Muestra información personal (JSON)\n  skills    - Ejecuta script de habilidades (SH)\n  projects  - Muestra proyectos destacados (MD)\n  contact   - Desplazar hasta sección de contacto\n  theme     - Alternar modo claro/oscuro\n  clear     - Limpiar pantalla" 
+      response = language === 'es'
+        ? "Comandos disponibles:\n  about     - Muestra información personal (JSON)\n  skills    - Ejecuta script de habilidades (SH)\n  projects  - Muestra proyectos destacados (MD)\n  contact   - Desplazar hasta sección de contacto\n  theme     - Alternar modo claro/oscuro\n  clear     - Limpiar pantalla"
         : "Available commands:\n  about     - Display personal information (JSON)\n  skills    - Execute skills shell script (SH)\n  projects  - Show featured projects (MD)\n  contact   - Scroll to contact section\n  theme     - Toggle light/dark mode\n  clear     - Clear screen";
     } else if (cmd === 'about' || cmd === 'sobremi') {
       response = files.about.content;
@@ -149,8 +149,8 @@ echo "Ready to build amazing projects!"`
       }
       response = language === 'es' ? "Tema de color cambiado." : "Color theme updated.";
     } else {
-      response = language === 'es' 
-        ? `Error: comando no encontrado: '${cmd}'. Escribe 'help' para ayuda.` 
+      response = language === 'es'
+        ? `Error: comando no encontrado: '${cmd}'. Escribe 'help' para ayuda.`
         : `Command not found: '${cmd}'. Type 'help' for support.`;
     }
 
@@ -413,8 +413,8 @@ echo "Ready to build amazing projects!"`
                 {t.hero.btnProjects}
               </a>
               <a
-                href="/Jesús_Canicio_Ruiz_CV.pdf"
-                download="Jesús_Canicio_Ruiz_CV.pdf"
+                href="/Jesus_Canicio_Ruiz_CV.pdf"
+                download="Jesus_Canicio_Ruiz_CV.pdf"
                 className="hero-btn group w-full sm:w-auto px-8 py-4 rounded-xl bg-white dark:bg-slate-800/50 text-slate-700 dark:text-white border border-slate-200 dark:border-slate-700 font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-3 backdrop-blur-sm"
               >
                 <Download size={20} className="group-hover:animate-bounce" />
@@ -470,11 +470,10 @@ echo "Ready to build amazing projects!"`
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
-                        className={`px-4 py-3 border-r border-slate-200/60 dark:border-slate-800/60 transition-all flex items-center gap-1.5 cursor-pointer font-medium ${
-                          isActive
-                            ? 'bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white border-b border-b-white dark:border-b-[#0f172a]'
-                            : 'text-slate-500 hover:bg-slate-100/50 dark:hover:bg-slate-800/20'
-                        }`}
+                        className={`px-4 py-3 border-r border-slate-200/60 dark:border-slate-800/60 transition-all flex items-center gap-1.5 cursor-pointer font-medium ${isActive
+                          ? 'bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white border-b border-b-white dark:border-b-[#0f172a]'
+                          : 'text-slate-500 hover:bg-slate-100/50 dark:hover:bg-slate-800/20'
+                          }`}
                       >
                         <span className={`${item.color} font-bold`}>{item.icon}</span>
                         {item.label}
@@ -508,7 +507,7 @@ echo "Ready to build amazing projects!"`
                           )}
                         </div>
                       ))}
-                      
+
                       <form onSubmit={handleCommandSubmit} className="flex items-center gap-2">
                         <span className="text-primary-500 dark:text-primary-400 font-bold shrink-0">visitor@jesus-dev:~$</span>
                         <input
