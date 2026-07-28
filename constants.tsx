@@ -188,6 +188,15 @@ export const CONTENT = {
           image: "/images/building_energy_ml.png",
           link: "https://github.com/JesusCaRu/building-energy-efficiency-ml",
           demoLink: "https://github.com/JesusCaRu/building-energy-efficiency-ml"
+        },
+        {
+          id: 3,
+          title: "TikTok Wrapped - Analítica Interactiva",
+          description: "Aplicación web interactiva y privada para analizar tu resumen anual de TikTok. Procesa datos 100% en el navegador (Client-Side), incluye visor de historias tipo TikTok/Instagram, locución IA (Web Speech API), modo duelo versus, mapa circadiano de 365 días y tarjetas HD para compartir.",
+          tech: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Web Audio API"],
+          image: "/images/tiktokwrapper.png",
+          link: "https://github.com/JesusCaRu/Tiktok-Wrapper",
+          demoLink: "https://tiktok-wrapper.vercel.app"
         }
       ] as Project[]
     },
@@ -316,6 +325,15 @@ export const CONTENT = {
           image: "/images/building_energy_ml.png",
           link: "https://github.com/JesusCaRu/building-energy-efficiency-ml",
           demoLink: "https://github.com/JesusCaRu/building-energy-efficiency-ml"
+        },
+        {
+          id: 3,
+          title: "TikTok Wrapped - Interactive Analytics",
+          description: "Interactive and private web app to visualize your annual TikTok recap. Processes data 100% client-side in browser, featuring an Instagram/TikTok style story viewer, AI voice narration (Web Speech API), head-to-head versus mode, 365-day circadian heatmap, and HD shareable card export.",
+          tech: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Web Audio API"],
+          image: "/images/tiktokwrapper.png",
+          link: "https://github.com/JesusCaRu/Tiktok-Wrapper",
+          demoLink: "https://tiktok-wrapper.vercel.app"
         }
       ] as Project[]
     },

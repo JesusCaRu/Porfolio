@@ -138,7 +138,7 @@ const Contact: React.FC = () => {
                     <MapPin className="w-5 h-5 text-blue-200 mt-1" />
                     <div>
                       <div className="font-medium text-sm text-blue-200">{t.contact.location}</div>
-                      <span className="font-semibold">Pinoso, Alicante</span>
+                      <span className="font-semibold">Alicante, España</span>
                     </div>
                   </div>
                 </div>

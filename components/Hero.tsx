@@ -31,13 +31,13 @@ const Hero: React.FC = () => {
       content: language === 'es' ? `{
   "nombre": "Jesús Canicio Ruiz",
   "puesto": "Desarrollador Full Stack",
-  "ubicacion": "Pinoso, Alicante, España",
+  "ubicacion": "Alicante, España",
   "intereses": ["Apps Web", "Inteligencia Artificial", "Robótica"],
   "enfoque": "Código limpio y mantenible"
 }` : `{
   "name": "Jesús Canicio Ruiz",
   "role": "Full Stack Developer",
-  "location": "Pinoso, Alicante, Spain",
+  "location": "Alicante, Spain",
   "interests": ["Web Apps", "AI", "Robotics"],
   "focus": "Clean and maintainable code"
 }`
