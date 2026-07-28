@@ -64,8 +64,10 @@ const Projects: React.FC = () => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
+    requestAnimationFrame(() => {
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
 
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
@@ -76,8 +78,9 @@ const Projects: React.FC = () => {
     gsap.to(card, {
       rotateX: rotateX,
       rotateY: rotateY,
-      duration: 0.5,
+      duration: 0.3,
       ease: "power2.out",
+      overwrite: "auto",
       transformPerspective: 1000
     });
   };
@@ -87,7 +90,8 @@ const Projects: React.FC = () => {
       rotateX: 0,
       rotateY: 0,
       duration: 0.5,
-      ease: "power2.out"
+      ease: "power2.out",
+      overwrite: "auto"
     });
   };
 

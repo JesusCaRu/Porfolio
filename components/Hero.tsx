@@ -284,22 +284,22 @@ echo "Ready to build amazing projects!"`
 
     // Tarjetas flotantes
     gsap.to(".float-card-1", {
-      y: -15,
-      rotate: 5,
-      duration: 5,
+      y: -8,
+      rotate: 3,
+      duration: 4,
       repeat: -1,
       yoyo: true,
       ease: "sine.inOut"
     });
 
     gsap.to(".float-card-2", {
-      y: 15,
-      rotate: -5,
-      duration: 6,
+      y: 8,
+      rotate: -3,
+      duration: 4.5,
       repeat: -1,
       yoyo: true,
       ease: "sine.inOut",
-      delay: 1
+      delay: 0.5
     });
 
     // Indicador de scroll
@@ -323,14 +323,16 @@ echo "Ready to build amazing projects!"`
         x: xPos * 50,
         y: yPos * 50,
         duration: 2,
-        ease: "power2.out"
+        ease: "power2.out",
+        overwrite: "auto"
       });
 
       gsap.to(blob2Ref.current, {
         x: xPos * -70,
         y: yPos * -70,
         duration: 2,
-        ease: "power2.out"
+        ease: "power2.out",
+        overwrite: "auto"
       });
 
       if (cardRef.current) {
@@ -338,12 +340,13 @@ echo "Ready to build amazing projects!"`
           rotateY: xPos * 15,
           rotateX: -yPos * 15,
           duration: 1,
-          ease: "power2.out"
+          ease: "power2.out",
+          overwrite: "auto"
         });
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, { scope: containerRef });
 
@@ -525,23 +528,23 @@ echo "Ready to build amazing projects!"`
               </div>
 
               {/* Tarjetas flotantes */}
-              <div className="float-card-1 absolute -bottom-12 -left-16 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20">
-                <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl text-blue-500">
-                  <img src="./images/react.svg" alt="React" className="w-8 h-8" />
+              <div className="float-card-1 absolute -bottom-5 -left-5 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl p-3.5 rounded-2xl shadow-2xl border border-slate-200/80 dark:border-slate-800/80 flex items-center gap-3 z-20 pointer-events-none">
+                <div className="p-2.5 bg-blue-500/10 dark:bg-blue-400/10 rounded-xl text-blue-500 shrink-0">
+                  <img src="./images/react.svg" alt="React" className="w-7 h-7" />
                 </div>
                 <div>
-                  <div className="font-bold text-slate-900 dark:text-white text-lg">React</div>
-                  <div className="text-xs text-slate-500 font-medium">Frontend</div>
+                  <div className="font-bold text-slate-900 dark:text-white text-sm leading-snug">React</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Frontend</div>
                 </div>
               </div>
 
-              <div className="float-card-2 absolute -top-12 -right-16 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 z-20">
-                <div className="p-3 bg-red-50 dark:bg-red-900/30 rounded-xl text-red-500">
+              <div className="float-card-2 absolute -top-5 -right-5 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl p-3.5 rounded-2xl shadow-2xl border border-slate-200/80 dark:border-slate-800/80 flex items-center gap-3 z-20 pointer-events-none">
+                <div className="p-2.5 bg-red-500/10 dark:bg-red-400/10 rounded-xl text-red-500 shrink-0">
                   <img src="./images/laravel.svg" alt="Laravel" className="w-8 h-8" />
                 </div>
                 <div>
-                  <div className="font-bold text-slate-900 dark:text-white text-lg">Laravel</div>
-                  <div className="text-xs text-slate-500 font-medium">Backend</div>
+                  <div className="font-bold text-slate-900 dark:text-white text-sm leading-snug">Laravel</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Backend</div>
                 </div>
               </div>
             </div>

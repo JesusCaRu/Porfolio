@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useMemo, ReactNode } from 'react';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
 
@@ -34,7 +34,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     localStorage.setItem('language', lang);
   };
 
-  const t = CONTENT[language];
+  const t = useMemo(() => CONTENT[language], [language]);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>

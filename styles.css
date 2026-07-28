@@ -118,3 +118,13 @@
 .dark .terminal-header {
     background: rgba(30, 41, 59, 0.5);
 }
+
+/* Rendering performance optimizations (Vercel Best Practices) */
+#skills, #experience, #projects, #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: 600px;
+}
+
+.will-change-transform {
+    will-change: transform;
+}
