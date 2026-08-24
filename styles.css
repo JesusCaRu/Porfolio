@@ -13,35 +13,58 @@
     --color-primary-700: #0369a1;
     --color-primary-800: #075985;
     --color-primary-900: #0c4a6e;
+    --color-primary-950: #082f49;
 
-    --font-sans: 'Inter', sans-serif;
+    --color-accent-indigo-400: #818cf8;
+    --color-accent-indigo-500: #6366f1;
+    --color-accent-indigo-600: #4f46e5;
+
+    --color-accent-emerald-400: #34d399;
+    --color-accent-emerald-500: #10b981;
+
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-display: 'Plus Jakarta Sans', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-    --animate-blob: blob 7s infinite;
+    --animate-float-slow: float-slow 6s ease-in-out infinite;
+    --animate-pulse-subtle: pulse-subtle 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-mesh-spin: mesh-spin 20s linear infinite;
 
-    @keyframes blob {
-        0% {
-            transform: translate(0px, 0px) scale(1);
+    @keyframes float-slow {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
         }
-
-        33% {
-            transform: translate(30px, -50px) scale(1.1);
+        50% {
+            transform: translateY(-10px) rotate(1deg);
         }
+    }
 
-        66% {
-            transform: translate(-20px, 20px) scale(0.9);
+    @keyframes pulse-subtle {
+        0%, 100% {
+            opacity: 0.2;
+            transform: scale(1);
         }
+        50% {
+            opacity: 0.35;
+            transform: scale(1.05);
+        }
+    }
 
-        100% {
-            transform: translate(0px, 0px) scale(1);
+    @keyframes mesh-spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
         }
     }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 7px;
+    height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -50,11 +73,11 @@
 
 ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-    border-radius: 4px;
+    border-radius: 9999px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: #1e293b;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -62,30 +85,58 @@
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: #334155;
 }
 
-/* Custom premium utilities */
+/* Tipografía de alta precisión */
+.font-sans {
+    font-family: var(--font-sans);
+}
+
 .font-display {
     font-family: var(--font-display);
+}
+
+.font-heading {
+    font-family: var(--font-heading);
 }
 
 .font-mono {
     font-family: var(--font-mono);
 }
 
+/* Glassmorphism y Paneles de Vanguardia */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(241, 245, 249, 0.6);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .dark .glass-panel {
-    background: rgba(15, 23, 42, 0.55);
-    border: 1px solid rgba(51, 65, 85, 0.35);
+    background: rgba(14, 18, 27, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
+.glass-dock {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-dock {
+    background: rgba(8, 9, 14, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* Glow Card Interactivo con coordenadas del mouse */
 .glow-card {
     position: relative;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -95,11 +146,11 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(14, 165, 233, 0.06), transparent 40%);
+    background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(2, 132, 199, 0.07), transparent 40%);
     border-radius: inherit;
     z-index: 0;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
     pointer-events: none;
 }
 
@@ -108,23 +159,50 @@
 }
 
 .dark .glow-card::before {
-    background: radial-gradient(800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(56, 189, 248, 0.1), transparent 40%);
+    background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(56, 189, 248, 0.12), transparent 45%);
 }
 
-.terminal-header {
-    background: rgba(241, 245, 249, 0.85);
+/* Malla de cuadrícula técnica y elegante */
+.engineered-grid {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
 }
 
-.dark .terminal-header {
-    background: rgba(30, 41, 59, 0.5);
+.dark .engineered-grid {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
 }
 
-/* Rendering performance optimizations (Vercel Best Practices) */
-#skills, #experience, #projects, #contact {
-    content-visibility: auto;
-    contain-intrinsic-size: 600px;
+/* Degradados de texto premium */
+.text-gradient-cyan {
+    background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
+.dark .text-gradient-cyan {
+    background: linear-gradient(135deg, #38bdf8 0%, #00d2ff 50%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-silver {
+    background: linear-gradient(180deg, #1e293b 0%, #64748b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark .text-gradient-silver {
+    background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Renderizado & Rendimiento */
 .will-change-transform {
     will-change: transform;
-}
+}

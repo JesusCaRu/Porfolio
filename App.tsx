@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUp, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, Mail, Command, Sparkles, Check } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import CommandPalette from './components/CommandPalette';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { Analytics } from "@vercel/analytics/react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SHORT_NAME } from './constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,6 +30,9 @@ const PortfolioContent = () => {
 
   const { t } = useLanguage();
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
   const scrollBtnRef = useRef<HTMLDivElement>(null);
   const progressCircleRef = useRef<SVGCircleElement>(null);
 
@@ -41,9 +46,29 @@ const PortfolioContent = () => {
     }
   }, [darkMode]);
 
-  // Progreso de scroll & Boton de visibilidad
+  // Manejador global de atajos de teclado para Cmd+K / Ctrl+K
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3500);
+  };
+
+  // Progreso de scroll & Botón de visibilidad
   useGSAP(() => {
-    const radius = 46;
+    const radius = 44;
     const circumference = 2 * Math.PI * radius;
 
     if (progressCircleRef.current) {
@@ -74,7 +99,7 @@ const PortfolioContent = () => {
           y: 0,
           scale: 1,
           opacity: 1,
-          duration: 0.4,
+          duration: 0.35,
           ease: "back.out(1.7)"
         });
       } else {
@@ -82,7 +107,7 @@ const PortfolioContent = () => {
           y: 20,
           scale: 0,
           opacity: 0,
-          duration: 0.3,
+          duration: 0.25,
           ease: "power2.in"
         });
       }
@@ -106,9 +131,25 @@ const PortfolioContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 font-sans selection:bg-blue-500 selection:text-white">
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+    <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300 font-sans selection:bg-cyan-500 selection:text-white">
+      
+      {/* Barra de Navegación Flotante */}
+      <Navbar
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+      />
 
+      {/* Paleta de Comandos Global (Cmd+K / Ctrl+K) */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+        onCopyEmail={() => showToast(t.commandPalette?.copiedEmailToast || 'Email copiado: jesuscanicio33@gmail.com')}
+      />
+
+      {/* Contenido Principal */}
       <main>
         <Hero />
         <Skills />
@@ -117,108 +158,141 @@ const PortfolioContent = () => {
         <Contact />
       </main>
 
-      <footer className="bg-slate-50/50 dark:bg-[#0f172a]/20 border-t border-slate-200/50 dark:border-slate-900/80 py-16 backdrop-blur-md relative overflow-hidden">
-        {/* Glow decorativo */}
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
-            {/* Logo e Info */}
-            <div className="text-center md:text-left">
-              <div className="font-display font-extrabold text-2xl text-slate-900 dark:text-white tracking-tight">
-                Jesús<span className="text-primary-500">.</span>
+      {/* Footer Amplio y Elegante */}
+      <footer className="bg-slate-50 dark:bg-black border-t border-slate-200 dark:border-slate-800/90 py-24 sm:py-28 relative overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-center">
+            
+            {/* Logo e Info (5 cols) */}
+            <div className="md:col-span-4 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <span className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white tracking-tight">
+                  {SHORT_NAME}<span className="text-cyan-500">.dev</span>
+                </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2 uppercase tracking-widest font-bold">
-                Full Stack Developer
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-mono mt-2 uppercase tracking-widest font-semibold">
+                Desarrollador Full Stack
+              </p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 max-w-sm mx-auto md:mx-0">
+                Construyendo experiencias web completas, escalables y optimizadas.
               </p>
             </div>
 
-            {/* Enlaces de navegacion cortos */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm font-medium">
-              <a href="#contact" className="text-slate-500 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-                {t.nav?.contact || 'Contacto'}
+            {/* Enlaces Rápidos (4 cols) */}
+            <div className="md:col-span-5 flex flex-wrap justify-center md:justify-center gap-6 sm:gap-8 text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider">
+              <a href="#hero" className="text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                {t.nav?.home || 'Inicio'}
               </a>
-              <a href="#projects" className="text-slate-500 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-                {t.nav?.projects || 'Proyectos'}
+              <a href="#skills" className="text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                {t.nav?.skills || 'Habilidades'}
               </a>
-              <a href="#experience" className="text-slate-500 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
+              <a href="#experience" className="text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                 {t.nav?.experience || 'Experiencia'}
               </a>
-              <a href="#skills" className="text-slate-500 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">
-                {t.nav?.skills || 'Habilidades'}
+              <a href="#projects" className="text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                {t.nav?.projects || 'Proyectos'}
+              </a>
+              <a href="#contact" className="text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                {t.nav?.contact || 'Contacto'}
               </a>
             </div>
 
-            {/* Redes sociales */}
-            <div className="flex items-center justify-center md:justify-end gap-3.5">
+            {/* Redes y Atajo (3 cols) */}
+            <div className="md:col-span-3 flex items-center justify-center md:justify-end gap-3">
+              <button
+                onClick={() => setIsCommandPaletteOpen(true)}
+                className="hidden sm:flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-xs font-mono font-semibold hover:border-cyan-500/40 transition-colors cursor-pointer shadow-2xs"
+                title="Abrir Command Palette"
+              >
+                <Command size={14} className="text-cyan-500" />
+                <span>⌘K</span>
+              </button>
+
               <a 
                 href="https://github.com/JesusCaRu" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-3 rounded-xl bg-white dark:bg-[#0c101b] border border-slate-200/60 dark:border-slate-800/80 text-slate-655 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer"
+                className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-500 hover:border-cyan-500/40 transition-all hover:-translate-y-0.5 shadow-2xs cursor-pointer"
+                title="GitHub"
               >
-                <Github size={18} />
+                <Github size={19} />
               </a>
               <a 
-                href="https://linkedin.com/in/jesús-canicio-ruiz-a461b12b5" 
+                href="https://www.linkedin.com/in/jesús-canicio-ruiz-184374262" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-3 rounded-xl bg-white dark:bg-[#0c101b] border border-slate-200/60 dark:border-slate-800/80 text-slate-655 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer"
+                className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-indigo-400 hover:border-indigo-500/40 transition-all hover:-translate-y-0.5 shadow-2xs cursor-pointer"
+                title="LinkedIn"
               >
-                <Linkedin size={18} />
+                <Linkedin size={19} />
               </a>
               <a 
                 href="mailto:jesuscanicio33@gmail.com" 
-                className="p-3 rounded-xl bg-white dark:bg-[#0c101b] border border-slate-200/60 dark:border-slate-800/80 text-slate-655 dark:text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer"
+                className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-cyan-500 hover:border-cyan-500/40 transition-all hover:-translate-y-0.5 shadow-2xs cursor-pointer"
+                title="Email"
               >
-                <Mail size={18} />
+                <Mail size={19} />
               </a>
             </div>
+
           </div>
 
-          <div className="pt-8 mt-8 border-t border-slate-200/60 dark:border-slate-900/60 text-center">
-            <p className="text-xs text-slate-450 dark:text-slate-500 font-medium">
-              © {new Date().getFullYear()} {t.footer}
+          <div className="pt-12 mt-12 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 dark:text-slate-500 font-mono">
+            <p>
+              © {new Date().getFullYear()} {t.footer?.copyright || 'Jesús Canicio Ruiz. Todos los derechos reservados.'}
             </p>
+            <div className="flex items-center gap-2 text-emerald-500 font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>{t.footer?.status || 'All systems operational'}</span>
+            </div>
           </div>
         </div>
       </footer>
 
-      {/* Boton de scroll con progreso circular */}
+      {/* Toast Notification Flotante */}
+      {toastMessage && (
+        <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-2xl border border-slate-700/50 dark:border-slate-200 text-xs font-mono font-bold animate-in fade-in slide-in-from-bottom-3">
+          <Check size={15} className="text-emerald-400" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Botón flotante Scroll-To-Top con progreso circular */}
       <div
         ref={scrollBtnRef}
         className="fixed bottom-6 right-6 z-40 opacity-0 scale-0 transform translate-y-4"
       >
         <button
           onClick={scrollToTop}
-          className="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm shadow-lg shadow-slate-200/30 dark:shadow-black/40 border border-slate-200/60 dark:border-slate-700/60 transition-all hover:scale-110 active:scale-95 group cursor-pointer"
-          aria-label="Scroll to top"
+          className="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/95 dark:bg-[#0E121B]/95 backdrop-blur-md shadow-xl border border-slate-200/80 dark:border-slate-800 transition-all hover:scale-110 active:scale-95 group cursor-pointer"
+          aria-label="Volver arriba"
         >
           <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
             <circle
               cx="50"
               cy="50"
-              r="46"
+              r="44"
               fill="none"
               stroke="currentColor"
-              strokeWidth="8"
+              strokeWidth="7"
               className="text-slate-100 dark:text-slate-800"
             />
             <circle
               ref={progressCircleRef}
               cx="50"
               cy="50"
-              r="46"
+              r="44"
               fill="none"
               stroke="currentColor"
-              strokeWidth="8"
-              className="text-primary-600 dark:text-primary-400 drop-shadow-sm"
+              strokeWidth="7"
+              className="text-cyan-500 dark:text-cyan-400 drop-shadow-sm"
               strokeLinecap="round"
             />
           </svg>
-          <ArrowUp size={20} className="text-slate-700 dark:text-slate-200 relative z-10 group-hover:-translate-y-0.5 transition-transform duration-300" />
+          <ArrowUp size={18} className="text-slate-700 dark:text-slate-200 relative z-10 group-hover:-translate-y-0.5 transition-transform duration-200" />
         </button>
       </div>
+
     </div>
   );
 }
@@ -232,4 +306,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;

@@ -9,6 +9,8 @@ export interface ExperienceItem {
   period: string;
   description: string;
   tags: string[];
+  location?: string;
+  roleType?: string;
 }
 
 export interface EducationItem {
@@ -16,13 +18,16 @@ export interface EducationItem {
   institution: string;
   year: string;
   certificate?: string;
+  badge?: string;
+  skills?: string[];
 }
 
 export interface Skill {
   name: string;
   icon: React.ReactNode;
-  // level removed as requested
   category: 'frontend' | 'backend' | 'tools';
+  usageHint?: string;
+  featured?: boolean;
 }
 
 export interface Project {
@@ -33,4 +38,13 @@ export interface Project {
   image: string;
   link?: string;
   demoLink?: string;
+  category: 'fullstack' | 'ml' | 'backend';
+  metrics?: string;
+  highlights?: string[];
+  architecture?: {
+    frontend?: string;
+    backend?: string;
+    database?: string;
+    features?: string;
+  };
 }

@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
+import { Sparkles, Layers, Cpu, Wrench } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,150 +14,148 @@ const Skills: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<'all' | 'frontend' | 'backend' | 'tools'>('all');
 
-  // Mouse move effect for glow cards
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    requestAnimationFrame(() => {
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
-  };
-
   useGSAP(() => {
-    // Animación del título
-    gsap.from(".skills-title", {
+    gsap.from(".skills-badge", {
       scrollTrigger: {
-        trigger: ".skills-title",
+        trigger: ".skills-header",
         start: "top 80%",
       },
-      y: 30,
+      scale: 0.8,
       opacity: 0,
-      duration: 0.8,
+      duration: 0.5,
+      ease: "back.out(1.7)",
+      clearProps: "all"
+    });
+
+    gsap.from(".skills-title", {
+      scrollTrigger: {
+        trigger: ".skills-header",
+        start: "top 80%",
+      },
+      y: 25,
+      opacity: 0,
+      duration: 0.7,
+      delay: 0.1,
       ease: "power3.out",
       clearProps: "all"
     });
 
     gsap.from(".skills-subtitle", {
       scrollTrigger: {
-        trigger: ".skills-subtitle",
+        trigger: ".skills-header",
         start: "top 80%",
       },
       y: 20,
       opacity: 0,
-      duration: 0.8,
-      delay: 0.1,
+      duration: 0.7,
+      delay: 0.2,
       ease: "power3.out",
       clearProps: "all"
     });
-
-    // Animación flotante continua para los iconos
-    gsap.utils.toArray(".skill-icon").forEach((icon: any, i) => {
-      gsap.to(icon, {
-        y: -5,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: i * 0.2
-      });
-    });
-
   }, { scope: containerRef });
 
   const filteredSkills = SKILLS_DATA.filter(
     (skill) => activeFilter === 'all' || skill.category === activeFilter
   );
 
-  return (
-    <section id="skills" ref={containerRef} className="py-32 bg-white dark:bg-[#0B1120] relative overflow-hidden">
-      {/* Gradiente de fondo decorativo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-100/30 dark:bg-primary-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+  const filters = [
+    { key: 'all' as const, label: t.skills.filterAll, icon: <Layers size={14} /> },
+    { key: 'frontend' as const, label: t.skills.filterFrontend, icon: <Sparkles size={14} /> },
+    { key: 'backend' as const, label: t.skills.filterBackend, icon: <Cpu size={14} /> },
+    { key: 'tools' as const, label: t.skills.filterTools, icon: <Wrench size={14} /> }
+  ];
 
+  return (
+    <section id="skills" ref={containerRef} className="py-28 relative overflow-hidden bg-white dark:bg-[#0C101B] border-t border-slate-200/80 dark:border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="skills-title text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
+        
+        {/* Cabecera de la sección */}
+        <div className="skills-header text-center mb-14">
+          <div className="skills-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 border border-cyan-500/30 text-cyan-700 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <Sparkles size={13} />
+            {t.skills.badge}
+          </div>
+          <h2 className="skills-title text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading text-slate-900 dark:text-white mb-4 tracking-tight">
             {t.skills.title}
           </h2>
-          <p className="skills-subtitle text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="skills-subtitle text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
             {t.skills.subtitle}
           </p>
         </div>
 
-        {/* Botones de Filtro Dinámico */}
-        <div className="flex justify-center gap-3 mb-16 flex-wrap">
-          {(['all', 'frontend', 'backend', 'tools'] as const).map((filter) => {
-            const label = {
-              all: language === 'es' ? 'Todos' : 'All',
-              frontend: 'Frontend',
-              backend: 'Backend',
-              tools: language === 'es' ? 'Herramientas' : 'Tools'
-            }[filter];
-            const isActive = activeFilter === filter;
+        {/* Selector de Filtros */}
+        <div className="flex justify-center gap-2 sm:gap-3 mb-12 flex-wrap">
+          {filters.map((filter) => {
+            const isActive = activeFilter === filter.key;
             return (
               <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all relative cursor-pointer ${
+                key={filter.key}
+                onClick={() => setActiveFilter(filter.key)}
+                className={`flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all relative cursor-pointer ${
                   isActive
-                    ? 'text-white'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100/50 dark:bg-slate-800/30'
+                    ? 'text-white shadow-md shadow-cyan-500/20'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800'
                 }`}
               >
                 {isActive && (
                   <motion.div
-                    layoutId="activeFilter"
-                    className="absolute inset-0 bg-primary-600 dark:bg-primary-500 rounded-full"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    layoutId="activeSkillFilter"
+                    className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-primary-600 to-indigo-600 rounded-full"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     style={{ zIndex: 0 }}
                   />
                 )}
-                <span className="relative z-10">{label}</span>
+                <span className="relative z-10 flex items-center gap-1.5">
+                  {filter.icon}
+                  {filter.label}
+                </span>
               </button>
             );
           })}
         </div>
 
-        {/* Grid de habilidades animada */}
+        {/* Grid de Habilidades */}
         <motion.div
           layout
-          className="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
         >
           <AnimatePresence mode="popLayout">
             {filteredSkills.map((skill) => (
               <motion.div
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, scale: 0.94, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: 15 }}
+                transition={{ duration: 0.2 }}
                 key={skill.name}
-                onMouseMove={handleMouseMove}
-                className="skill-card group glow-card relative p-8 rounded-3xl bg-slate-50/50 dark:bg-slate-800/40 border border-slate-200/50 dark:border-slate-700/60 hover:border-primary-500/40 dark:hover:border-primary-500/40 transition-all duration-500 backdrop-blur-sm flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/5 cursor-default overflow-hidden"
+                className="group relative p-6 rounded-2xl bg-slate-50 dark:bg-[#0A0D15] border border-slate-200 dark:border-slate-800/90 hover:border-cyan-500/50 dark:hover:border-cyan-500/40 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl cursor-default overflow-hidden"
               >
-                {/* Glow decorativo de fondo */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-primary-500/5 rounded-full blur-2xl group-hover:bg-primary-500/10 group-hover:scale-125 transition-all duration-700 pointer-events-none -z-10" />
-
-                <div className="flex flex-col items-center justify-center text-center z-10 relative w-full">
-                  <div className="mb-6 p-5 rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 group-hover:bg-slate-50 dark:group-hover:bg-slate-950 group-hover:shadow-md group-hover:shadow-primary-500/5 group-hover:border-primary-500/30 transition-all duration-500 ease-out">
-                    <div className="skill-icon">
+                <div>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs group-hover:scale-105 group-hover:border-cyan-500/40 transition-all duration-300">
                       {skill.icon}
                     </div>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{skill.name}</h3>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-900/50 px-3 py-1 rounded-full border border-slate-100 dark:border-slate-700/50">
-                    {skill.category === 'tools' && language === 'es' ? 'herramientas' : skill.category}
-                  </span>
+
+                  <h3 className="text-base font-bold font-heading text-slate-900 dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                    {skill.name}
+                  </h3>
+
+                  {skill.usageHint && (
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {skill.usageHint}
+                    </p>
+                  )}
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
+
       </div>
     </section>
   );
 };
 
 export default Skills;
+

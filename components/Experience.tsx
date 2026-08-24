@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Briefcase, GraduationCap, X, FileBadge, Download, ExternalLink } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { Briefcase, GraduationCap, X, FileBadge, Download, ExternalLink, Sparkles, Award, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -9,11 +10,10 @@ import { useLanguage } from '../context/LanguageContext';
 gsap.registerPlugin(ScrollTrigger);
 
 const Experience: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
-  const [selectedCert, setSelectedCert] = useState<{ certificate: string, degree: string, institution: string } | null>(null);
+  const [selectedCert, setSelectedCert] = useState<{ certificate: string, degree: string, institution: string, skills?: string[] } | null>(null);
 
-  // Mouse move effect for glow cards
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -37,20 +37,45 @@ const Experience: React.FC = () => {
   }, [selectedCert]);
 
   useGSAP(() => {
-    // Cabecera
-    gsap.from(".experience-header", {
+    gsap.from(".exp-badge", {
       scrollTrigger: {
         trigger: ".experience-header",
         start: "top 80%",
       },
-      y: 30,
+      scale: 0.8,
       opacity: 0,
-      duration: 0.8,
+      duration: 0.5,
+      ease: "back.out(1.7)",
+      clearProps: "all"
+    });
+
+    gsap.from(".exp-title", {
+      scrollTrigger: {
+        trigger: ".experience-header",
+        start: "top 80%",
+      },
+      y: 25,
+      opacity: 0,
+      duration: 0.7,
+      delay: 0.1,
       ease: "power3.out",
       clearProps: "all"
     });
 
-    // Línea de tiempo vertical con progreso de scroll (scrub)
+    gsap.from(".exp-subtitle", {
+      scrollTrigger: {
+        trigger: ".experience-header",
+        start: "top 80%",
+      },
+      y: 20,
+      opacity: 0,
+      duration: 0.7,
+      delay: 0.2,
+      ease: "power3.out",
+      clearProps: "all"
+    });
+
+    // Línea de tiempo vertical
     gsap.fromTo(".exp-line", 
       { scaleY: 0 },
       {
@@ -58,51 +83,21 @@ const Experience: React.FC = () => {
         transformOrigin: "top",
         ease: "none",
         scrollTrigger: {
-          trigger: ".exp-list",
-          start: "top 60%",
+          trigger: ".exp-timeline-list",
+          start: "top 70%",
           end: "bottom 85%",
           scrub: true
         }
       }
     );
 
-    // Items de experiencia
-    gsap.utils.toArray(".exp-item").forEach((item: HTMLElement, i) => {
+    gsap.utils.toArray(".exp-card-item").forEach((item: any, i) => {
       gsap.from(item, {
         scrollTrigger: {
           trigger: item,
           start: "top 85%",
         },
-        x: -50,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: i * 0.1,
-        clearProps: "all"
-      });
-
-      // Animación del punto de la línea de tiempo
-      gsap.from(item.querySelector(".timeline-dot"), {
-        scrollTrigger: {
-          trigger: item,
-          start: "top 85%",
-        },
-        scale: 0,
-        duration: 0.5,
-        ease: "back.out(1.7)",
-        delay: 0.5 + (i * 0.1),
-        clearProps: "all"
-      });
-    });
-
-    // Items de educación
-    gsap.utils.toArray(".edu-item").forEach((item: HTMLElement, i) => {
-      gsap.from(item, {
-        scrollTrigger: {
-          trigger: item,
-          start: "top 85%",
-        },
-        x: 50,
+        x: -30,
         opacity: 0,
         duration: 0.6,
         ease: "power3.out",
@@ -111,15 +106,29 @@ const Experience: React.FC = () => {
       });
     });
 
-    // Card de habilidades
-    gsap.from(".soft-skills-card", {
+    gsap.utils.toArray(".edu-card-item").forEach((item: any, i) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+        },
+        x: 30,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out",
+        delay: i * 0.1,
+        clearProps: "all"
+      });
+    });
+
+    gsap.from(".philosophy-bento", {
       scrollTrigger: {
-        trigger: ".soft-skills-card",
+        trigger: ".philosophy-bento",
         start: "top 85%",
       },
-      y: 50,
+      y: 35,
       opacity: 0,
-      duration: 0.8,
+      duration: 0.7,
       ease: "back.out(1.5)",
       clearProps: "all"
     });
@@ -127,54 +136,75 @@ const Experience: React.FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section id="experience" ref={containerRef} className="py-32 bg-slate-50 dark:bg-slate-950/50 relative overflow-hidden">
+    <section id="experience" ref={containerRef} className="py-28 relative overflow-hidden bg-slate-50 dark:bg-[#07090E] border-t border-slate-200/80 dark:border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="experience-header text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">{t.experience.title}</h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">{t.experience.subtitle}</p>
+        
+        {/* Cabecera */}
+        <div className="experience-header text-center mb-16">
+          <div className="exp-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 border border-cyan-500/30 text-cyan-700 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <Sparkles size={13} />
+            {t.experience.badge || 'Trayectoria Profesional'}
+          </div>
+          <h2 className="exp-title text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading text-slate-900 dark:text-white mb-4 tracking-tight">
+            {t.experience.title}
+          </h2>
+          <p className="exp-subtitle text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            {t.experience.subtitle}
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Experiencia laboral */}
-          <div className="exp-list">
-            <div className="flex items-center gap-4 mb-12">
-              <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-blue-600 shadow-inner">
-                <Briefcase className="w-7 h-7" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          
+          {/* Columna 1: Experiencia Profesional */}
+          <div className="exp-timeline-list">
+            <div className="flex items-center gap-3.5 mb-8">
+              <div className="p-3 rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                <Briefcase className="w-6 h-6" />
               </div>
-              <h3 className="text-3xl font-bold text-slate-900 dark:text-white">{t.experience.workTitle}</h3>
+              <div>
+                <h3 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">
+                  {t.experience.workTitle}
+                </h3>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Práctica real en producción</span>
+              </div>
             </div>
 
-            <div className="relative pl-8 md:pl-10 space-y-12">
+            <div className="relative pl-6 sm:pl-8 space-y-8">
               {/* Línea de tiempo vertical */}
-              <div className="exp-line absolute left-[0px] md:left-[6.5px] top-2 bottom-0 w-[2px] bg-gradient-to-b from-blue-500 to-slate-200 dark:to-slate-800 origin-top"></div>
+              <div className="exp-line absolute left-0 top-3 bottom-0 w-[2px] bg-gradient-to-b from-cyan-500 via-indigo-500 to-slate-300 dark:to-slate-800 origin-top"></div>
 
-              {t.experience.list.map((job, index) => (
-                <div key={job.id} className="exp-item relative">
-                  {/* Punto de la línea de tiempo */}
-                  <span className="timeline-dot absolute -left-[41px] md:-left-[42px] top-2 w-5 h-5 rounded-full border-4 border-white dark:border-slate-900 bg-blue-500 z-10 shadow-md"></span>
+              {t.experience.list.map((job) => (
+                <div key={job.id} className="exp-card-item relative">
+                  {/* Nodo de la línea */}
+                  <span className="absolute -left-[30px] sm:-left-[38px] top-3 w-4 h-4 rounded-full border-3 border-white dark:border-[#0A0D15] bg-cyan-500 shadow-md shadow-cyan-500/40"></span>
 
-                  <div 
+                  <div
                     onMouseMove={handleMouseMove}
-                    className="group glow-card bg-slate-50/50 dark:bg-[#0f172a]/30 border border-slate-200/50 dark:border-slate-800 shadow-xl hover:shadow-2xl hover:shadow-primary-500/5 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-1 overflow-hidden relative"
+                    className="glow-card p-6 sm:p-7 rounded-2xl bg-white/90 dark:bg-[#0E121B]/90 border border-slate-200/80 dark:border-slate-800/80 shadow-lg hover:shadow-xl hover:border-cyan-500/30 transition-all duration-300 group"
                   >
-                    {/* Glow decorativo de fondo */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl group-hover:bg-primary-500/10 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
-
-                    <div className="flex flex-wrap justify-between items-start mb-4 gap-2 relative z-10">
-                      <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{job.title}</h4>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
+                    <div className="flex flex-wrap justify-between items-start gap-2 mb-2">
+                      <h4 className="text-lg font-bold font-heading text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        {job.title}
+                      </h4>
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 border border-cyan-200/60 dark:border-cyan-800/60">
                         {job.period}
                       </span>
                     </div>
 
-                    <div className="text-blue-600 dark:text-blue-400 font-semibold mb-4 text-lg relative z-10">{job.company}</div>
-                    <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6 relative z-10">
+                    <div className="text-cyan-600 dark:text-cyan-400 font-semibold text-sm mb-3">
+                      {job.company} {job.location && <span className="text-slate-400 font-normal">· {job.location}</span>}
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
                       {job.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 relative z-10">
+                    <div className="flex flex-wrap gap-1.5">
                       {job.tags.map((tag, idx) => (
-                        <span key={idx} className="px-2.5 py-1.5 rounded-lg text-[10px] uppercase font-bold tracking-wider bg-white dark:bg-[#0c101b] text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-slate-800/80 group-hover:border-primary-500/30 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300">
+                        <span
+                          key={idx}
+                          className="px-2.5 py-1 text-[10px] font-mono font-semibold rounded-md bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/50"
+                        >
                           {tag}
                         </span>
                       ))}
@@ -185,149 +215,208 @@ const Experience: React.FC = () => {
             </div>
           </div>
 
-          {/* Educación */}
+          {/* Columna 2: Educación & Certificaciones */}
           <div>
-            <div className="flex items-center gap-4 mb-12">
-              <div className="p-4 bg-green-100 dark:bg-green-900/30 rounded-2xl text-green-600 shadow-inner">
-                <GraduationCap className="w-7 h-7" />
+            <div className="flex items-center gap-3.5 mb-8">
+              <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                <GraduationCap className="w-6 h-6" />
               </div>
-              <h3 className="text-3xl font-bold text-slate-900 dark:text-white">{t.experience.eduTitle}</h3>
+              <div>
+                <h3 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">
+                  {t.experience.eduTitle}
+                </h3>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Titulación oficial y especializaciones</span>
+              </div>
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-4">
               {t.experience.education.map((edu, index) => (
                 <div
                   key={index}
                   onMouseMove={handleMouseMove}
-                  className={`edu-item glow-card relative p-8 rounded-3xl bg-slate-50/50 dark:bg-[#0f172a]/30 border border-slate-200/50 dark:border-slate-800 shadow-xl hover:shadow-2xl hover:shadow-green-500/5 transition-all duration-500 group overflow-hidden ${edu.certificate ? 'cursor-pointer hover:-translate-y-1' : 'hover:-translate-x-1'}`}
-                  onClick={() => edu.certificate && setSelectedCert({ certificate: edu.certificate, degree: edu.degree, institution: edu.institution })}
+                  onClick={() => edu.certificate && setSelectedCert({
+                    certificate: edu.certificate,
+                    degree: edu.degree,
+                    institution: edu.institution,
+                    skills: edu.skills
+                  })}
+                  className={`edu-card-item glow-card p-5 sm:p-6 rounded-2xl bg-white/90 dark:bg-[#0E121B]/90 border border-slate-200/80 dark:border-slate-800/80 shadow-lg hover:shadow-xl transition-all duration-300 group ${
+                    edu.certificate
+                      ? 'cursor-pointer hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover:-translate-y-0.5'
+                      : 'hover:border-indigo-500/40'
+                  }`}
                 >
-                  {/* Glow decorativo de fondo */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/5 rounded-full blur-3xl group-hover:bg-green-500/10 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
-
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2 relative z-10">
-                    <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors leading-tight">{edu.degree}</h4>
-                    <span className="shrink-0 px-3 py-1 rounded-full text-xs font-bold bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-100 dark:border-green-800">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-2">
+                      {edu.certificate && (
+                        <span className="p-1 rounded-md bg-emerald-500/10 text-emerald-500 shrink-0">
+                          <Award size={16} />
+                        </span>
+                      )}
+                      <h4 className="text-base font-bold font-heading text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        {edu.degree}
+                      </h4>
+                    </div>
+                    <span className="shrink-0 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
                       {edu.year}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 font-medium relative z-10">
-                    <div className="flex items-center">
-                      <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 mr-3"></span>
-                      {edu.institution}
-                    </div>
-                    {edu.certificate && (
-                      <span className="text-sm text-green-600 dark:text-green-400 font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <FileBadge className="w-4 h-4" />
-                        {t.experience.workTitle === 'Experiencia Profesional' ? 'Ver Certificado' : 'View Certificate'}
-                      </span>
-                    )}
+
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-3">
+                    {edu.institution} {edu.badge && <span className="text-indigo-600 dark:text-indigo-400 font-semibold font-mono">· {edu.badge}</span>}
                   </div>
+
+                  {edu.skills && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {edu.skills.map((skillItem, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className="px-2 py-0.5 text-[10px] font-mono rounded bg-slate-100 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400"
+                        >
+                          {skillItem}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {edu.certificate && (
+                    <div className="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                      <span className="flex items-center gap-1.5">
+                        <FileBadge size={14} />
+                        {t.experience.viewCert || 'Ver Certificado Oficial'}
+                      </span>
+                      <span className="text-[11px] font-mono group-hover:translate-x-1 transition-transform">Ver preview ›</span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
 
-            <div 
+            {/* Bento de Filosofía y Enfoque Personal */}
+            <div
               onMouseMove={handleMouseMove}
-              className="soft-skills-card glow-card mt-12 p-8 bg-slate-50/50 dark:bg-[#0f172a]/30 border border-slate-200/50 dark:border-slate-800 shadow-xl hover:shadow-2xl hover:shadow-primary-500/5 rounded-3xl relative overflow-hidden transition-all duration-500 group"
+              className="philosophy-bento glow-card mt-6 p-6 rounded-2xl bg-gradient-to-br from-white/90 via-slate-50/90 to-cyan-50/40 dark:from-[#0E121B] dark:via-[#0F1424] dark:to-[#0A1020] border border-slate-200/80 dark:border-slate-800/80 shadow-lg"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl group-hover:bg-primary-500/10 group-hover:scale-150 transition-all duration-700 pointer-events-none -z-10" />
-              <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-4 relative z-10">{t.experience.softSkillsTitle}</h4>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed relative z-10">
+              <div className="flex items-center gap-2 mb-3">
+                <ShieldCheck className="w-5 h-5 text-cyan-500" />
+                <h4 className="text-base font-bold font-heading text-slate-900 dark:text-white">
+                  {t.experience.softSkillsTitle}
+                </h4>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                 {t.experience.softSkillsDesc}
               </p>
+
+              {t.experience.metrics && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-3 border-t border-slate-200/60 dark:border-slate-800">
+                  {t.experience.metrics.map((metric, mIdx) => (
+                    <div key={mIdx} className="p-2 rounded-xl bg-slate-100/70 dark:bg-slate-900/60 text-center">
+                      <div className="text-[11px] font-bold text-slate-800 dark:text-slate-200">{metric.label}</div>
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">{metric.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
           </div>
+
         </div>
 
-        {/* Modal para certificados */}
-        <AnimatePresence>
-          {selectedCert && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
-              onClick={() => setSelectedCert(null)}
-            >
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                transition={{ type: "spring", damping: 25, stiffness: 350 }}
-                className="relative max-w-4xl w-full bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden flex flex-col md:flex-row"
-                onClick={e => e.stopPropagation()}
+        {/* Modal de Certificados Responsivo montado directamente en document.body */}
+        {typeof document !== 'undefined' && createPortal(
+          <AnimatePresence>
+            {selectedCert && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto"
+                onClick={() => setSelectedCert(null)}
               >
-                {/* Visualizador del certificado (Izquierda) */}
-                <div className="flex-1 bg-slate-100 dark:bg-slate-950 flex items-center justify-center p-6 relative min-h-[300px]">
-                  {/* Botón X integrado elegantemente */}
-                  <button 
-                    className="absolute top-4 right-4 z-10 p-2 bg-slate-950/40 hover:bg-slate-950/80 backdrop-blur-md text-white hover:text-green-400 rounded-full transition-all duration-200 border border-white/10 shadow-lg hover:scale-110 active:scale-95 cursor-pointer"
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.94, y: 15 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.94, y: 15 }}
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  className="relative max-w-4xl w-full max-h-[90vh] bg-white dark:bg-[#0E121B] rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row overflow-hidden my-auto"
+                  onClick={e => e.stopPropagation()}
+                >
+                  {/* Botón Cerrar Flotante */}
+                  <button
+                    className="absolute top-3 right-3 z-30 p-2.5 bg-slate-900/80 hover:bg-slate-950 text-white rounded-full transition-all border border-white/20 shadow-xl cursor-pointer backdrop-blur-md"
                     onClick={() => setSelectedCert(null)}
-                    aria-label="Close modal"
+                    aria-label="Cerrar modal"
                   >
-                    <X className="w-6 h-6" />
+                    <X className="w-5 h-5" />
                   </button>
-                  <img 
-                    src={selectedCert.certificate} 
-                    alt={selectedCert.degree} 
-                    className="w-full h-auto max-h-[65vh] object-contain rounded-xl shadow-md"
-                  />
-                </div>
-                
-                {/* Detalles y Habilidades (Derecha) */}
-                <div className="w-full md:w-80 bg-white dark:bg-slate-900 p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-3 py-1 rounded-full border border-green-100 dark:border-green-800/40">
-                      HubSpot Certified
-                    </span>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-4 mb-2 leading-snug">
-                      {selectedCert.degree}
-                    </h3>
-                    <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-6">
-                      {selectedCert.institution}
-                    </p>
 
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
-                      {t.experience.workTitle === 'Experiencia Profesional' ? 'Habilidades Validadas' : 'Acquired Skills'}
-                    </h4>
-                    <div className="flex flex-wrap gap-2 mb-8">
-                      {['SEO', 'Web Optimization', 'Keywords Research', 'Digital Strategy'].map((skillName, idx) => (
-                        <span key={idx} className="px-2.5 py-1 text-xs rounded-lg font-medium bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-700/60">
-                          {skillName}
-                        </span>
-                      ))}
+                  {/* Imagen del Certificado */}
+                  <div className="w-full md:flex-1 bg-slate-100 dark:bg-slate-950 flex items-center justify-center p-4 sm:p-6 relative min-h-[180px] sm:min-h-[260px] overflow-hidden">
+                    <img
+                      src={selectedCert.certificate}
+                      alt={selectedCert.degree}
+                      className="w-full h-auto max-h-[35vh] md:max-h-[60vh] object-contain rounded-lg sm:rounded-xl shadow-md"
+                    />
+                  </div>
+
+                  {/* Detalles y Acciones */}
+                  <div className="w-full md:w-80 p-5 sm:p-6 md:p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-slate-200 dark:border-slate-800 overflow-y-auto max-h-[50vh] md:max-h-none">
+                    <div>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800 inline-block">
+                        HubSpot Certified
+                      </span>
+                      <h3 className="text-lg sm:text-xl font-bold font-heading text-slate-900 dark:text-white mt-3 mb-1">
+                        {selectedCert.degree}
+                      </h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-4">
+                        {selectedCert.institution}
+                      </p>
+
+                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                        {t.experience.validatedSkills || 'Habilidades Validadas'}
+                      </h4>
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {['Technical SEO', 'Performance Web', 'Keyword Research', 'Auditoría SEO'].map((item, i) => (
+                          <span key={i} className="px-2 py-0.5 text-[10px] sm:text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 pt-2 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
+                      <a
+                        href={selectedCert.certificate}
+                        download
+                        className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-bold text-xs shadow-md cursor-pointer hover:opacity-90 transition-opacity"
+                      >
+                        <Download size={14} />
+                        {t.experience.downloadCert || 'Descargar Certificado'}
+                      </a>
+                      <a
+                        href={selectedCert.certificate}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                      >
+                        <ExternalLink size={14} />
+                        {t.experience.openOriginal || 'Ver en Nueva Pestaña'}
+                      </a>
                     </div>
                   </div>
-
-                  <div className="flex flex-col gap-3">
-                    <a 
-                      href={selectedCert.certificate} 
-                      download 
-                      className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:opacity-90 transition-opacity cursor-pointer text-sm shadow-md"
-                    >
-                      <Download className="w-4 h-4" />
-                      {t.experience.workTitle === 'Experiencia Profesional' ? 'Descargar' : 'Download'}
-                    </a>
-                    <a 
-                      href={selectedCert.certificate} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-white font-semibold hover:bg-slate-100 dark:hover:bg-slate-750 transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer text-sm"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      {t.experience.workTitle === 'Experiencia Profesional' ? 'Ver Original' : 'View Original'}
-                    </a>
-                  </div>
-                </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+
       </div>
     </section>
   );
 };
 
-export default Experience;
+export default Experience;

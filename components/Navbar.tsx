@@ -1,47 +1,38 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Moon, Sun, Menu, X, Globe } from 'lucide-react';
+import { Moon, Sun, Menu, X, Globe, Command, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useLanguage } from '../context/LanguageContext';
+import { SHORT_NAME } from '../constants';
 
 interface NavbarProps {
   darkMode: boolean;
   toggleDarkMode: () => void;
+  onOpenCommandPalette?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
+const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode, onOpenCommandPalette }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const navRef = useRef<HTMLElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  // Animaciones para la cabecera
   useGSAP(() => {
-    const tl = gsap.timeline();
-    tl.from(".nav-logo", {
-      x: -20,
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    tl.from(".nav-container", {
+      y: -25,
       opacity: 0,
-      duration: 0.8,
-      ease: "power3.out",
+      duration: 0.9,
       clearProps: "all"
     })
-      .from(".nav-link", {
-        y: -10,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.5,
-        ease: "power2.out",
-        clearProps: "all"
-      }, "-=0.4")
-      .from(".nav-action", {
-        x: 20,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.6,
-        ease: "power3.out",
-        clearProps: "all"
-      }, "-=0.4");
+    .from(".nav-item", {
+      y: -10,
+      opacity: 0,
+      stagger: 0.06,
+      duration: 0.5,
+      clearProps: "all"
+    }, "-=0.5");
   }, { scope: navRef });
 
   // Animaciones para dispositivos moviles
@@ -51,19 +42,19 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
         gsap.to(mobileMenuRef.current, {
           height: "auto",
           opacity: 1,
-          duration: 0.4,
+          duration: 0.35,
           ease: "power3.out",
           display: "block"
         });
         gsap.fromTo(".mobile-nav-link",
-          { x: -20, opacity: 0 },
-          { x: 0, opacity: 1, stagger: 0.05, duration: 0.3, delay: 0.1 }
+          { x: -15, opacity: 0 },
+          { x: 0, opacity: 1, stagger: 0.04, duration: 0.25, delay: 0.05 }
         );
       } else {
         gsap.to(mobileMenuRef.current, {
           height: 0,
           opacity: 0,
-          duration: 0.3,
+          duration: 0.25,
           ease: "power3.in",
           onComplete: () => {
             if (mobileMenuRef.current) mobileMenuRef.current.style.display = "none";
@@ -85,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80;
+      const offset = 85;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -110,105 +101,126 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
   };
 
   return (
-    <nav
+    <header
       ref={navRef}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-        ? 'bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-lg shadow-lg border-b border-slate-200/50 dark:border-slate-800/50'
-        : 'bg-transparent'
-        }`}
+      className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
+        scrolled ? 'py-3' : 'py-5'
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+        <div className="nav-container glass-dock rounded-2xl md:rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all duration-300">
+          
+          {/* Logo limpio con indicador en vivo reactivo */}
           <div
-            className="nav-logo flex-shrink-0 font-bold text-2xl bg-gradient-to-r from-primary-600 to-cyan-500 bg-clip-text text-transparent cursor-pointer"
+            className="nav-item flex items-center gap-2.5 cursor-pointer group select-none"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            Jesús<span className="text-slate-700 dark:text-slate-300">Dev</span>
+            <div className="flex flex-col">
+              <span className="font-heading font-bold text-base md:text-lg text-slate-900 dark:text-white tracking-tight leading-none group-hover:text-primary-600 dark:group-hover:text-cyan-400 transition-colors">
+                {SHORT_NAME}<span className="text-cyan-500">.dev</span>
+              </span>
+              <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5 mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                {t.nav?.available || (language === 'es' ? 'Disponible' : 'Available')}
+              </span>
+            </div>
           </div>
 
-          {/* Menu para desktop */}
-          <div className="hidden md:flex items-center space-x-1 ml-10">
-            {navLinks.map((link, i) => (
+          {/* Enlaces Desktop */}
+          <nav className="hidden lg:flex items-center space-x-1 font-sans">
+            {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => scrollToSection(e, link.id)}
-                className="nav-link text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 rounded-full text-sm font-medium transition-all hover:bg-slate-100 dark:hover:bg-white/5"
+                className="nav-item text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-cyan-400 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all hover:bg-slate-100/80 dark:hover:bg-white/5 cursor-pointer"
               >
                 {link.name}
               </a>
             ))}
-          </div>
+          </nav>
 
-          {/* Acciones */}
-          <div className="hidden md:flex items-center gap-3 ml-4">
+          {/* Botones de acción & Herramientas */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Buscador / Command Palette Trigger */}
+            <button
+              onClick={onOpenCommandPalette}
+              className="nav-item hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/70 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all text-xs font-medium border border-slate-200/80 dark:border-slate-700/60 cursor-pointer group"
+              title="Abrir Command Palette"
+            >
+              <Command className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 group-hover:text-primary-500 transition-colors" />
+              <span className="hidden md:inline text-[11px] text-slate-500 dark:text-slate-400">{t.nav.quickSearch}</span>
+              <kbd className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 shadow-2xs">
+                ⌘K
+              </kbd>
+            </button>
+
+            {/* Idioma Switcher */}
             <button
               onClick={toggleLanguage}
-              className="nav-action flex items-center gap-1 px-3 py-2 rounded-full bg-slate-100 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all text-sm font-medium ring-1 ring-slate-200 dark:ring-slate-700"
+              className="nav-item flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/70 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all text-xs font-bold border border-slate-200/80 dark:border-slate-700/60 cursor-pointer"
+              aria-label="Cambiar idioma"
             >
-              <Globe size={16} />
+              <Globe className="w-3.5 h-3.5 text-primary-500" />
               <span>{language.toUpperCase()}</span>
             </button>
 
+            {/* Dark Mode Switcher */}
             <button
               onClick={toggleDarkMode}
-              className="nav-action p-2.5 rounded-full bg-slate-100 dark:bg-slate-800/50 text-slate-800 dark:text-yellow-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all focus:outline-none ring-1 ring-slate-200 dark:ring-slate-700"
-              aria-label="Toggle Dark Mode"
+              className="nav-item p-2 rounded-full bg-slate-100 dark:bg-slate-800/70 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-yellow-400 transition-all focus:outline-none border border-slate-200/80 dark:border-slate-700/60 cursor-pointer hover:rotate-12 duration-300"
+              aria-label="Alternar modo oscuro"
             >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-          </div>
-
-          {/* Boton del menu movil */}
-          <div className="-mr-2 flex md:hidden items-center gap-3">
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 text-xs font-bold"
-            >
-              {language.toUpperCase()}
+              {darkMode ? <Sun size={17} /> : <Moon size={17} />}
             </button>
 
+            {/* Botón Menú Móvil */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-700 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none"
+              className="lg:hidden p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none cursor-pointer"
+              aria-label="Menú"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Menu movil */}
+      {/* Menú Móvil Desplegable */}
       <div
         ref={mobileMenuRef}
         style={{ height: 0, opacity: 0, display: 'none', overflow: 'hidden' }}
-        className="md:hidden bg-white dark:bg-[#0B1120] border-b border-slate-200 dark:border-slate-800"
+        className="lg:hidden max-w-7xl mx-auto px-4 mt-2"
       >
-        <div className="px-4 pt-2 pb-6 space-y-1">
+        <div className="glass-dock rounded-2xl p-4 shadow-xl space-y-1">
           {navLinks.map((link) => (
             <a
               key={link.id}
               href={`#${link.id}`}
               onClick={(e) => scrollToSection(e, link.id)}
-              className="mobile-nav-link text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 block px-3 py-3 rounded-md text-base font-medium"
+              className="mobile-nav-link text-slate-800 dark:text-slate-200 hover:text-primary-600 dark:hover:text-cyan-400 block px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
             >
               {link.name}
             </a>
           ))}
-          <div className="mt-4 px-3 pt-4 border-t border-slate-200 dark:border-slate-800 flex gap-4">
+
+          <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 px-2">
             <button
-              onClick={() => { toggleDarkMode(); setIsOpen(false); }}
-              className="mobile-nav-link flex items-center gap-3 flex-1 py-2 text-slate-700 dark:text-slate-300"
+              onClick={() => {
+                setIsOpen(false);
+                if (onOpenCommandPalette) onOpenCommandPalette();
+              }}
+              className="flex items-center gap-2 py-2 px-3 text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-xl flex-1 justify-center"
             >
-              {darkMode ? <Sun size={20} className="text-yellow-500" /> : <Moon size={20} />}
-              <span className="font-medium">{darkMode ? t.nav.toggleTheme[0] : t.nav.toggleTheme[1]}</span>
+              <Command size={14} />
+              {t.nav.commandK} (⌘K)
             </button>
           </div>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 
 export default Navbar;
+
