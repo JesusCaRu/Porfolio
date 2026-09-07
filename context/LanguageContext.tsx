@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useMemo, useCallback, ReactNode } from 'react';
 import { Language } from '../types';
 import { CONTENT } from '../constants';
 
@@ -29,15 +29,19 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     return 'en';
   });
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('language', lang);
-  };
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('language', lang);
+    }
+  }, []);
 
   const t = useMemo(() => CONTENT[language], [language]);
 
+  const value = useMemo(() => ({ language, setLanguage, t }), [language, setLanguage, t]);
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );

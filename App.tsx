@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { ArrowUp, Mail, Command, Sparkles, Check } from 'lucide-react';
 import { Github, Linkedin } from './components/SocialIcons';
 import Navbar from './components/Navbar';
@@ -7,13 +7,14 @@ import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import CommandPalette from './components/CommandPalette';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { Analytics } from "@vercel/analytics/react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SHORT_NAME } from './constants';
+
+const CommandPalette = lazy(() => import('./components/CommandPalette'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,7 +68,7 @@ const PortfolioContent = () => {
     }, 3500);
   };
 
-  // Progreso de scroll & Botón de visibilidad
+  // Progreso de scroll (instanciado una única vez al montar)
   useGSAP(() => {
     const radius = 44;
     const circumference = 2 * Math.PI * radius;
@@ -93,7 +94,10 @@ const PortfolioContent = () => {
         }
       });
     }
+  }, []);
 
+  // Animación del botón scroll to top (solo al alternar visibilidad)
+  useGSAP(() => {
     if (scrollBtnRef.current) {
       if (showScrollTop) {
         gsap.to(scrollBtnRef.current, {
@@ -117,7 +121,8 @@ const PortfolioContent = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
+      const shouldShow = window.scrollY > 300;
+      setShowScrollTop(prev => prev !== shouldShow ? shouldShow : prev);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -141,14 +146,18 @@ const PortfolioContent = () => {
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
-      {/* Paleta de Comandos Global (Cmd+K / Ctrl+K) */}
-      <CommandPalette
-        isOpen={isCommandPaletteOpen}
-        onClose={() => setIsCommandPaletteOpen(false)}
-        darkMode={darkMode}
-        toggleDarkMode={toggleDarkMode}
-        onCopyEmail={() => showToast(t.commandPalette?.copiedEmailToast || 'Email copiado: jesuscanicio33@gmail.com')}
-      />
+      {/* Paleta de Comandos Global (Cmd+K / Ctrl+K) cargada bajo demanda */}
+      <Suspense fallback={null}>
+        {isCommandPaletteOpen && (
+          <CommandPalette
+            isOpen={isCommandPaletteOpen}
+            onClose={() => setIsCommandPaletteOpen(false)}
+            darkMode={darkMode}
+            toggleDarkMode={toggleDarkMode}
+            onCopyEmail={() => showToast(t.commandPalette?.copiedEmailToast || 'Email copiado: jesuscanicio33@gmail.com')}
+          />
+        )}
+      </Suspense>
 
       {/* Contenido Principal */}
       <main>

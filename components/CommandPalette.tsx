@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { Search, Moon, Sun, Globe, Download, Copy, ExternalLink, ArrowRight, X, Command, Code2, Briefcase, GraduationCap, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -74,7 +74,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
     onClose();
   };
 
-  const commandItems: CommandItem[] = [
+  const commandItems: CommandItem[] = useMemo(() => [
     // Navegación
     {
       id: 'nav-hero',
@@ -161,13 +161,13 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
         onClose();
       }
     }))
-  ];
+  ], [t, darkMode, language]);
 
-  const filteredItems = commandItems.filter(item => {
+  const filteredItems = useMemo(() => {
     const term = query.toLowerCase().trim();
-    if (!term) return true;
-    return item.title.toLowerCase().includes(term);
-  });
+    if (!term) return commandItems;
+    return commandItems.filter(item => item.title.toLowerCase().includes(term));
+  }, [commandItems, query]);
 
   // Manejador de teclado
   useEffect(() => {

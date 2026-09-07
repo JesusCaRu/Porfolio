@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { ExternalLink, ArrowRight, Layers, Cpu, Database, ChevronDown, ChevronUp, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Github } from './SocialIcons';
 import gsap from 'gsap';
@@ -60,17 +60,21 @@ const Projects: React.FC = () => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
+    requestAnimationFrame(() => {
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
   };
 
   const toggleExpand = (id: number) => {
     setExpandedProjectId(prev => prev === id ? null : id);
   };
 
-  const filteredProjects = t.projects.list.filter(
-    (p) => activeCategory === 'all' || p.category === activeCategory
-  );
+  const filteredProjects = useMemo(() => {
+    return t.projects.list.filter(
+      (p) => activeCategory === 'all' || p.category === activeCategory
+    );
+  }, [t.projects.list, activeCategory]);
 
   const categories = [
     { key: 'all' as const, label: t.projects.filterAll },
@@ -152,6 +156,8 @@ const Projects: React.FC = () => {
                         <img
                           src={project.image}
                           alt={project.title}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent"></div>

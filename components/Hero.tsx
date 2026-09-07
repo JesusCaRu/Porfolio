@@ -6,12 +6,7 @@ import { useGSAP } from '@gsap/react';
 import { useLanguage } from '../context/LanguageContext';
 import { PORTFOLIO_OWNER } from '../constants';
 
-const Hero: React.FC = () => {
-  const { t, language } = useLanguage();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // Reloj en tiempo real (Hora de Alicante / Madrid - CET/CEST)
+const LiveClock: React.FC = React.memo(() => {
   const [localTime, setLocalTime] = useState<string>('');
 
   useEffect(() => {
@@ -30,6 +25,18 @@ const Hero: React.FC = () => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  return (
+    <span className="text-slate-800 dark:text-slate-200 font-semibold font-mono">
+      {localTime || '17:00:00'}
+    </span>
+  );
+});
+
+const Hero: React.FC = () => {
+  const { t, language } = useLanguage();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Terminal Simulator States
   const [activeTab, setActiveTab] = useState<'about' | 'stack' | 'bash'>('about');
@@ -332,7 +339,7 @@ echo ">> Estado: Desarrollador Web Freelance y Full Stack listo para producción
                 <span>{t.hero.location}</span>
                 <span className="text-slate-300 dark:text-slate-600">|</span>
                 <Clock size={13} className="text-indigo-400 shrink-0" />
-                <span className="text-slate-800 dark:text-slate-200 font-semibold">{localTime || '17:00'}</span>
+                <LiveClock />
               </div>
             </div>
 
