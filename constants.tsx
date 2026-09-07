@@ -48,7 +48,7 @@ export const SKILLS_DATA: Skill[] = [
       <img src="./images/laravel.svg" alt="Laravel" className="w-10 h-10" />
     ),
     category: 'backend',
-    usageHint: 'APIs RESTful, Eloquent ORM, Autenticación, Middleware',
+    usageHint: 'Laravel 13, APIs RESTful, Eloquent ORM, Autenticación, Middleware',
     featured: true
   },
   {
@@ -141,7 +141,7 @@ export const CONTENT = {
     },
     hero: {
       badge: 'Disponible para trabajar',
-      youthGuaranteeBadge: 'Garantía Juvenil · Bonificación contratación',
+      youthGuaranteeBadge: 'Garantía Juvenil',
       youthGuaranteeDesc: 'Beneficiario de la Garantía Juvenil: mi contratación puede dar acceso a bonificaciones en la cuota de la Seguridad Social para la empresa.',
       greeting: 'Hola, soy',
       role: 'Desarrollador Web Full Stack',
@@ -450,8 +450,8 @@ export const CONTENT = {
       toggleTheme: ['Switch to Light Mode', 'Switch to Dark Mode'],
     },
     hero: {
-      badge: 'Available for hire & projects',
-      youthGuaranteeBadge: 'Youth Guarantee · Hiring Incentive',
+      badge: 'Available for hire',
+      youthGuaranteeBadge: 'Youth Guarantee',
       youthGuaranteeDesc: 'Beneficiary of the National Youth Guarantee System: hiring gives employers direct access to substantial Social Security tax relief and bonuses.',
       greeting: "Hi, I'm",
       role: 'Full Stack Web Developer',

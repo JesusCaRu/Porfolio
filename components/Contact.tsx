@@ -83,10 +83,10 @@ const Contact: React.FC = () => {
         trigger: ".contact-header",
         start: "top 80%",
       },
-      scale: 0.8,
+      y: 10,
       opacity: 0,
       duration: 0.5,
-      ease: "back.out(1.7)",
+      ease: "power2.out",
       clearProps: "all"
     });
 
@@ -95,11 +95,11 @@ const Contact: React.FC = () => {
         trigger: ".contact-header",
         start: "top 80%",
       },
-      y: 25,
+      y: 20,
       opacity: 0,
-      duration: 0.7,
+      duration: 0.6,
       delay: 0.1,
-      ease: "power3.out",
+      ease: "power2.out",
       clearProps: "all"
     });
 
@@ -108,29 +108,28 @@ const Contact: React.FC = () => {
         trigger: ".contact-wrapper",
         start: "top 80%",
       },
-      y: 35,
-      scale: 0.98,
+      y: 25,
       opacity: 0,
-      duration: 0.8,
-      ease: "power3.out",
+      duration: 0.7,
+      ease: "power2.out",
       clearProps: "all"
     });
   }, { scope: containerRef });
 
   return (
-    <section id="contact" ref={containerRef} className="py-28 relative overflow-hidden bg-slate-50 dark:bg-[#07090E] border-t border-slate-200/80 dark:border-slate-800/80">
+    <section id="contact" ref={containerRef} className="py-24 relative overflow-hidden bg-white dark:bg-[#080B11] border-t border-slate-200/80 dark:border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Cabecera */}
         <div className="contact-header text-center mb-16">
-          <div className="contact-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 border border-cyan-500/30 text-cyan-700 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles size={13} />
-            {t.contact.badge || 'Contacto Directo'}
+          <div className="contact-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full card-surface text-cyan-600 dark:text-cyan-400 text-xs font-mono font-medium mb-4">
+            <Sparkles size={12} className="text-cyan-500" />
+            <span>{t.contact.badge || 'Contacto Directo'}</span>
           </div>
           <h2 className="contact-title text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading text-slate-900 dark:text-white mb-4 tracking-tight">
             {t.contact.title}
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
             {t.contact.desc}
           </p>
         </div>
@@ -138,21 +137,17 @@ const Contact: React.FC = () => {
         {/* Tarjeta de Contacto Principal */}
         <div 
           onMouseMove={handleMouseMove}
-          className="contact-wrapper glow-card max-w-5xl mx-auto bg-white/90 dark:bg-[#0E121B]/90 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800/80"
+          className="contact-wrapper card-surface glow-card max-w-5xl mx-auto rounded-3xl shadow-xl overflow-hidden"
         >
           <div className="grid md:grid-cols-12">
             
             {/* Columna Izquierda: Información de Contacto */}
-            <div className="md:col-span-5 bg-gradient-to-br from-slate-900 via-[#0B1120] to-[#0D1528] dark:from-[#090D18] dark:via-[#0C1222] dark:to-[#080B14] p-8 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800">
-              {/* Glow decorativo */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-
+            <div className="md:col-span-5 bg-slate-900 dark:bg-[#0C101B] p-8 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800">
               <div className="relative z-10">
-                <div className="inline-block text-[11px] font-mono font-bold uppercase tracking-widest text-cyan-400 mb-2">
+                <div className="inline-block text-[11px] font-mono font-semibold uppercase tracking-widest text-cyan-400 mb-2">
                   Canales de Comunicación
                 </div>
-                <h3 className="text-2xl font-bold font-heading mb-6 leading-tight">
+                <h3 className="text-xl font-bold font-heading mb-6 leading-tight">
                   {t.contact.badge}
                 </h3>
 
@@ -184,7 +179,7 @@ const Contact: React.FC = () => {
                     </div>
                     <div>
                       <div className="text-xs text-slate-400 font-mono mb-0.5">{t.contact.phone}</div>
-                      <a href="tel:+34684410041" className="text-sm font-semibold hover:text-indigo-400 transition-colors">
+                      <a href="tel:+34684410041" className="text-sm font-semibold hover:text-indigo-400 transition-colors font-mono">
                         +34 684 41 00 41
                       </a>
                     </div>
@@ -232,7 +227,7 @@ const Contact: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="name" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                    <label htmlFor="name" className="block text-xs font-mono font-medium text-slate-600 dark:text-slate-400 mb-1.5">
                       {t.contact.form.name}
                     </label>
                     <input
@@ -242,12 +237,12 @@ const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t.contact.form.namePlaceholder}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0A0D15] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 dark:focus:border-cyan-400 outline-none text-sm transition-all"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none text-sm transition-all"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                    <label htmlFor="email" className="block text-xs font-mono font-medium text-slate-600 dark:text-slate-400 mb-1.5">
                       {t.contact.form.email}
                     </label>
                     <input
@@ -257,13 +252,13 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder={t.contact.form.emailPlaceholder}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0A0D15] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 dark:focus:border-cyan-400 outline-none text-sm transition-all"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none text-sm transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                  <label htmlFor="subject" className="block text-xs font-mono font-medium text-slate-600 dark:text-slate-400 mb-1.5">
                     {t.contact.form.subject || 'Asunto / Motivo'}
                   </label>
                   <input
@@ -272,12 +267,12 @@ const Contact: React.FC = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder={t.contact.form.subjectPlaceholder || 'Propuesta de trabajo / Proyecto web...'}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0A0D15] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 dark:focus:border-cyan-400 outline-none text-sm transition-all"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none text-sm transition-all"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+                  <label htmlFor="message" className="block text-xs font-mono font-medium text-slate-600 dark:text-slate-400 mb-1.5">
                     {t.contact.form.message}
                   </label>
                   <textarea
@@ -287,14 +282,14 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder={t.contact.form.messagePlaceholder}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-[#0A0D15] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 dark:focus:border-cyan-400 outline-none text-sm transition-all resize-none"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none text-sm transition-all resize-none"
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className={`w-full py-3.5 px-6 rounded-xl font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer
+                  className={`w-full py-3 px-6 rounded-xl font-semibold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer
                     ${status === 'loading'
                       ? 'bg-slate-400 dark:bg-slate-700 text-white cursor-not-allowed'
                       : 'bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-950 shadow-slate-900/10'}`}
@@ -306,7 +301,7 @@ const Contact: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      <Send size={16} />
+                      <Send size={15} />
                       <span>{t.contact.form.btnSend}</span>
                     </>
                   )}
@@ -314,15 +309,15 @@ const Contact: React.FC = () => {
 
                 {/* Feedback Toasts */}
                 {status === 'success' && (
-                  <div className="flex items-center gap-2.5 text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 p-3.5 rounded-xl text-xs font-semibold animate-in fade-in">
-                    <CheckCircle2 size={18} className="shrink-0 text-emerald-500" />
+                  <div className="flex items-center gap-2.5 text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 p-3.5 rounded-xl text-xs font-semibold">
+                    <CheckCircle2 size={16} className="shrink-0 text-emerald-500" />
                     <span>{t.contact.feedback.success}</span>
                   </div>
                 )}
 
                 {status === 'error' && (
-                  <div className="flex items-center gap-2.5 text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/50 p-3.5 rounded-xl text-xs font-semibold animate-in fade-in">
-                    <AlertCircle size={18} className="shrink-0 text-rose-500" />
+                  <div className="flex items-center gap-2.5 text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/50 p-3.5 rounded-xl text-xs font-semibold">
+                    <AlertCircle size={16} className="shrink-0 text-rose-500" />
                     <span>{t.contact.feedback.error}</span>
                   </div>
                 )}
@@ -338,4 +333,3 @@ const Contact: React.FC = () => {
 };
 
 export default Contact;
-
