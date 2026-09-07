@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Download, Github, Linkedin, Code2, ArrowDown, Sparkles, MapPin, Clock, Terminal as TerminalIcon, FileCode, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Download, Code2, ArrowDown, Sparkles, MapPin, Clock, Terminal as TerminalIcon, FileCode, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Github, Linkedin } from './SocialIcons';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useLanguage } from '../context/LanguageContext';
@@ -48,37 +49,39 @@ const Hero: React.FC = () => {
       lang: 'json',
       content: language === 'es' ? `{
   "desarrollador": "Jesús Canicio Ruiz",
-  "rol": "Desarrollador Full Stack",
-  "ubicacion": "Alicante, España",
+  "rol_actual": "Desarrollador Web Freelance & Full Stack",
+  "ubicacion": "Pinoso, Alicante (España)",
+  "garantia_juvenil": "Beneficiario (Bonificación contratación empresa)",
   "educacion": [
-    "DAW — Grado Superior Web",
-    "SMR — Grado Medio Redes",
-    "Especialización Python (Severo Ochoa)"
+    "Especialización Python (IES Severo Ochoa)",
+    "DAW — Grado Superior Web (IES Enric Valor)",
+    "SMR — Grado Medio Redes (IES Enric Valor)"
   ],
   "stack": {
-    "frontend": ["React 19", "TypeScript", "Tailwind CSS", "HTML5/CSS3"],
-    "backend": ["Laravel", "PHP", "Python", "Java 21 Spring Boot"],
-    "bases_datos": ["MySQL", "PostgreSQL", "MongoDB"],
-    "herramientas": ["Git", "GitHub", "Docker", "REST APIs"]
+    "frontend": ["React 19", "TypeScript", "Tailwind CSS 4", "Kotlin/Compose"],
+    "backend": ["Laravel", "PHP", "Python (ML)", "Java 21 Spring Boot"],
+    "bases_datos": ["MySQL / SQL", "MongoDB"],
+    "herramientas": ["Docker", "WordPress Plugins", "Git/GitHub", "REST APIs"]
   },
-  "estado": "Disponible para trabajar",
+  "estado": "Disponible para proyectos e incorporación",
   "contacto": "jesuscanicio33@gmail.com"
 }` : `{
   "developer": "Jesús Canicio Ruiz",
-  "role": "Full Stack Developer",
-  "location": "Alicante, Spain",
+  "current_role": "Freelance Web Developer & Full Stack",
+  "location": "Pinoso, Alicante (Spain)",
+  "youth_guarantee": "Beneficiary (Employer hiring tax incentives)",
   "education": [
-    "DAW — Higher Vocational Web",
-    "SMR — Vocational Systems & Networks",
-    "Python AI Specialization (Severo Ochoa)"
+    "Python AI Specialization (IES Severo Ochoa)",
+    "DAW — Higher Vocational Web (IES Enric Valor)",
+    "SMR — Vocational Systems & Networks (IES Enric Valor)"
   ],
   "stack": {
-    "frontend": ["React 19", "TypeScript", "Tailwind CSS", "HTML5/CSS3"],
-    "backend": ["Laravel", "PHP", "Python", "Java 21 Spring Boot"],
-    "databases": ["MySQL", "PostgreSQL", "MongoDB"],
-    "tools": ["Git", "GitHub", "Docker", "REST APIs"]
+    "frontend": ["React 19", "TypeScript", "Tailwind CSS 4", "Kotlin/Compose"],
+    "backend": ["Laravel", "PHP", "Python (ML)", "Java 21 Spring Boot"],
+    "databases": ["MySQL / SQL", "MongoDB"],
+    "tools": ["Docker", "WordPress Plugins", "Git/GitHub", "REST APIs"]
   },
-  "status": "Available for hire",
+  "status": "Available for hire & contracts",
   "contact": "jesuscanicio33@gmail.com"
 }`
     },
@@ -87,12 +90,13 @@ const Hero: React.FC = () => {
       lang: 'bash',
       content: `#!/usr/bin/env bash
 # Verificando entorno de desarrollo de Jesús Canicio...
-echo "[✓] React 19 + TypeScript (Frontend)"
-echo "[✓] Laravel + PHP (Backend & REST APIs)"
-echo "[✓] Python (Machine Learning & Data)"
-echo "[✓] Java 21 + Spring Boot (Concurrencia)"
-echo "[✓] MySQL / PostgreSQL / Docker (Storage & DevOps)"
-echo ">> Estado: Listo para construir proyectos completos."`
+echo "[✓] React 19 + TypeScript + Tailwind 4 (Frontend)"
+echo "[✓] Kotlin + Jetpack Compose (Android Mobile)"
+echo "[✓] Laravel + PHP + WordPress Plugins (Backend & CMS)"
+echo "[✓] Python 3 + Machine Learning (Pipelines & Data)"
+echo "[✓] Java 21 + Spring Boot (Optimistic Concurrency)"
+echo "[✓] MySQL / MongoDB / Docker (Storage & DevOps)"
+echo ">> Estado: Desarrollador Web Freelance y Full Stack listo para producción."`
     }
   };
 
@@ -310,6 +314,17 @@ echo ">> Estado: Listo para construir proyectos completos."`
                 </span>
                 {t.hero.badge}
               </div>
+
+              {/* Badge de Garantía Juvenil */}
+              {t.hero.youthGuaranteeBadge && (
+                <div
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-semibold backdrop-blur-md"
+                  title={t.hero.youthGuaranteeDesc}
+                >
+                  <Sparkles size={12} className="text-amber-500 shrink-0" />
+                  <span>{t.hero.youthGuaranteeBadge}</span>
+                </div>
+              )}
 
               {/* Badge de Ubicación y Reloj Local */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-xs font-mono font-medium">

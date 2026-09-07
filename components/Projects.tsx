@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { ExternalLink, Github, ArrowRight, Layers, Cpu, Database, ChevronDown, ChevronUp, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, ArrowRight, Layers, Cpu, Database, ChevronDown, ChevronUp, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Github } from './SocialIcons';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

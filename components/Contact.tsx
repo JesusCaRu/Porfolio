@@ -198,10 +198,23 @@ const Contact: React.FC = () => {
                     <div>
                       <div className="text-xs text-slate-400 font-mono mb-0.5">{t.contact.location}</div>
                       <span className="text-sm font-semibold text-slate-200">
-                        {t.contact.locationVal || 'Alicante, España (Presencial / Remoto / Híbrido)'}
+                        {t.contact.locationVal || 'Pinoso (Alicante), España (Presencial / Remoto / Híbrido)'}
                       </span>
                     </div>
                   </div>
+
+                  {/* Bonificación Garantía Juvenil */}
+                  {t.contact.youthGuaranteeTitle && (
+                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-slate-200">
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400 mb-1">
+                        <Sparkles size={13} className="text-amber-400" />
+                        <span>{t.contact.youthGuaranteeTitle}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed font-sans">
+                        {t.contact.youthGuaranteeDesc}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 

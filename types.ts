@@ -8,9 +8,17 @@ export interface ExperienceItem {
   company: string;
   period: string;
   description: string;
+  bullets?: string[];
   tags: string[];
   location?: string;
   roleType?: string;
+  isCurrent?: boolean;
+}
+
+export interface LanguageSkill {
+  name: string;
+  level: string;
+  native?: boolean;
 }
 
 export interface EducationItem {

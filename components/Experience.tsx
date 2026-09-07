@@ -186,18 +186,38 @@ const Experience: React.FC = () => {
                       <h4 className="text-lg font-bold font-heading text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                         {job.title}
                       </h4>
-                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 border border-cyan-200/60 dark:border-cyan-800/60">
-                        {job.period}
-                      </span>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        {job.isCurrent && (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            {language === 'es' ? 'En curso' : 'Current'}
+                          </span>
+                        )}
+                        <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 border border-cyan-200/60 dark:border-cyan-800/60">
+                          {job.period}
+                        </span>
+                      </div>
                     </div>
 
                     <div className="text-cyan-600 dark:text-cyan-400 font-semibold text-sm mb-3">
                       {job.company} {job.location && <span className="text-slate-400 font-normal">· {job.location}</span>}
                     </div>
 
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                       {job.description}
                     </p>
+
+                    {/* Hitos detallados (CV) */}
+                    {job.bullets && job.bullets.length > 0 && (
+                      <ul className="space-y-2 mb-5 pl-0.5">
+                        {job.bullets.map((bullet, bIdx) => (
+                          <li key={bIdx} className="flex items-start gap-2 text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
                     <div className="flex flex-wrap gap-1.5">
                       {job.tags.map((tag, idx) => (
@@ -291,6 +311,43 @@ const Experience: React.FC = () => {
                 </div>
               ))}
             </div>
+
+            {/* Tarjeta de Competencias Lingüísticas (Idiomas del CV) */}
+            {t.experience.languages && (
+              <div
+                onMouseMove={handleMouseMove}
+                className="languages-card glow-card mt-5 p-5 rounded-2xl bg-white/90 dark:bg-[#0E121B]/90 border border-slate-200/80 dark:border-slate-800/80 shadow-lg"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
+                      <Sparkles size={16} />
+                    </div>
+                    <h4 className="text-sm font-bold font-heading text-slate-900 dark:text-white">
+                      {t.experience.languagesTitle || 'Competencias Lingüísticas'}
+                    </h4>
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">CV Oficial</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {t.experience.languages.map((lang, lIdx) => (
+                    <div
+                      key={lIdx}
+                      className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between"
+                    >
+                      <span className="text-xs font-bold text-slate-800 dark:text-slate-200">{lang.name}</span>
+                      <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md font-semibold ${
+                        lang.native
+                          ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                          : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30'
+                      }`}>
+                        {lang.level}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Bento de Filosofía y Enfoque Personal */}
             <div

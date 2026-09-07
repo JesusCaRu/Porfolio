@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUp, Github, Linkedin, Mail, Command, Sparkles, Check } from 'lucide-react';
+import { ArrowUp, Mail, Command, Sparkles, Check } from 'lucide-react';
+import { Github, Linkedin } from './components/SocialIcons';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';

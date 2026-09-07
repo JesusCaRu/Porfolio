@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExperienceItem, Project, Skill, EducationItem } from './types';
+import { ExperienceItem, Project, Skill, EducationItem, LanguageSkill } from './types';
 
 export const PORTFOLIO_OWNER = "Jesús Canicio Ruiz";
 export const SHORT_NAME = "Jesús";
@@ -34,6 +34,15 @@ export const SKILLS_DATA: Skill[] = [
     featured: false
   },
   {
+    name: 'Kotlin & Jetpack Compose',
+    icon: (
+      <img src="./images/kotlin.svg" alt="Kotlin" className="w-10 h-10" />
+    ),
+    category: 'frontend',
+    usageHint: 'Desarrollo Android moderno, UI declarativa, Corrutinas',
+    featured: true
+  },
+  {
     name: 'Laravel',
     icon: (
       <img src="./images/laravel.svg" alt="Laravel" className="w-10 h-10" />
@@ -48,7 +57,7 @@ export const SKILLS_DATA: Skill[] = [
       <img src="./images/php.svg" alt="PHP" className="w-10 h-10" />
     ),
     category: 'backend',
-    usageHint: 'POO avanzada, Patrones de diseño MVC, Servicios Web',
+    usageHint: 'POO avanzada, Patrones MVC, Plugins y Extensiones',
     featured: false
   },
   {
@@ -70,13 +79,22 @@ export const SKILLS_DATA: Skill[] = [
     featured: true
   },
   {
-    name: 'SQL / PostgreSQL / MySQL',
+    name: 'MySQL & SQL Relacional',
     icon: (
-      <img src="./images/mongodb.svg" alt="SQL Database" className="w-10 h-10" />
+      <img src="./images/mysql.svg" alt="MySQL Database" className="w-10 h-10" />
     ),
     category: 'backend',
-    usageHint: 'Diseño relacional, Optimización de queries, MongoDB NoSQL',
+    usageHint: 'Diseño relacional, Transacciones ACID, Optimización de queries',
     featured: true
+  },
+  {
+    name: 'MongoDB',
+    icon: (
+      <img src="./images/mongodb.svg" alt="MongoDB NoSQL" className="w-10 h-10" />
+    ),
+    category: 'backend',
+    usageHint: 'Bases de datos NoSQL, Documentos JSON, Agregaciones',
+    featured: false
   },
   {
     name: 'Docker',
@@ -94,6 +112,15 @@ export const SKILLS_DATA: Skill[] = [
     ),
     category: 'tools',
     usageHint: 'Flujos Gitflow, CI/CD, Colaboración ágil',
+    featured: false
+  },
+  {
+    name: 'WordPress & Plugins PHP',
+    icon: (
+      <img src="./images/wordpress.svg" alt="WordPress" className="w-10 h-10" />
+    ),
+    category: 'tools',
+    usageHint: 'Desarrollo de plugins a medida, Mantenimiento CMS y Hooks',
     featured: false
   },
 ];
@@ -114,10 +141,12 @@ export const CONTENT = {
     },
     hero: {
       badge: 'Disponible para trabajar',
+      youthGuaranteeBadge: 'Garantía Juvenil · Bonificación contratación',
+      youthGuaranteeDesc: 'Beneficiario de la Garantía Juvenil: mi contratación puede dar acceso a bonificaciones en la cuota de la Seguridad Social para la empresa.',
       greeting: 'Hola, soy',
-      role: 'Desarrollador Full Stack',
+      role: 'Desarrollador Web Full Stack',
       roleSuffix: '',
-      location: 'Alicante, España',
+      location: 'Pinoso (Alicante), España',
       timezoneLabel: 'Hora local (CET)',
       description: 'Desarrollo aplicaciones web completas, modernas y escalables con Laravel, React y Python. Especializado en lógica de backend robusta, interfaces interactivas y pipelines de Machine Learning.',
       btnProjects: 'Ver Proyectos',
@@ -155,6 +184,11 @@ export const CONTENT = {
       subtitle: 'Sólida base técnica desde la administración de sistemas hasta el desarrollo full stack y la inteligencia artificial.',
       workTitle: 'Experiencia Profesional',
       eduTitle: 'Formación Académica & Certificaciones',
+      languagesTitle: 'Competencias Lingüísticas',
+      languages: [
+        { name: 'Español', level: 'Nativo', native: true },
+        { name: 'Inglés', level: 'Nivel básico', native: false }
+      ] as LanguageSkill[],
       softSkillsTitle: 'Filosofía & Método de Trabajo',
       softSkillsDesc: 'Curioso por naturaleza y apasionado por resolver problemas técnicos complejos. Priorizo escribir código limpio, modular y fácil de mantener a largo plazo, comprendiendo tanto la infraestructura del servidor como la experiencia visual del usuario.',
       viewCert: 'Ver Certificado',
@@ -169,23 +203,52 @@ export const CONTENT = {
       list: [
         {
           id: 1,
-          title: "Desarrollador Full Stack (FCT Grado Superior)",
-          company: "Ideade Pinoso",
-          period: "Marzo - Junio (2025)",
-          location: "Pinoso, Alicante",
-          roleType: "Prácticas Profesionales",
-          description: "Desarrollo y mantenimiento de aplicaciones web en entorno de producción utilizando Laravel para la lógica de servidor y React para interfaces dinámicas. Implementación de APIs REST seguras y trabajo bajo metodologías ágiles.",
-          tags: ["PHP", "Laravel", "React", "TypeScript", "MySQL", "Git"]
+          title: "Desarrollador Web Freelance",
+          company: "Profesional Independiente",
+          period: "Septiembre 2025 – Actualidad",
+          location: "Pinoso, España",
+          roleType: "Freelance",
+          isCurrent: true,
+          description: "Desarrollo integral de soluciones web para clientes y administración pública, cubriendo desde la toma de requerimientos y arquitectura hasta el despliegue y mantenimiento.",
+          bullets: [
+            "Mantenimiento y renovación de la página de autoliquidaciones del Ayuntamiento de Pinoso, actualizando funcionalidades y corrigiendo incidencias para garantizar su correcto funcionamiento.",
+            "Desarrollo en curso, para una empresa cliente, de una plataforma de reseñas y menús digitales para restaurantes basada en tarjetas NFC, con redirección multiplataforma, panel de administración y suscripción recurrente.",
+            "Gestión de forma autónoma de la relación con clientes, los plazos de entrega y el ciclo completo de desarrollo, desde el análisis de requisitos hasta el despliegue."
+          ],
+          tags: ["Freelance", "React", "PHP", "NFC & IoT", "SaaS", "Stripe", "WordPress", "Autoliquidaciones"]
         },
         {
           id: 2,
-          title: "Técnico Sistemas y Redes (FCT Grado Medio)",
-          company: "Ayuntamiento de Pinoso",
-          period: "Marzo - Junio (2023)",
-          location: "Pinoso, Alicante",
+          title: "Desarrollador Web",
+          company: "Ideade Creatives",
+          period: "Marzo 2025 – Junio 2025",
+          location: "Pinoso, España",
           roleType: "Prácticas Profesionales",
-          description: "Administración y mantenimiento de la infraestructura tecnológica municipal. Gestión de plataformas WordPress, configuración de redes locales (LAN/VLAN), resolución de incidencias de hardware/software y soporte a usuarios.",
-          tags: ["WordPress", "Redes & VLAN", "Hardware", "Linux/Windows Server", "Soporte IT"]
+          isCurrent: false,
+          description: "Desarrollo y mantenimiento de aplicaciones web en entorno de producción real, participando tanto en frontend como backend y extensiones CMS.",
+          bullets: [
+            "Actualicé aplicaciones web existentes migrándolas a las últimas versiones de React y Laravel, garantizando compatibilidad y mejor rendimiento tras la migración.",
+            "Desarrollé sitios web a medida para distintos clientes, cubriendo tanto el diseño frontend como la lógica backend, y añadí nuevas funcionalidades a proyectos ya en producción.",
+            "Diseñé y desarrollé un plugin personalizado en PHP para WordPress, ampliando las capacidades estándar del CMS según los requisitos del cliente.",
+            "Trabajé directamente sobre proyectos en producción, lo que me permitió ganar agilidad resolviendo incidencias del día a día bajo plazos reales."
+          ],
+          tags: ["PHP", "Laravel", "React", "TypeScript", "MySQL", "WordPress Plugins", "Git"]
+        },
+        {
+          id: 3,
+          title: "Becario de Soporte Técnico",
+          company: "Ayuntamiento de Pinoso",
+          period: "Marzo 2023 – Junio 2023",
+          location: "Pinoso, España",
+          roleType: "Prácticas Profesionales",
+          isCurrent: false,
+          description: "Soporte técnico a usuarios, mantenimiento de infraestructuras IT municipales y gestión del portal web institucional.",
+          bullets: [
+            "Formé parte del equipo de soporte técnico, resolviendo incidencias informáticas de forma diaria para los distintos departamentos municipales.",
+            "Realicé tareas de montaje, configuración y mantenimiento de equipos informáticos.",
+            "Colaboré en el mantenimiento y actualización de la página web municipal (WordPress), corrigiendo fallos del sitio y modificando contenidos y elementos visuales para mantenerla al día."
+          ],
+          tags: ["Soporte IT", "WordPress", "Redes & VLAN", "Hardware", "Linux/Windows"]
         }
       ] as ExperienceItem[],
       education: [
@@ -330,8 +393,10 @@ export const CONTENT = {
       email: 'Correo Electrónico',
       phone: 'Teléfono Directo',
       location: 'Ubicación',
-      locationVal: 'Alicante, España (Presencial / Remoto / Híbrido)',
+      locationVal: 'Pinoso (Alicante), España (Presencial / Remoto / Híbrido)',
       availability: 'Disponible para incorporación inmediata',
+      youthGuaranteeTitle: 'Incentivo de Contratación (Garantía Juvenil)',
+      youthGuaranteeDesc: 'Beneficiario del Sistema Nacional de Garantía Juvenil: mi contratación puede dar acceso a bonificaciones directas en las cuotas de la Seguridad Social para la empresa.',
       copyEmail: 'Copiar Email',
       emailCopied: '¡Email copiado al portapapeles!',
       responseTime: 'Respuesta garantizada en menos de 24h',
@@ -386,10 +451,12 @@ export const CONTENT = {
     },
     hero: {
       badge: 'Available for hire & projects',
+      youthGuaranteeBadge: 'Youth Guarantee · Hiring Incentive',
+      youthGuaranteeDesc: 'Beneficiary of the National Youth Guarantee System: hiring gives employers direct access to substantial Social Security tax relief and bonuses.',
       greeting: "Hi, I'm",
-      role: 'Full Stack Developer',
+      role: 'Full Stack Web Developer',
       roleSuffix: '',
-      location: 'Alicante, Spain',
+      location: 'Pinoso (Alicante), Spain',
       timezoneLabel: 'Local Time (CET)',
       description: 'I build complete, modern, and scalable web applications with Laravel, React, and Python. Specialized in robust backend logic, interactive user interfaces, and Machine Learning pipelines.',
       btnProjects: 'Explore Projects',
@@ -427,6 +494,11 @@ export const CONTENT = {
       subtitle: 'Solid technical background spanning IT infrastructure, full stack engineering and artificial intelligence.',
       workTitle: 'Professional Experience',
       eduTitle: 'Academic Education & Certifications',
+      languagesTitle: 'Language Proficiency',
+      languages: [
+        { name: 'Spanish', level: 'Native', native: true },
+        { name: 'English', level: 'Basic Level', native: false }
+      ] as LanguageSkill[],
       softSkillsTitle: 'Philosophy & Work Methodology',
       softSkillsDesc: 'Naturally curious and passionate about tackling complex engineering challenges. I focus on writing clean, modular, and maintainable code for the long term, understanding both server infrastructure and delightful end-user experiences.',
       viewCert: 'View Certificate',
@@ -441,23 +513,52 @@ export const CONTENT = {
       list: [
         {
           id: 1,
-          title: "Full Stack Developer (Higher Vocational Internship)",
-          company: "Ideade Pinoso",
-          period: "March - June (2025)",
-          location: "Pinoso, Alicante (Spain)",
-          roleType: "Professional Internship",
-          description: "Developed and maintained production web applications using Laravel for business logic and React for dynamic interfaces. Implemented secure REST APIs and collaborated under agile sprints.",
-          tags: ["PHP", "Laravel", "React", "TypeScript", "MySQL", "Git"]
+          title: "Freelance Web Developer",
+          company: "Independent Professional",
+          period: "September 2025 – Present",
+          location: "Pinoso, Spain",
+          roleType: "Freelance",
+          isCurrent: true,
+          description: "End-to-end web engineering for direct clients and municipal administration, overseeing requirements analysis, architecture, deployment, and ongoing operation.",
+          bullets: [
+            "Maintained and renewed the self-assessment tax platform for Pinoso City Hall, updating features and resolving incidents to guarantee reliable operation.",
+            "In active development of a restaurant reviews and digital menus platform based on smart NFC cards, with multi-platform redirection, admin portal, and recurring subscriptions.",
+            "Autonomously managed customer relationships, delivery timelines, and the full development lifecycle from specification to production deployment."
+          ],
+          tags: ["Freelance", "React", "PHP", "NFC & IoT", "SaaS", "Stripe", "WordPress", "Tax Platform"]
         },
         {
           id: 2,
-          title: "Systems & Network Technician (Vocational Internship)",
-          company: "Pinoso City Hall",
-          period: "March - June (2023)",
-          location: "Pinoso, Alicante (Spain)",
+          title: "Web Developer",
+          company: "Ideade Creatives",
+          period: "March 2025 – June 2025",
+          location: "Pinoso, Spain",
           roleType: "Professional Internship",
-          description: "Managed and maintained municipal technological infrastructure. Handled WordPress platforms, configured local networking (LAN/VLAN), diagnosed hardware/software incidents, and provided IT technical support.",
-          tags: ["WordPress", "Networks & VLAN", "Hardware", "Linux/Windows Server", "IT Support"]
+          isCurrent: false,
+          description: "Developed and maintained web applications in production environments, contributing to frontend, backend, and CMS extensions.",
+          bullets: [
+            "Upgraded existing web applications by migrating them to the latest versions of React and Laravel, ensuring compatibility and optimal performance.",
+            "Developed tailor-made websites for multiple clients, delivering fluid frontend interfaces and robust backend logic with new features in production.",
+            "Designed and built a custom PHP plugin for WordPress, expanding the core CMS capabilities to meet specific client requirements.",
+            "Worked directly on live production systems, swiftly resolving technical day-to-day bugs under real deadlines."
+          ],
+          tags: ["PHP", "Laravel", "React", "TypeScript", "MySQL", "WordPress Plugins", "Git"]
+        },
+        {
+          id: 3,
+          title: "IT Support Technician Intern",
+          company: "Pinoso City Hall",
+          period: "March 2023 – June 2023",
+          location: "Pinoso, Spain",
+          roleType: "Professional Internship",
+          isCurrent: false,
+          description: "Provided IT support to municipal departments, maintained IT infrastructure, and assisted in updating the municipal web portal.",
+          bullets: [
+            "Served in the IT support unit, resolving computer, network, and hardware incidents daily for municipal municipal departments.",
+            "Assembled, configured, and maintained computer workstations and hardware equipment.",
+            "Collaborated in maintaining and updating the municipal website (WordPress), fixing site errors and adjusting visual elements and contents."
+          ],
+          tags: ["IT Support", "WordPress", "Networks & VLAN", "Hardware", "Linux/Windows"]
         }
       ] as ExperienceItem[],
       education: [
@@ -602,8 +703,10 @@ export const CONTENT = {
       email: 'Email Address',
       phone: 'Direct Phone',
       location: 'Location',
-      locationVal: 'Alicante, Spain (On-site / Remote / Hybrid · Full Availability)',
+      locationVal: 'Pinoso (Alicante), Spain (On-site / Remote / Hybrid · Full Availability)',
       availability: 'Available for immediate joining',
+      youthGuaranteeTitle: 'Hiring Incentive (Youth Guarantee)',
+      youthGuaranteeDesc: 'Beneficiary of the National Youth Guarantee System: hiring gives employers direct access to substantial Social Security tax relief and bonuses.',
       copyEmail: 'Copy Email',
       emailCopied: 'Email copied to clipboard!',
       responseTime: 'Guaranteed response in under 24h',
